@@ -1,6 +1,6 @@
 # KeeWeb browser extension
 
-This is a browser extension for [KeeWeb](https://app.keeweb.info).
+This is a browser extension for [KeeWeb](https://keeweb.info).
 
 ## Status
 
