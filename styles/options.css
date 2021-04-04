@@ -1,0 +1,137 @@
+body {
+    --text-color: #242424;
+    --background-color: #ffffff;
+    --border-color: #D9D9D9;
+    --link-color: #428EE1;
+    --link-color-hover: #7094FF;
+    --link-color-active: #FC4741;
+    --primary-button-color: #418CFA;
+    --primary-button-color-hover: #367ee7;
+    --primary-button-color-active: #1963c8;
+    --primary-button-text-color: #FAFCFF;
+    --secondary-button-color: #d1dff6;
+    --focus-outline-color: rgba(89, 147, 234, 0.3);
+    --input-border-color: #5993ea;
+    --input-border-color-hover: rgba(89, 147, 234, 0.6);
+    --error-color: #d43933;
+    --error-color-shadow: rgba(212, 57, 51, 0.3);
+    --success-color: #4c9422;
+}
+@media (prefers-color-scheme: dark) {
+    body {
+        --background-color: #1E1E1E;
+        --text-color: #FCFCFC;
+        --border-color: #444445;
+        --primary-button-color: #1D65D3;
+        --primary-button-color-hover: #105dd2;
+        --primary-button-color-active: #014aba;
+        --primary-button-text-color: #D7E5F8;
+        --secondary-button-color: #232e45;
+        --focus-outline-color: rgba(89, 147, 234, 0.2);
+        --input-border-color: #5993ea;
+        --input-border-color-hover: rgba(89, 147, 234, 0.6);
+        --success-color: #79B656;
+    }
+}
+
+body {
+    background: var(--background-color);
+    color: var(--text-color);
+    font-family: -apple-system, 'BlinkMacSystemFont', 'Helvetica Neue', 'Helvetica',
+    'Roboto', 'Arial', sans-serif;
+    font-size: 16px;
+    padding: 0 2em 1em;
+    margin: 0;
+    line-height: 1.4;
+}
+
+*:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px var(--focus-outline-color);
+}
+
+img.logo-head {
+    width: 1.2em;
+    height: 1.2em;
+    vertical-align: sub;
+    margin-right: .4em;
+}
+
+h1 {
+    padding: 0;
+    margin: 1em 0;
+    font-size: 2em;
+}
+h2 {
+    border-top: 1px solid var(--border-color);
+    padding-top: .5em;
+    font-size: 1.5em;
+}
+
+ul {
+    padding: 0;
+    list-style: none;
+}
+li {
+    margin: .8em;
+}
+
+a { color: var(--link-color); }
+a:hover { color: var(--link-color-hover); }
+a:active { color: var(--link-color-active); }
+
+button {
+    color: var(--primary-button-text-color);
+    background: var(--primary-button-color);
+    border: none;
+    border-radius: 3px;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: all 50ms ease-in-out;
+}
+button:hover {
+    background: var(--primary-button-color-hover);
+}
+button:active {
+    background: var(--primary-button-color-active);
+}
+button.secondary:not(:hover):not(:active) {
+    color: var(--text-color);
+    background: var(--secondary-button-color);
+}
+
+input[type=radio] {
+    vertical-align: top;
+    box-shadow: none;
+}
+input[type=text], input[type=password] {
+    color: var(--text-color);
+    background: var(--background-color);
+    border: 1px solid var(--border-color);
+    padding: .6em .8em;
+    border-radius: 3px;
+    min-width: 30em;
+    transition: all 50ms ease-in-out;
+}
+input[type=text]:hover, input[type=password]:hover {
+    border-color: var(--input-border-color-hover);
+}
+input[type=text]:focus, input[type=password]:focus {
+    border-color: var(--input-border-color);
+}
+input[type=text]:invalid, input[type=password]:invalid {
+    border-color: var(--error-color);
+    --focus-outline-color: var(--error-color-shadow);
+}
+input + input, input + button, button + button {
+    margin-left: .8em;
+}
+.error {
+    color: var(--error-color);
+}
+.success {
+    color: var(--success-color);
+}
+.top-padding-small {
+    padding-top: .2em;
+}

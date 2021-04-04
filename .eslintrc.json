@@ -1,0 +1,94 @@
+{
+    "env": {
+        "browser": true,
+        "node": true,
+        "es2020": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "preact",
+        "plugin:prettier/recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 11,
+        "sourceType": "module",
+        "project": ["tsconfig.json", "jsconfig.json"]
+    },
+    "plugins": [
+        "prettier",
+        "import",
+        "react",
+        "@typescript-eslint"
+    ],
+    "settings": {
+        "import/parsers": {
+            "@typescript-eslint/parser": [".ts", ".tsx"]
+        }
+    },
+    "rules": {
+        "semi": ["error", "always"],
+        "one-var": "off",
+        "space-before-function-paren": "off",
+        "no-throw-literal": "off",
+        "camelcase": ["error", { "properties": "always" }],
+        "no-console": "error",
+        "no-alert": "error",
+        "no-debugger": "error",
+        "prefer-arrow-callback": "error",
+        "object-property-newline": "off",
+        "no-useless-escape": "off",
+        "no-var": "error",
+        "prefer-const": "error",
+        "no-unused-expressions": "off",
+        "strict": ["error", "never"],
+        "no-mixed-operators": "off",
+        "prefer-promise-reject-errors": "off",
+        "standard/no-callback-literal": "off",
+        "object-curly-spacing": "off",
+        "quote-props": "off",
+        "no-new-object": "error",
+        "object-shorthand": "error",
+        "no-array-constructor": "error",
+        "array-callback-return": "error",
+        "no-eval": "error",
+        "no-new-func": "error",
+        "prefer-rest-params": "error",
+        "prefer-spread": "error",
+        "no-useless-constructor": "error",
+        "no-dupe-class-members": "error",
+        "no-duplicate-imports": "error",
+        "eqeqeq": "error",
+        "no-unneeded-ternary": "error",
+        "curly": "error",
+        "prettier/prettier": "error",
+        "no-empty": "off",
+        "no-restricted-syntax": [
+            "error",
+            {
+                "selector": "ExportDefaultDeclaration",
+                "message": "Prefer named exports"
+            }
+        ],
+        "import/no-relative-parent-imports": "error",
+        "import/first": "error",
+        "import/no-namespace": "error",
+        "import/no-default-export": "error",
+        "@typescript-eslint/explicit-module-boundary-types": "error",
+        "@typescript-eslint/no-unused-vars": "error",
+        "@typescript-eslint/no-unsafe-member-access": "off",
+        "@typescript-eslint/no-unsafe-assignment": "off",
+        "@typescript-eslint/no-unsafe-call": "off",
+        "@typescript-eslint/no-unsafe-return": "off",
+        "@typescript-eslint/restrict-template-expressions": "off",
+        "@typescript-eslint/no-misused-promises": ["error", {
+            "checksVoidReturn": false
+        }],
+        "@typescript-eslint/no-floating-promises": "off"
+    }
+}

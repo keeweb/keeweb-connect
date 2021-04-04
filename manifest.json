@@ -1,0 +1,67 @@
+{
+  "name": "KeeWeb",
+  "version": "1.0",
+  "manifest_version": 2,
+  "description": "Password autofill for KeeWeb",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "96": "icons/icon96.png",
+    "128": "icons/icon128.png"
+  },
+  "background": {
+    "scripts": [
+      "js/background.js"
+    ]
+  },
+  "permissions": [
+    "activeTab",
+    "contextMenus",
+    "storage",
+    "nativeMessaging"
+  ],
+  "optional_permissions": [
+    "tabs",
+    "https://app.keeweb.info/"
+  ],
+  "content_security_policy": "default-src 'self'",
+  "content_scripts": [{
+    "matches": ["<all_urls>"],
+    "js": ["js/content.js"],
+    "all_frames": true
+  }],
+  "options_ui": {
+    "page": "pages/options.html",
+    "open_in_tab": true
+  },
+  "default_locale": "en_US",
+  "commands": {
+    "submit-auto": {
+      "description": "__MSG_cmdSubmitAuto__",
+      "suggested_key": {
+        "default": "Ctrl+Shift+A"
+      }
+    },
+    "submit-username-password": {
+      "description": "__MSG_cmdSubmitUsernamePassword__"
+    },
+    "insert-username-password": {
+      "description": "__MSG_cmdInsertUsernamePassword__"
+    },
+    "submit-username": {
+      "description": "__MSG_cmdSubmitUsername__"
+    },
+    "insert-username": {
+      "description": "__MSG_cmdInsertUsername__"
+    },
+    "submit-password": {
+      "description": "__MSG_cmdSubmitPassword__"
+    },
+    "insert-password": {
+      "description": "__MSG_cmdInsertPassword__"
+    },
+    "other": {
+      "description": "__MSG_cmdOtherOptions__"
+    }
+  }
+}
