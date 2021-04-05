@@ -84,6 +84,8 @@ li {
 
 a {
     color: var(--link-color);
+    text-decoration: underline;
+    cursor: pointer;
 }
 a:hover {
     color: var(--link-color-hover);

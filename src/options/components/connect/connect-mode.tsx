@@ -7,6 +7,11 @@ const ConnectMode: FunctionComponent = () => {
         model.useNativeApp = useNativeApp;
     };
 
+    const openKeeWebTab = (e: Event) => {
+        e.preventDefault();
+        model.openKeeWebTab();
+    };
+
     return (
         <>
             <p>{res('optionsConnectionMode')}:</p>
@@ -43,7 +48,7 @@ const ConnectMode: FunctionComponent = () => {
                         />{' '}
                         {res('optionsConnectionModeWeb')}
                         {': '}
-                        <a href={model.keeWebUrl} target="_blank" rel="noreferrer">
+                        <a target="_blank" rel="noreferrer" onClick={openKeeWebTab}>
                             {res('optionsConnectionModeWebLink')}
                         </a>
                         .

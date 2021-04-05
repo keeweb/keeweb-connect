@@ -1,13 +1,11 @@
-interface AutoFillArg {
+export interface AutoFillArg {
     text?: string;
     password?: string;
     submit: boolean;
 }
 
-interface ContentScriptMessage {
+export interface ContentScriptMessage {
     url: string;
     autoFill?: AutoFillArg;
     getNextAutoFillCommand?: boolean;
 }
-
-export { ContentScriptMessage, AutoFillArg };

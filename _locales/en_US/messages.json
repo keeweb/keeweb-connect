@@ -34,7 +34,7 @@
   "optionsDatabases": { "message": "Databases" },
   "optionsDatabasesEmpty": { "message": "No connected databases." },
   "optionsDatabasesConnectDb": { "message": "Open a database in KeeWeb" },
-  "optionsDatabasesConnectToOpen": { "message": "Connect to KeeWeb first to be able to open a database." },
+  "optionsDatabasesConnectToOpen": { "message": "Connect to KeeWeb to be able to open a database." },
   "optionsDatabasesName": { "message": "Name" },
   "optionsDatabasesState": { "message": "State" },
   "optionsDatabasesActions": { "message": "Actions" },

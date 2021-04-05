@@ -1,9 +1,4 @@
-interface BackgroundMessageFromPage {
+export interface BackgroundMessageFromPage {
     connectToKeeWeb?: boolean;
+    openTab?: string;
 }
-
-interface BackgroundMessageFromContent {
-    connected?: string;
-}
-
-export { BackgroundMessageFromPage, BackgroundMessageFromContent };

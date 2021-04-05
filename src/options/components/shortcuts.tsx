@@ -20,7 +20,7 @@ const Shortcuts: FunctionComponent = () => {
                 ))}
             </ul>
             <p>
-                <a href="" target="_blank" rel="noreferrer" onClick={openShortcuts}>
+                <a target="_blank" rel="noreferrer" onClick={openShortcuts}>
                     {res('optionsShortcutsLink')}
                 </a>
             </p>

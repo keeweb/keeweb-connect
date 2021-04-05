@@ -2,12 +2,7 @@ import { EventEmitter } from 'events';
 import { OptionsPageMessage } from 'common/options-page-interface';
 import { BackendConnectionState } from 'common/backend-connection-state';
 import { BackgroundMessageFromPage } from 'common/background-interface';
-
-interface ConnectedDatabase {
-    name: string;
-    dbHash: string;
-    open: boolean;
-}
+import { ConnectedDatabase, ConnectedDatabaseState } from 'common/connected-database';
 
 class SettingsModel extends EventEmitter {
     readonly defaultKeeWebUrl = 'https://app.keeweb.info/';
@@ -21,8 +16,8 @@ class SettingsModel extends EventEmitter {
     private _backendConnectionState: BackendConnectionState;
     private _backendConnectionError: string;
     private _databases: ConnectedDatabase[] = [
-        { name: 'Hello', open: true, dbHash: '123' },
-        { name: 'World', open: false, dbHash: '456' }
+        { name: 'Hello', state: ConnectedDatabaseState.Open, dbHash: '123' },
+        { name: 'World', state: ConnectedDatabaseState.Closed, dbHash: '456' }
     ];
 
     async init() {
@@ -171,19 +166,24 @@ class SettingsModel extends EventEmitter {
         this._backgroundPagePort.postMessage(message);
     }
 
+    openKeeWebTab(): void {
+        const message: BackgroundMessageFromPage = { openTab: this.keeWebUrl };
+        this._backgroundPagePort.postMessage(message);
+    }
+
     get databases(): ConnectedDatabase[] {
         return this._databases;
     }
 
     openDatabase(db: ConnectedDatabase) {
         // TODO
-        db.open = true;
+        db.state = ConnectedDatabaseState.Open;
         this.emit('change');
     }
 
     closeDatabase(db: ConnectedDatabase) {
         // TODO
-        db.open = false;
+        db.state = ConnectedDatabaseState.Closed;
         this.emit('change');
     }
 

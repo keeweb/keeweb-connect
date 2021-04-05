@@ -1,6 +1,7 @@
 import { OptionsPageMessage } from 'common/options-page-interface';
 import { backend } from './backend';
 import { BackgroundMessageFromPage } from 'common/background-interface';
+import { openTab } from './utils';
 
 const connectedPorts = new Map<string, chrome.runtime.Port>();
 
@@ -43,6 +44,8 @@ function startInternalIpc(): void {
 function processMessage(message: BackgroundMessageFromPage) {
     if (message.connectToKeeWeb) {
         backend.connect();
+    } else if (message.openTab) {
+        openTab(message.openTab);
     }
 }
 

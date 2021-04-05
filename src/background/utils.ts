@@ -13,4 +13,19 @@ function activateTab(tab: chrome.tabs.Tab): Promise<boolean> {
     });
 }
 
-export { getActiveTab, activateTab };
+function openTab(url: string): Promise<chrome.tabs.Tab> {
+    return new Promise((resolve) => {
+        chrome.tabs.query({ url }, async ([tab]) => {
+            if (tab) {
+                await activateTab(tab);
+                resolve(tab);
+            } else {
+                chrome.tabs.create({ url, active: true }, (tab) => {
+                    resolve(tab);
+                });
+            }
+        });
+    });
+}
+
+export { getActiveTab, activateTab, openTab };

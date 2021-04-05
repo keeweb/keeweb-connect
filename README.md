@@ -1,4 +1,4 @@
-# KeeWeb browser extension
+# KeeWeb Connect: browser extension
 
 This is a browser extension for [KeeWeb](https://keeweb.info).
 
@@ -19,6 +19,11 @@ Build a development version and watch:
 ```sh
 npm run watch
 ```
+
+## Protocol
+
+KeeWeb implements [keepassxc-protocol](https://github.com/keepassxreboot/keepassxc-browser/blob/develop/keepassxc-protocol.md)
+with several modifications for KeeWeb listed [here](docs/keeweb-connect-protocol.md).
 
 ## License
 

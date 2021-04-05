@@ -1,6 +1,11 @@
 import { TransportBase } from './transport-base';
-import { BackgroundMessageFromContent } from 'common/background-interface';
 import { activateTab, getActiveTab } from 'background/utils';
+import {
+    KeeWebConnectMessage,
+    KeeWebConnectPingRequest,
+    KeeWebConnectPingResponse,
+    KeeWebConnectRequest
+} from 'common/keeweb-connect-protocol';
 
 class TransportBrowserTab extends TransportBase {
     private readonly _keeWebUrl: string;
@@ -47,6 +52,7 @@ class TransportBrowserTab extends TransportBase {
         }
 
         this._port.onDisconnect.addListener(() => this.portDisconnected());
+        this._port.onMessage.addListener((msg) => this.portMessage(msg));
 
         if (activeTab && this._tab.id !== activeTab.id) {
             await activateTab(activeTab);
@@ -65,6 +71,14 @@ class TransportBrowserTab extends TransportBase {
             }
             resolve();
         });
+    }
+
+    request(message: KeeWebConnectRequest): void {
+        if (!this._port) {
+            this.emit('error', new Error('Port not connected'));
+            return;
+        }
+        this._port.postMessage(message);
     }
 
     private checkPermissions(): Promise<boolean> {
@@ -106,7 +120,8 @@ class TransportBrowserTab extends TransportBase {
             if (retriesLeft <= 0) {
                 return resolve(undefined);
             }
-            const name = `extension-${Date.now()}-${Math.random()}`;
+
+            const name = TransportBrowserTab.getRandomPortName();
             const port = chrome.tabs.connect(this._tab.id, { name });
 
             const cleanup = () => {
@@ -128,9 +143,9 @@ class TransportBrowserTab extends TransportBase {
                 }, this._tabConnectionRetryMillis);
             };
 
-            const tabMessage = (msg: BackgroundMessageFromContent) => {
+            const tabMessage = (msg: KeeWebConnectPingResponse) => {
                 cleanup();
-                if (msg.connected === name) {
+                if (msg.data === name) {
                     resolve(port);
                 } else {
                     port.disconnect();
@@ -140,7 +155,24 @@ class TransportBrowserTab extends TransportBase {
 
             port.onDisconnect.addListener(tabDisconnected);
             port.onMessage.addListener(tabMessage);
+
+            const pingRequest: KeeWebConnectPingRequest = {
+                kwConnect: 'request',
+                action: 'ping',
+                data: port.name
+            };
+            port.postMessage(pingRequest);
         });
+    }
+
+    private static getRandomPortName(): string {
+        const randomBytes = crypto.getRandomValues(new Uint8Array(32));
+        const randomString = btoa(String.fromCharCode(...randomBytes));
+        return `keeweb-connect-${randomString}`;
+    }
+
+    private portMessage(msg: KeeWebConnectMessage) {
+        this.emit('response', msg);
     }
 }
 
