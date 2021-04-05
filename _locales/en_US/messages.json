@@ -47,7 +47,7 @@
   "optionsShortcutsDescription": { "message": "You can change shortcuts in the extension shortcuts settings." },
   "optionsShortcutsLink": { "message": "Edit keyboard shortcuts" },
   "optionsAbout": { "message": "About" },
-  "optionsAboutLicense": { "message": "This extension is licensed under MIT. It's includes these awesome libraries" },
+  "optionsAboutLicense": { "message": "This extension is licensed under MIT. It includes these awesome libraries" },
   "optionsErrorKeeWebDisconnected": { "message": "KeeWeb disconnected from the extension" },
   "optionsErrorBrowserTabNoPermissions": { "message": "Permission to access $1 was not granted" },
   "optionsErrorBrowserCannotCreateTab": { "message": "Cannot create a new tab" },
