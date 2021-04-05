@@ -20,7 +20,7 @@ function createUIMenus(): void {
             chrome.contextMenus.create({
                 id: 'submit-username-password',
                 parentId: 'keeweb-options',
-                title: chrome.i18n.getMessage('cmdSubmitUsernamePassword') + ' ⏎',
+                title: `${chrome.i18n.getMessage('cmdSubmitUsernamePassword')} ⏎`,
                 contexts: ['editable']
             });
             chrome.contextMenus.create({
@@ -32,7 +32,7 @@ function createUIMenus(): void {
             chrome.contextMenus.create({
                 id: 'submit-username',
                 parentId: 'keeweb-options',
-                title: chrome.i18n.getMessage('cmdSubmitUsername') + ' ⏎',
+                title: `${chrome.i18n.getMessage('cmdSubmitUsername')} ⏎`,
                 contexts: ['editable']
             });
             chrome.contextMenus.create({
@@ -44,7 +44,7 @@ function createUIMenus(): void {
             chrome.contextMenus.create({
                 id: 'submit-password',
                 parentId: 'keeweb-options',
-                title: chrome.i18n.getMessage('cmdSubmitPassword') + ' ⏎',
+                title: `${chrome.i18n.getMessage('cmdSubmitPassword')} ⏎`,
                 contexts: ['editable']
             });
             chrome.contextMenus.create({
