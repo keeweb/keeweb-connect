@@ -4,7 +4,8 @@
   "description": "KeeWeb",
   "main": "index.js",
   "scripts": {
-    "start": "webpack --mode=production",
+    "start": "npm run lint && npm run build",
+    "build": "webpack --mode=production",
     "watch": "webpack --mode=development --watch",
     "lint": "eslint webpack.config.js src",
     "prettier": "prettier --write src/**/*.ts src/**/*.tsx *.js pages/*.html styles/*.css"
