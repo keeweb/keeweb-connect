@@ -122,7 +122,7 @@ chrome.runtime.onConnect.addListener((port) => {
 
     window.addEventListener('message', onWindowMessage);
     port.onDisconnect.addListener(() => window.removeEventListener('message', onWindowMessage));
-    port.onMessage.addListener((msg: any) => {
+    port.onMessage.addListener((msg) => {
         msg.kwConnect = 'request';
         window.postMessage(msg, window.location.origin);
     });

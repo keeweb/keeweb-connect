@@ -6,6 +6,7 @@ import {
     KeeWebConnectPingRequest,
     KeeWebConnectPingResponse
 } from 'background/protocol/types';
+import { noop } from 'common/utils';
 
 class TransportBrowserTab extends TransportBase {
     private readonly _keeWebUrl: string;
@@ -118,13 +119,17 @@ class TransportBrowserTab extends TransportBase {
             const responseTimeout = setTimeout(() => {
                 cleanup();
                 port.disconnect();
-                this.connectToTab(retriesLeft - 1).then(resolve);
+                this.connectToTab(retriesLeft - 1)
+                    .then(resolve)
+                    .catch(noop);
             }, this._tabConnectionTimeoutMillis);
 
             const tabDisconnected = () => {
                 cleanup();
                 setTimeout(() => {
-                    this.connectToTab(retriesLeft - 1).then(resolve);
+                    this.connectToTab(retriesLeft - 1)
+                        .then(resolve)
+                        .catch(noop);
                 }, this._tabConnectionRetryMillis);
             };
 

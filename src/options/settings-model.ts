@@ -3,6 +3,7 @@ import { OptionsPageMessage } from 'common/options-page-interface';
 import { BackendConnectionState } from 'common/backend-connection-state';
 import { BackgroundMessageFromPage } from 'common/background-interface';
 import { ConnectedDatabase, ConnectedDatabaseState } from 'common/connected-database';
+import { noop } from 'common/utils';
 
 class SettingsModel extends EventEmitter {
     readonly defaultKeeWebUrl = 'https://app.keeweb.info/';
@@ -113,7 +114,7 @@ class SettingsModel extends EventEmitter {
             this.emit('change');
             await this.checkPermissions();
             this.emit('change');
-        })();
+        })().catch(noop);
     }
 
     get keeWebUrlIsSet(): boolean {

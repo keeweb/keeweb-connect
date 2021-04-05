@@ -2,10 +2,11 @@ import { FunctionComponent, JSX } from 'preact';
 import { res } from 'options/utils';
 import { model } from 'options/settings-model';
 import { useState } from 'preact/hooks';
+import { noop } from 'common/utils';
 
 const ConnectionWeb: FunctionComponent = () => {
     const askKeeWebTabPermission = () => {
-        model.askKeeWebTabPermission();
+        model.askKeeWebTabPermission().catch(noop);
     };
 
     const [inputKeeWebUrl, setInputKeeWebUrl] = useState('');
