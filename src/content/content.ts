@@ -1,5 +1,4 @@
 import { ContentScriptMessage, AutoFillArg } from 'common/content-script-interface';
-import { KeeWebConnectMessage } from 'common/keeweb-connect-protocol';
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (sender.id !== chrome.runtime.id) {
@@ -116,20 +115,15 @@ chrome.runtime.onConnect.addListener((port) => {
         if (e.source !== window) {
             return;
         }
-        if (!e.data) {
-            return;
-        }
-        const msg = e.data as KeeWebConnectMessage;
-        if (msg.kwConnect === 'response' || msg.kwConnect === 'event') {
-            port.postMessage(msg);
+        if (e?.data?.kwConnect === 'response') {
+            port.postMessage(e.data);
         }
     };
 
     window.addEventListener('message', onWindowMessage);
     port.onDisconnect.addListener(() => window.removeEventListener('message', onWindowMessage));
-    port.onMessage.addListener((msg: KeeWebConnectMessage) => {
-        if (msg?.kwConnect === 'request') {
-            window.postMessage(msg, window.location.origin);
-        }
+    port.onMessage.addListener((msg: any) => {
+        msg.kwConnect = 'request';
+        window.postMessage(msg, window.location.origin);
     });
 });

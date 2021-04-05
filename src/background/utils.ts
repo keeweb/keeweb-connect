@@ -1,10 +1,10 @@
-function getActiveTab(): Promise<chrome.tabs.Tab> {
+export function getActiveTab(): Promise<chrome.tabs.Tab> {
     return new Promise((resolve) => {
         chrome.tabs.query({ active: true }, ([activeTab]) => resolve(activeTab));
     });
 }
 
-function activateTab(tab: chrome.tabs.Tab): Promise<boolean> {
+export function activateTab(tab: chrome.tabs.Tab): Promise<boolean> {
     return new Promise((resolve) => {
         chrome.tabs.update(tab.id, { active: true }, () => {
             const success = !chrome.runtime.lastError;
@@ -13,7 +13,7 @@ function activateTab(tab: chrome.tabs.Tab): Promise<boolean> {
     });
 }
 
-function openTab(url: string): Promise<chrome.tabs.Tab> {
+export function openTab(url: string): Promise<chrome.tabs.Tab> {
     return new Promise((resolve) => {
         chrome.tabs.query({ url }, async ([tab]) => {
             if (tab) {
@@ -28,4 +28,18 @@ function openTab(url: string): Promise<chrome.tabs.Tab> {
     });
 }
 
-export { getActiveTab, activateTab, openTab };
+export function toBase64(bytes: Uint8Array): string {
+    return btoa(String.fromCharCode(...bytes));
+}
+
+export function fromBase64(str: string): Uint8Array {
+    return Uint8Array.from(atob(str), (ch) => ch.charCodeAt(0));
+}
+
+export function randomBytes(byteLength: number): Uint8Array {
+    return crypto.getRandomValues(new Uint8Array(byteLength));
+}
+
+export function randomBase64(byteLength: number): string {
+    return toBase64(randomBytes(byteLength));
+}

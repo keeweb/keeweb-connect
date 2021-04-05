@@ -3,29 +3,46 @@ import { BackendConnectionState } from 'common/backend-connection-state';
 import { TransportBase } from './transport/transport-base';
 import { TransportNativeMessaging } from './transport/transport-native-messaging';
 import { TransportBrowserTab } from './transport/transport-browser-tab';
+import { KeeWebConnectRequest, KeeWebConnectResponse } from './protocol/types';
+import { ProtocolImpl } from './protocol/protocol-impl';
 
-interface KeeWebConnectionKey {
+interface KeeWebDbKey {
     name: string;
     dbHash: string;
     idKey: string;
     created: number;
 }
 
+interface RequestQueueItem {
+    request: KeeWebConnectRequest;
+    resolve: (response: KeeWebConnectResponse) => void;
+    reject: (error: Error) => void;
+    timeout: number;
+}
+
 class Backend extends EventEmitter {
     private readonly _defaultKeeWebUrl = 'https://app.keeweb.info/';
-
-    private _state: BackendConnectionState;
-    private _connectionError: string;
-    private _transport: TransportBase;
-    private _keys: KeeWebConnectionKey[] = [];
+    private readonly _requestTimeoutMillis = 5000;
+    private readonly _consoleLogStyle =
+        'background: {}; color: #000; padding: 2px 4px 0; border-radius: 2px;';
+    private readonly _consoleLogStyleIn = this._consoleLogStyle.replace('{}', '#825fe3');
+    private readonly _consoleLogStyleOut = this._consoleLogStyle.replace('{}', '#15be5c');
 
     private _useNativeApp = true;
     private _keeWebUrl: string;
 
+    private _state: BackendConnectionState;
+    private _connectionError: string;
+    private _transport: TransportBase;
+    private _dbKeys: KeeWebDbKey[] = [];
+    private _requestQueue: RequestQueueItem[] = [];
+    private _currentRequest: RequestQueueItem;
+    private _protocol: ProtocolImpl;
+
     get state(): BackendConnectionState {
         return this._state;
     }
-    private setState(state: BackendConnectionState): void {
+    private setState(state: BackendConnectionState) {
         if (this._state !== state) {
             this._state = state;
             this.emit('state-changed');
@@ -42,7 +59,7 @@ class Backend extends EventEmitter {
             chrome.storage.local.get(['useNativeApp', 'keeWebUrl', 'keys'], (storageData) => {
                 this._useNativeApp = storageData.useNativeApp ?? true;
                 this._keeWebUrl = storageData.keeWebUrl;
-                this._keys = storageData.keys ?? [];
+                this._dbKeys = storageData.keys ?? []; // TODO: better key storage
                 this.resetStateByConfig();
                 resolve();
             });
@@ -63,53 +80,124 @@ class Backend extends EventEmitter {
             await this._transport.disconnect();
             this._transport = undefined;
         }
+
         this.resetStateByConfig();
+        this.rejectPendingRequests('Config changed');
     }
 
     async connect(): Promise<void> {
-        if (
-            this.state === BackendConnectionState.Connected ||
-            this.state === BackendConnectionState.Connecting
-        ) {
+        if (this.state === BackendConnectionState.Connected) {
             return Promise.resolve();
         }
+        if (this.state === BackendConnectionState.Connecting) {
+            return new Promise((resolve) => this.once('connect-finished', resolve));
+        }
+
         this._connectionError = undefined;
         this.setState(BackendConnectionState.Connecting);
+
         this.initTransport();
         await this._transport.connect();
+
+        await this.transportConnected();
+
+        this.emit('connect-finished');
     }
 
-    private resetStateByConfig(): void {
+    private resetStateByConfig() {
         this._connectionError = undefined;
-        if (this._keys.length) {
+        if (this._dbKeys.length) {
             this.setState(BackendConnectionState.ReadyToConnect);
         } else {
             this.setState(BackendConnectionState.NotConfigured);
         }
     }
 
-    private initTransport(): void {
+    private initTransport() {
         if (this._useNativeApp) {
             this._transport = new TransportNativeMessaging();
         } else {
             this._transport = new TransportBrowserTab(this._keeWebUrl || this._defaultKeeWebUrl);
         }
-        this._transport.on('connected', () => {
-            this._connectionError = undefined;
-            this.setState(BackendConnectionState.Connected);
-        });
-        this._transport.on('disconnected', () => {
-            if (this.state === BackendConnectionState.Connected) {
-                this.resetStateByConfig();
-            } else {
-                this._connectionError ??= chrome.i18n.getMessage('optionsErrorKeeWebDisconnected');
-                this.setState(BackendConnectionState.Error);
-            }
-        });
-        this._transport.on('error', (e) => {
-            this._connectionError = e?.message;
+
+        this._transport.on('err', (e) => {
+            this._connectionError = e?.message || 'Transport error';
             this.setState(BackendConnectionState.Error);
+            this.rejectPendingRequests(this._connectionError);
         });
+
+        this._transport.on('message', (msg) => this.transportMessage(msg));
+    }
+
+    private async transportConnected() {
+        this._protocol = new ProtocolImpl({ request: (r) => this.request(r) });
+        try {
+            await this._protocol.changePublicKeys();
+            this.setState(BackendConnectionState.Connected);
+        } catch (e) {
+            this._connectionError = `Error exchanging keys: ${e.message}`;
+            this.setState(BackendConnectionState.Error);
+        }
+    }
+
+    private request(request: KeeWebConnectRequest): Promise<KeeWebConnectResponse> {
+        return new Promise((resolve, reject) => {
+            const timeout = window.setTimeout(() => {
+                const errStr = chrome.i18n.getMessage('errorRequestTimeout');
+                reject(new Error(errStr));
+            }, this._requestTimeoutMillis);
+
+            this._requestQueue.push({ request, resolve, reject, timeout });
+            this.processRequestQueue();
+        });
+    }
+
+    private processRequestQueue() {
+        if (this._currentRequest || !this._requestQueue.length) {
+            return;
+        }
+        if (this._state === BackendConnectionState.Connecting) {
+            const { request } = this._requestQueue[0];
+            const allowedWhileConnecting = request.action === 'change-public-keys';
+            if (!allowedWhileConnecting) {
+                return;
+            }
+        } else if (this._state !== BackendConnectionState.Connected) {
+            return;
+        }
+        this._currentRequest = this._requestQueue.shift();
+        this.sendTransportRequest(this._currentRequest.request);
+    }
+
+    private sendTransportRequest(request: KeeWebConnectRequest) {
+        // eslint-disable-next-line no-console
+        console.log('%c-> KW', this._consoleLogStyleOut, this._currentRequest.request);
+        this._transport.request(request);
+    }
+
+    private transportMessage(msg: KeeWebConnectResponse) {
+        // eslint-disable-next-line no-console
+        console.log('%c<- KW', this._consoleLogStyleIn, msg);
+        if (this._currentRequest) {
+            clearTimeout(this._currentRequest.timeout);
+            this._currentRequest.resolve(msg);
+            this._currentRequest = null;
+        } else {
+            // TODO: process an event
+        }
+    }
+
+    private rejectPendingRequests(error: string) {
+        const err = new Error(error);
+        if (this._currentRequest) {
+            clearTimeout(this._currentRequest.timeout);
+            this._currentRequest.reject(err);
+            this._currentRequest = undefined;
+        }
+        for (const req of this._requestQueue) {
+            req.reject(err);
+        }
+        this._requestQueue.length = 0;
     }
 
     getFields(url: string, fields: string[]): Promise<Map<string, string>> {

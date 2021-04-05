@@ -161,12 +161,12 @@ class SettingsModel extends EventEmitter {
         return this._backendConnectionError;
     }
 
-    connectToKeeWeb(): void {
+    connectToKeeWeb() {
         const message: BackgroundMessageFromPage = { connectToKeeWeb: true };
         this._backgroundPagePort.postMessage(message);
     }
 
-    openKeeWebTab(): void {
+    openKeeWebTab() {
         const message: BackgroundMessageFromPage = { openTab: this.keeWebUrl };
         this._backgroundPagePort.postMessage(message);
     }

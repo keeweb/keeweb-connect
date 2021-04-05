@@ -1,11 +1,11 @@
 import { TransportBase } from './transport-base';
-import { activateTab, getActiveTab } from 'background/utils';
+import { activateTab, getActiveTab, randomBase64 } from 'background/utils';
 import {
-    KeeWebConnectMessage,
+    KeeWebConnectRequest,
+    KeeWebConnectResponse,
     KeeWebConnectPingRequest,
-    KeeWebConnectPingResponse,
-    KeeWebConnectRequest
-} from 'common/keeweb-connect-protocol';
+    KeeWebConnectPingResponse
+} from 'background/protocol/types';
 
 class TransportBrowserTab extends TransportBase {
     private readonly _keeWebUrl: string;
@@ -23,19 +23,16 @@ class TransportBrowserTab extends TransportBase {
     async connect(): Promise<void> {
         const hasPermissions = await this.checkPermissions();
         if (!hasPermissions) {
-            const msg = chrome.i18n.getMessage(
-                'optionsErrorBrowserTabNoPermissions',
-                this._keeWebUrl
-            );
-            this.emit('error', new Error(msg));
+            const msg = chrome.i18n.getMessage('errorBrowserTabNoPermissions', this._keeWebUrl);
+            this.emit('err', new Error(msg));
             return;
         }
 
         const activeTab = await getActiveTab();
         this._tab = await this.findOrCreateTab();
         if (!this._tab) {
-            const msg = chrome.i18n.getMessage('optionsErrorBrowserCannotCreateTab');
-            this.emit('error', new Error(msg));
+            const msg = chrome.i18n.getMessage('errorBrowserCannotCreateTab');
+            this.emit('err', new Error(msg));
             return;
         }
 
@@ -45,8 +42,8 @@ class TransportBrowserTab extends TransportBase {
                 await activateTab(activeTab);
             }
 
-            const msg = chrome.i18n.getMessage('optionsErrorBrowserCannotConnectToTab');
-            this.emit('error', new Error(msg));
+            const msg = chrome.i18n.getMessage('errorBrowserCannotConnectToTab');
+            this.emit('err', new Error(msg));
 
             return;
         }
@@ -57,8 +54,6 @@ class TransportBrowserTab extends TransportBase {
         if (activeTab && this._tab.id !== activeTab.id) {
             await activateTab(activeTab);
         }
-
-        this.emit('connected');
     }
 
     disconnect(): Promise<void> {
@@ -67,18 +62,19 @@ class TransportBrowserTab extends TransportBase {
             this._port?.disconnect();
             if (this._port) {
                 this._port = undefined;
-                this.emit('disconnected');
+                const msg = new Error(chrome.i18n.getMessage('errorKeeWebDisconnected'));
+                this.emit('err', msg);
             }
             resolve();
         });
     }
 
     request(message: KeeWebConnectRequest): void {
-        if (!this._port) {
-            this.emit('error', new Error('Port not connected'));
-            return;
+        if (this._port) {
+            this._port.postMessage(message);
+        } else {
+            this.emit('err', new Error('Port not connected'));
         }
-        this._port.postMessage(message);
     }
 
     private checkPermissions(): Promise<boolean> {
@@ -107,10 +103,10 @@ class TransportBrowserTab extends TransportBase {
         });
     }
 
-    private portDisconnected(): void {
+    private portDisconnected() {
         if (this._port) {
             this._port = undefined;
-            this.emit('disconnected');
+            this.emit('err', new Error(chrome.i18n.getMessage('errorKeeWebDisconnected')));
         }
         this._tab = undefined;
     }
@@ -157,7 +153,6 @@ class TransportBrowserTab extends TransportBase {
             port.onMessage.addListener(tabMessage);
 
             const pingRequest: KeeWebConnectPingRequest = {
-                kwConnect: 'request',
                 action: 'ping',
                 data: port.name
             };
@@ -166,13 +161,11 @@ class TransportBrowserTab extends TransportBase {
     }
 
     private static getRandomPortName(): string {
-        const randomBytes = crypto.getRandomValues(new Uint8Array(32));
-        const randomString = btoa(String.fromCharCode(...randomBytes));
-        return `keeweb-connect-${randomString}`;
+        return `keeweb-connect-${randomBase64(32)}`;
     }
 
-    private portMessage(msg: KeeWebConnectMessage) {
-        this.emit('response', msg);
+    private portMessage(msg: KeeWebConnectResponse) {
+        this.emit('message', msg);
     }
 }
 

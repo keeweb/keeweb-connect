@@ -1,11 +1,9 @@
 import { EventEmitter } from 'events';
-import { KeeWebConnectMessage, KeeWebConnectRequest } from 'common/keeweb-connect-protocol';
+import { KeeWebConnectRequest, KeeWebConnectResponse } from 'background/protocol/types';
 
 declare interface TransportBase {
-    on(event: 'connected', listener: () => void): this;
-    on(event: 'disconnected', listener: () => void): this;
-    on(event: 'error', listener: (e: Error) => void): this;
-    on(event: 'response', listener: (message: KeeWebConnectMessage) => void): this;
+    on(event: 'err', listener: (e: Error) => void): this;
+    on(event: 'message', listener: (msg: KeeWebConnectResponse) => void): this;
 }
 
 abstract class TransportBase extends EventEmitter {

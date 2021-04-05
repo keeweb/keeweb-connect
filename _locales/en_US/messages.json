@@ -7,7 +7,16 @@
   "cmdInsertUsernamePassword": { "message": "Insert username+password" },
   "cmdSubmitUsernamePassword": { "message": "Submit username+password" },
   "cmdOtherOptions": { "message": "Show KeeWeb to choose a field" },
+
   "menuOtherOptions": { "message": "Other options" },
+
+  "errorKeeWebDisconnected": { "message": "KeeWeb disconnected from the extension" },
+  "errorBrowserTabNoPermissions": { "message": "Permission to access $1 was not granted" },
+  "errorBrowserCannotCreateTab": { "message": "Cannot create a new tab" },
+  "errorBrowserCannotConnectToTab": { "message": "Cannot connect to KeeWeb, refreshing a tab with KeeWeb may help" },
+  "errorAppReturnedError": { "message": "KeeWeb returned an error" },
+  "errorRequestTimeout": { "message": "KeeWeb didn't respond to our request in time" },
+
   "optionsTitle": { "message": "Options" },
   "optionsIntro": { "message":  "This is a browser extension for KeeWeb, a free cross-platform manager compatible with KeePass." },
   "optionsConnection": { "message": "Connection" },
@@ -47,9 +56,5 @@
   "optionsShortcutsDescription": { "message": "You can change shortcuts in the extension shortcuts settings." },
   "optionsShortcutsLink": { "message": "Edit keyboard shortcuts" },
   "optionsAbout": { "message": "About" },
-  "optionsAboutLicense": { "message": "This extension is licensed under MIT. It includes these awesome libraries" },
-  "optionsErrorKeeWebDisconnected": { "message": "KeeWeb disconnected from the extension" },
-  "optionsErrorBrowserTabNoPermissions": { "message": "Permission to access $1 was not granted" },
-  "optionsErrorBrowserCannotCreateTab": { "message": "Cannot create a new tab" },
-  "optionsErrorBrowserCannotConnectToTab": { "message": "Cannot connect to KeeWeb, refreshing a tab with KeeWeb may help" }
+  "optionsAboutLicense": { "message": "This extension is licensed under MIT. It includes these awesome libraries" }
 }
