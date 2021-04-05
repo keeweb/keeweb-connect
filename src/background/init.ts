@@ -2,7 +2,7 @@ import { backend } from './backend';
 import { createUIMenus } from './ui';
 import { startInternalIpc } from './internal-ipc';
 import { startCommandListener } from './commands';
-import { BackendConnectionState } from '../common/backend-connection-state';
+import { BackendConnectionState } from 'common/backend-connection-state';
 
 chrome.runtime.onInstalled.addListener(async () => {
     startCommandListener();

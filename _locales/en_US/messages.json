@@ -17,7 +17,7 @@
   "optionsConnectionModeWebLink": { "message": "open KeeWeb" },
   "optionsConnectionMode": { "message": "Preferred connection mode" },
   "optionsWebConnectionTabPermission": { "message": "To connect to the keeweb tab, we need a special permission, otherwise it won't be possible to communicate with this tab. Click this button to grant this permission to the extension" },
-  "optionsWebConnectionTabPermissionButton": { "message": "Get the permission" },
+  "optionsWebConnectionTabPermissionButton": { "message": "Grant the permission" },
   "optionsWebConnectionKeeWebUrl": { "message": "KeeWeb URL (change it if you're using your own self-hosted version)" },
   "optionsWebConnectionChangeKeeWebUrl": { "message": "Change KeeWeb URL" },
   "optionsCancel": { "message": "Cancel" },
@@ -39,5 +39,5 @@
   "optionsErrorKeeWebDisconnected": { "message": "KeeWeb disconnected from the extension" },
   "optionsErrorBrowserTabNoPermissions": { "message": "Permission to access $1 was not granted" },
   "optionsErrorBrowserCannotCreateTab": { "message": "Cannot create a new tab" },
-  "optionsErrorBrowserCannotConnectToTab": { "message": "Cannot connect to a KeeWeb tab" }
+  "optionsErrorBrowserCannotConnectToTab": { "message": "Cannot connect to KeeWeb, refreshing a tab with KeeWeb may help" }
 }

@@ -1,11 +1,12 @@
 import { TransportBase } from './transport-base';
 import { BackgroundMessageFromContent } from 'common/background-interface';
+import { activateTab, getActiveTab } from 'background/utils';
 
 class TransportBrowserTab extends TransportBase {
     private readonly _keeWebUrl: string;
-    private readonly _maxTabConnectionRetries = 50;
-    private readonly _tabConnectionRetryMillis = 100;
-    private readonly _tabConnectionTimeoutMillis = 5000;
+    private readonly _maxTabConnectionRetries = 10;
+    private readonly _tabConnectionRetryMillis = 500;
+    private readonly _tabConnectionTimeoutMillis = 500;
     private _tab: chrome.tabs.Tab;
     private _port: chrome.runtime.Port;
 
@@ -24,19 +25,33 @@ class TransportBrowserTab extends TransportBase {
             this.emit('error', new Error(msg));
             return;
         }
+
+        const activeTab = await getActiveTab();
         this._tab = await this.findOrCreateTab();
         if (!this._tab) {
             const msg = chrome.i18n.getMessage('optionsErrorBrowserCannotCreateTab');
             this.emit('error', new Error(msg));
             return;
         }
+
         this._port = await this.connectToTab(this._maxTabConnectionRetries);
         if (!this._port) {
+            if (activeTab && this._tab.id !== activeTab.id) {
+                await activateTab(activeTab);
+            }
+
             const msg = chrome.i18n.getMessage('optionsErrorBrowserCannotConnectToTab');
             this.emit('error', new Error(msg));
+
             return;
         }
+
         this._port.onDisconnect.addListener(() => this.portDisconnected());
+
+        if (activeTab && this._tab.id !== activeTab.id) {
+            await activateTab(activeTab);
+        }
+
         this.emit('connected');
     }
 
@@ -70,7 +85,7 @@ class TransportBrowserTab extends TransportBase {
                 if (tab) {
                     resolve(tab);
                 } else {
-                    chrome.tabs.create({ url: this._keeWebUrl, active: false }, (tab) => {
+                    chrome.tabs.create({ url: this._keeWebUrl, active: true }, (tab) => {
                         resolve(tab);
                     });
                 }
@@ -93,22 +108,26 @@ class TransportBrowserTab extends TransportBase {
             }
             const name = `extension-${Date.now()}-${Math.random()}`;
             const port = chrome.tabs.connect(this._tab.id, { name });
+
             const cleanup = () => {
                 clearTimeout(responseTimeout);
                 port.onDisconnect.removeListener(tabDisconnected);
                 port.onMessage.removeListener(tabMessage);
             };
+
             const responseTimeout = setTimeout(() => {
                 cleanup();
                 port.disconnect();
-                resolve(undefined);
+                this.connectToTab(retriesLeft - 1).then(resolve);
             }, this._tabConnectionTimeoutMillis);
+
             const tabDisconnected = () => {
                 cleanup();
                 setTimeout(() => {
                     this.connectToTab(retriesLeft - 1).then(resolve);
                 }, this._tabConnectionRetryMillis);
             };
+
             const tabMessage = (msg: BackgroundMessageFromContent) => {
                 cleanup();
                 if (msg.connected === name) {
@@ -118,6 +137,7 @@ class TransportBrowserTab extends TransportBase {
                     resolve(undefined);
                 }
             };
+
             port.onDisconnect.addListener(tabDisconnected);
             port.onMessage.addListener(tabMessage);
         });

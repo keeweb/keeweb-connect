@@ -1,7 +1,7 @@
 import { backend } from './backend';
 import { getActiveTab } from './utils';
 import { AutoFillArg, ContentScriptMessage } from 'common/content-script-interface';
-import { BackendConnectionState } from '../common/backend-connection-state';
+import { BackendConnectionState } from 'common/backend-connection-state';
 
 function startCommandListener(): void {
     chrome.commands.onCommand.addListener(async (command) => {

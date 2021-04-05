@@ -1,17 +1,14 @@
 import { OptionsPageMessage } from 'common/options-page-interface';
 import { backend } from './backend';
-import { BackgroundMessageFromPage } from '../common/background-interface';
+import { BackgroundMessageFromPage } from 'common/background-interface';
 
 const connectedPorts = new Map<string, chrome.runtime.Port>();
 
 function startInternalIpc(): void {
     chrome.runtime.onConnect.addListener((port) => {
-        if (port.sender.origin !== location.origin) {
-            return;
-        }
         if (
-            !port.sender.url?.startsWith(port.sender.origin) ||
-            !port.sender.tab?.url?.startsWith(port.sender.origin)
+            !port.sender.url?.startsWith(location.origin) ||
+            !port.sender.tab?.url?.startsWith(location.origin)
         ) {
             return;
         }

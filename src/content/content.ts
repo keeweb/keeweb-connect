@@ -1,5 +1,4 @@
 import { ContentScriptMessage, AutoFillArg } from 'common/content-script-interface';
-import { BackgroundMessageFromContent } from 'common/background-interface';
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (sender.id !== chrome.runtime.id) {
@@ -105,6 +104,25 @@ chrome.runtime.onConnect.addListener((port) => {
     if (port.sender.id !== chrome.runtime.id) {
         return;
     }
-    const msg: BackgroundMessageFromContent = { connected: port.name };
-    port.postMessage(msg);
+    if (!port.name) {
+        return;
+    }
+
+    const onWindowMessage = (e: MessageEvent) => {
+        if (e.origin !== location.origin) {
+            return;
+        }
+        if (e.source !== window) {
+            return;
+        }
+        const kwBrowser = e?.data?.kwBrowser;
+        if (kwBrowser === 'response' || kwBrowser === 'event') {
+            port.postMessage(e.data);
+        }
+    };
+
+    window.addEventListener('message', onWindowMessage);
+    port.onDisconnect.addListener(() => window.removeEventListener('message', onWindowMessage));
+
+    window.postMessage({ kwBrowser: 'request', connect: port.name }, window.location.origin);
 });

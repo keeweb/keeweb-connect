@@ -22,7 +22,7 @@
   ],
   "optional_permissions": [
     "tabs",
-    "https://app.keeweb.info/"
+    "https://*/"
   ],
   "content_security_policy": "default-src 'self'",
   "content_scripts": [{

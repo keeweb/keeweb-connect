@@ -1,3 +1,8 @@
 {
-  "content_security_policy": "default-src 'self' 'unsafe-eval'"
+  "content_security_policy": "default-src 'self'; script-src 'self' 'unsafe-eval';",
+  "optional_permissions": [
+    "tabs",
+    "http://*/",
+    "https://*/"
+  ]
 }
