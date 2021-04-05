@@ -6,7 +6,8 @@
   "scripts": {
     "start": "webpack --mode=production",
     "watch": "webpack --mode=development --watch",
-    "lint": "eslint webpack.config.js src"
+    "lint": "eslint webpack.config.js src",
+    "prettier": "prettier --write src/**/*.ts src/**/*.tsx *.js pages/*.html styles/*.css"
   },
   "repository": {
     "type": "git",
