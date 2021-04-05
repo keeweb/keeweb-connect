@@ -10,6 +10,9 @@ body {
     --primary-button-color-active: #1963c8;
     --primary-button-text-color: #fafcff;
     --secondary-button-color: #d1dff6;
+    --destructive-button-color: #fab4b1;
+    --destructive-button-color-hover: #e05a54;
+    --destructive-button-color-active: #f14b44;
     --focus-outline-color: rgba(89, 147, 234, 0.3);
     --input-border-color: #5993ea;
     --input-border-color-hover: rgba(89, 147, 234, 0.6);
@@ -26,6 +29,9 @@ body {
         --primary-button-color-hover: #105dd2;
         --primary-button-color-active: #014aba;
         --primary-button-text-color: #d7e5f8;
+        --destructive-button-color: #53201e;
+        --destructive-button-color-hover: #c43a34;
+        --destructive-button-color-active: #dd3731;
         --secondary-button-color: #232e45;
         --focus-outline-color: rgba(89, 147, 234, 0.2);
         --input-border-color: #5993ea;
@@ -105,6 +111,19 @@ button.secondary:not(:hover):not(:active) {
     color: var(--text-color);
     background: var(--secondary-button-color);
 }
+button.destructive {
+    background: var(--destructive-button-color);
+    --focus-outline-color: var(--error-color-shadow);
+}
+button.destructive:not(:hover):not(:active) {
+    color: var(--text-color);
+}
+button.destructive:hover {
+    background: var(--destructive-button-color-hover);
+}
+button.destructive:active {
+    background: var(--destructive-button-color-active);
+}
 
 input[type='radio'] {
     vertical-align: top;
@@ -146,4 +165,18 @@ button + button {
 }
 .top-padding-small {
     padding-top: 0.2em;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1em;
+}
+td,
+th {
+    border: 1px solid var(--border-color);
+    padding: 0.6em 0.8em;
+}
+table > thead > tr {
+    text-align: left;
 }

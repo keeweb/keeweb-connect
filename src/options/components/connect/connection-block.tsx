@@ -1,9 +1,9 @@
 import { FunctionComponent } from 'preact';
 import { res } from 'options/utils';
 import { model } from 'options/settings-model';
-import { ConnectionWeb } from './connect/connection-web';
-import { ConnectMode } from './connect/connect-mode';
-import { ConnectState } from './connect/connect-state';
+import { ConnectionWeb } from './connection-web';
+import { ConnectMode } from './connect-mode';
+import { ConnectState } from './connect-state';
 
 const ConnectionBlock: FunctionComponent = () => {
     return (

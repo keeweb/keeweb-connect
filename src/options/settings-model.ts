@@ -3,6 +3,12 @@ import { OptionsPageMessage } from 'common/options-page-interface';
 import { BackendConnectionState } from 'common/backend-connection-state';
 import { BackgroundMessageFromPage } from 'common/background-interface';
 
+interface ConnectedDatabase {
+    name: string;
+    dbHash: string;
+    open: boolean;
+}
+
 class SettingsModel extends EventEmitter {
     readonly defaultKeeWebUrl = 'https://app.keeweb.info/';
 
@@ -14,6 +20,10 @@ class SettingsModel extends EventEmitter {
     private _chromeCommands: chrome.commands.Command[];
     private _backendConnectionState: BackendConnectionState;
     private _backendConnectionError: string;
+    private _databases: ConnectedDatabase[] = [
+        { name: 'Hello', open: true, dbHash: '123' },
+        { name: 'World', open: false, dbHash: '456' }
+    ];
 
     async init() {
         await this.loadStorageConfig();
@@ -160,8 +170,35 @@ class SettingsModel extends EventEmitter {
         const message: BackgroundMessageFromPage = { connectToKeeWeb: true };
         this._backgroundPagePort.postMessage(message);
     }
+
+    get databases(): ConnectedDatabase[] {
+        return this._databases;
+    }
+
+    openDatabase(db: ConnectedDatabase) {
+        // TODO
+        db.open = true;
+        this.emit('change');
+    }
+
+    closeDatabase(db: ConnectedDatabase) {
+        // TODO
+        db.open = false;
+        this.emit('change');
+    }
+
+    disconnectDatabase(db: ConnectedDatabase) {
+        // TODO
+        this._databases = this._databases.filter((d) => d !== db);
+        this.emit('change');
+    }
+
+    connectDatabase() {
+        // TODO
+        this.emit('change');
+    }
 }
 
 const model = new SettingsModel();
 
-export { model };
+export { model, ConnectedDatabase };
