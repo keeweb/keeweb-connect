@@ -9,16 +9,22 @@ const Footer: FunctionComponent = () => {
             <ul>
                 <li>
                     <a href="https://preactjs.com/" target="_blank" rel="noreferrer">
-                        preact
+                        Preact
                     </a>
                     , fast 3kB React alternative with the same modern API, &copy; 2015-present Jason
                     Miller
                 </li>
                 <li>
                     <a href="https://nodejs.org/en/" target="_blank" rel="noreferrer">
-                        node.js
+                        Node.js
                     </a>
                     , JavaScript runtime, &copy; Node.js contributors
+                </li>
+                <li>
+                    <a href="https://tweetnacl.js.org/" target="_blank" rel="noreferrer">
+                        TweetNaCl.js
+                    </a>
+                    , port of TweetNaCl cryptographic library to JavaScript, public domain
                 </li>
             </ul>
             <p>Copyright &copy; {new Date().getFullYear()} KeeWeb</p>
