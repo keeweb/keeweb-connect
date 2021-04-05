@@ -6,7 +6,7 @@ const Header: FunctionComponent = () => {
         <>
             <h1 id="top">
                 <img src="../icons/icon128.png" alt="KeeWeb" class="logo-head" />
-                KeeWeb – {res('optionsTitle')}
+                KeeWeb Connect – {res('optionsTitle')}
             </h1>
             <p>{res('optionsIntro')}</p>
         </>

@@ -3,7 +3,7 @@ import { res } from './utils';
 import { model } from './settings-model';
 import { App } from './components/app';
 
-document.title = `KeeWeb - ${res('optionsTitle')}`;
+document.title = `KeeWeb Connect - ${res('optionsTitle')}`;
 
 model.on('change', renderApp);
 model.init();
