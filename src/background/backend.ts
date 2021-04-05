@@ -27,6 +27,7 @@ class Backend extends EventEmitter {
         'background: {}; color: #000; padding: 2px 4px 0; border-radius: 2px;';
     private readonly _consoleLogStyleIn = this._consoleLogStyle.replace('{}', '#825fe3');
     private readonly _consoleLogStyleOut = this._consoleLogStyle.replace('{}', '#15be5c');
+    private readonly _consoleLogStyleErr = this._consoleLogStyle.replace('{}', '#c44848');
 
     private _useNativeApp = true;
     private _keeWebUrl: string;
@@ -90,18 +91,34 @@ class Backend extends EventEmitter {
             return Promise.resolve();
         }
         if (this.state === BackendConnectionState.Connecting) {
-            return new Promise((resolve) => this.once('connect-finished', resolve));
+            return new Promise((resolve, reject) =>
+                this.once('connect-finished', (e) => {
+                    e ? reject(e) : resolve();
+                })
+            );
         }
 
         this._connectionError = undefined;
         this.setState(BackendConnectionState.Connecting);
 
-        this.initTransport();
-        await this._transport.connect();
+        try {
+            this.initTransport();
 
-        await this.transportConnected();
+            await this._transport.connect();
+            await this._protocol.changePublicKeys();
 
-        this.emit('connect-finished');
+            this.setState(BackendConnectionState.Connected);
+
+            this.emit('connect-finished');
+        } catch (e) {
+            // eslint-disable-next-line no-console
+            console.log('%cConnect error', this._consoleLogStyleErr, e);
+
+            this._connectionError = e.message;
+            this.setState(BackendConnectionState.Error);
+
+            this.emit('connect-finished', e);
+        }
     }
 
     private resetStateByConfig() {
@@ -120,29 +137,21 @@ class Backend extends EventEmitter {
             this._transport = new TransportBrowserTab(this._keeWebUrl || this._defaultKeeWebUrl);
         }
 
-        this._transport.on('err', (e) => {
-            this._connectionError = e?.message || 'Transport error';
+        this._transport.on('disconnected', () => {
+            this._connectionError = chrome.i18n.getMessage('errorKeeWebDisconnected');
             this.setState(BackendConnectionState.Error);
             this.rejectPendingRequests(this._connectionError);
         });
 
         this._transport.on('message', (msg) => this.transportMessage(msg));
-    }
 
-    private async transportConnected() {
         this._protocol = new ProtocolImpl({ request: (r) => this.request(r) });
-        try {
-            await this._protocol.changePublicKeys();
-            this.setState(BackendConnectionState.Connected);
-        } catch (e) {
-            this._connectionError = `Error exchanging keys: ${e.message}`;
-            this.setState(BackendConnectionState.Error);
-        }
     }
 
     private request(request: KeeWebConnectRequest): Promise<KeeWebConnectResponse> {
         return new Promise((resolve, reject) => {
             const timeout = window.setTimeout(() => {
+                this._currentRequest = null;
                 const errStr = chrome.i18n.getMessage('errorRequestTimeout');
                 reject(new Error(errStr));
             }, this._requestTimeoutMillis);

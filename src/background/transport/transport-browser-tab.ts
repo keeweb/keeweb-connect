@@ -24,16 +24,13 @@ class TransportBrowserTab extends TransportBase {
         const hasPermissions = await this.checkPermissions();
         if (!hasPermissions) {
             const msg = chrome.i18n.getMessage('errorBrowserTabNoPermissions', this._keeWebUrl);
-            this.emit('err', new Error(msg));
-            return;
+            throw new Error(msg);
         }
 
         const activeTab = await getActiveTab();
         this._tab = await this.findOrCreateTab();
         if (!this._tab) {
-            const msg = chrome.i18n.getMessage('errorBrowserCannotCreateTab');
-            this.emit('err', new Error(msg));
-            return;
+            throw new Error(chrome.i18n.getMessage('errorBrowserCannotCreateTab'));
         }
 
         this._port = await this.connectToTab(this._maxTabConnectionRetries);
@@ -41,11 +38,7 @@ class TransportBrowserTab extends TransportBase {
             if (activeTab && this._tab.id !== activeTab.id) {
                 await activateTab(activeTab);
             }
-
-            const msg = chrome.i18n.getMessage('errorBrowserCannotConnectToTab');
-            this.emit('err', new Error(msg));
-
-            return;
+            throw new Error(chrome.i18n.getMessage('errorBrowserCannotConnectToTab'));
         }
 
         this._port.onDisconnect.addListener(() => this.portDisconnected());
@@ -61,9 +54,7 @@ class TransportBrowserTab extends TransportBase {
             this._tab = undefined;
             this._port?.disconnect();
             if (this._port) {
-                this._port = undefined;
-                const msg = new Error(chrome.i18n.getMessage('errorKeeWebDisconnected'));
-                this.emit('err', msg);
+                this.portDisconnected();
             }
             resolve();
         });
@@ -72,8 +63,6 @@ class TransportBrowserTab extends TransportBase {
     request(message: KeeWebConnectRequest): void {
         if (this._port) {
             this._port.postMessage(message);
-        } else {
-            this.emit('err', new Error('Port not connected'));
         }
     }
 
@@ -104,11 +93,11 @@ class TransportBrowserTab extends TransportBase {
     }
 
     private portDisconnected() {
+        this._tab = undefined;
         if (this._port) {
             this._port = undefined;
-            this.emit('err', new Error(chrome.i18n.getMessage('errorKeeWebDisconnected')));
+            this.emit('disconnected');
         }
-        this._tab = undefined;
     }
 
     private connectToTab(retriesLeft: number): Promise<chrome.runtime.Port> {

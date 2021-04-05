@@ -18,26 +18,20 @@ class TransportNativeMessaging extends TransportBase {
         return new Promise((resolve) => {
             this._port?.disconnect();
             if (this._port) {
-                this._port = undefined;
-                const msg = chrome.i18n.getMessage('errorKeeWebDisconnected');
-                this.emit('err', new Error(msg));
+                this.portDisconnected();
             }
             resolve();
         });
     }
 
     request(message: KeeWebConnectRequest): void {
-        if (this._port) {
-            this._port.postMessage(message);
-        } else {
-            this.emit('err', new Error('Port not connected'));
-        }
+        this._port?.postMessage(message);
     }
 
     private portDisconnected() {
         if (this._port) {
             this._port = undefined;
-            this.emit('err', new Error(chrome.i18n.getMessage('errorKeeWebDisconnected')));
+            this.emit('disconnected');
         }
     }
 
