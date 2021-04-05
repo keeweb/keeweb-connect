@@ -27,7 +27,6 @@ class Backend extends EventEmitter {
         'background: {}; color: #000; padding: 2px 4px 0; border-radius: 2px;';
     private readonly _consoleLogStyleIn = this._consoleLogStyle.replace('{}', '#825fe3');
     private readonly _consoleLogStyleOut = this._consoleLogStyle.replace('{}', '#15be5c');
-    private readonly _consoleLogStyleErr = this._consoleLogStyle.replace('{}', '#c44848');
 
     private _useNativeApp = true;
     private _keeWebUrl: string;
@@ -98,6 +97,11 @@ class Backend extends EventEmitter {
             );
         }
 
+        // eslint-disable-next-line no-console
+        console.log('Connecting to KeeWeb');
+
+        this.rejectPendingRequests('Reconnecting');
+
         this._connectionError = undefined;
         this.setState(BackendConnectionState.Connecting);
 
@@ -109,10 +113,13 @@ class Backend extends EventEmitter {
 
             this.setState(BackendConnectionState.Connected);
 
+            // eslint-disable-next-line no-console
+            console.log('Connected to KeeWeb');
+
             this.emit('connect-finished');
         } catch (e) {
             // eslint-disable-next-line no-console
-            console.log('%cConnect error', this._consoleLogStyleErr, e);
+            console.error('Connect error', e);
 
             this._connectionError = e.message;
             this.setState(BackendConnectionState.Error);
@@ -138,8 +145,12 @@ class Backend extends EventEmitter {
         }
 
         this._transport.on('disconnected', () => {
+            // eslint-disable-next-line no-console
+            console.log('KeeWeb disconnected');
+
             this._connectionError = chrome.i18n.getMessage('errorKeeWebDisconnected');
             this.setState(BackendConnectionState.Error);
+
             this.rejectPendingRequests(this._connectionError);
         });
 
