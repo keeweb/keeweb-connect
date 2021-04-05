@@ -62,11 +62,14 @@ class ProtocolImpl {
     }
 
     private decryptResponsePayload(
+        request: KeeWebConnectEncryptedRequest,
         response: KeeWebConnectEncryptedResponse
     ): KeeWebConnectResponse {
         if (!response.message) {
             return undefined;
         }
+
+        ProtocolImpl.validateNonce(request.nonce, response.nonce);
 
         const message = ProtocolImpl.fieldFromBase64(response.message, 'message');
         const nonce = ProtocolImpl.fieldFromBase64(response.nonce, 'nonce');
@@ -82,6 +85,25 @@ class ProtocolImpl {
         const payload = JSON.parse(json);
 
         return ProtocolImpl.checkResponseError(payload);
+    }
+
+    private static validateNonce(nonce: string, incrementedNonce: string) {
+        const nonceData = fromBase64(nonce);
+
+        // from libsodium/utils.c, like it is in KeePassXC
+        let i = 0;
+        let c = 1;
+        for (; i < nonceData.length; ++i) {
+            c += nonceData[i];
+            nonceData[i] = c;
+            c >>= 8;
+        }
+
+        const expected = toBase64(nonceData);
+
+        if (expected !== incrementedNonce) {
+            throw new Error('Bad nonce in response');
+        }
     }
 
     private async request(request: KeeWebConnectRequest): Promise<KeeWebConnectResponse> {
@@ -116,7 +138,7 @@ class ProtocolImpl {
         });
         const response = await this.request(request);
         const payload = <KeeWebConnectGetDatabaseHashResponsePayload>(
-            this.decryptResponsePayload(<KeeWebConnectEncryptedResponse>response)
+            this.decryptResponsePayload(request, <KeeWebConnectEncryptedResponse>response)
         );
         return payload.hash;
     }
