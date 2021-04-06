@@ -125,6 +125,13 @@ class TransportBrowserTab extends TransportBase {
             }, this._tabConnectionTimeoutMillis);
 
             const tabDisconnected = () => {
+                if (chrome.runtime.lastError) {
+                    // eslint-disable-next-line no-console
+                    console.warn(
+                        'KeeWeb tab disconnected with error',
+                        chrome.runtime.lastError.message
+                    );
+                }
                 cleanup();
                 setTimeout(() => {
                     this.connectToTab(retriesLeft - 1)
