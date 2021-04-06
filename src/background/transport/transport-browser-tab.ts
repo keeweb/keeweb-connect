@@ -13,6 +13,7 @@ class TransportBrowserTab extends TransportBase {
     private readonly _maxTabConnectionRetries = 10;
     private readonly _tabConnectionRetryMillis = 500;
     private readonly _tabConnectionTimeoutMillis = 500;
+    private static readonly _tabsWithInjectedScripts = new Set<number>();
     private _tab: chrome.tabs.Tab;
     private _port: chrome.runtime.Port;
 
@@ -30,9 +31,8 @@ class TransportBrowserTab extends TransportBase {
 
         const activeTab = await getActiveTab();
         this._tab = await this.findOrCreateTab();
-        if (!this._tab) {
-            throw new Error(chrome.i18n.getMessage('errorBrowserCannotCreateTab'));
-        }
+
+        await this.injectContentScript();
 
         this._port = await this.connectToTab(this._maxTabConnectionRetries);
         if (!this._port) {
@@ -80,13 +80,19 @@ class TransportBrowserTab extends TransportBase {
     }
 
     private findOrCreateTab(): Promise<chrome.tabs.Tab> {
-        return new Promise((resolve) => {
+        return new Promise((resolve, reject) => {
             chrome.tabs.query({ url: this._keeWebUrl }, ([tab]) => {
                 if (tab) {
                     resolve(tab);
                 } else {
                     chrome.tabs.create({ url: this._keeWebUrl, active: true }, (tab) => {
-                        resolve(tab);
+                        if (tab) {
+                            resolve(tab);
+                        } else {
+                            reject(
+                                new Error(chrome.i18n.getMessage('errorBrowserCannotCreateTab'))
+                            );
+                        }
                     });
                 }
             });
@@ -99,6 +105,23 @@ class TransportBrowserTab extends TransportBase {
             this._port = undefined;
             this.emit('disconnected');
         }
+    }
+
+    private injectContentScript(): Promise<void> {
+        return new Promise((resolve, reject) => {
+            if (TransportBrowserTab._tabsWithInjectedScripts.has(this._tab.id)) {
+                return resolve();
+            }
+            chrome.tabs.executeScript(this._tab.id, { file: 'js/content-keeweb.js' }, () => {
+                if (chrome.runtime.lastError) {
+                    const msg = `Content script injection error: ${chrome.runtime.lastError.message}`;
+                    reject(new Error(msg));
+                } else {
+                    TransportBrowserTab._tabsWithInjectedScripts.add(this._tab.id);
+                    resolve();
+                }
+            });
+        });
     }
 
     private connectToTab(retriesLeft: number): Promise<chrome.runtime.Port> {

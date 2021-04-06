@@ -53,6 +53,10 @@ class Backend extends EventEmitter {
         return this._connectionError;
     }
 
+    get keeWebUrl() {
+        return this._keeWebUrl || this._defaultKeeWebUrl;
+    }
+
     init(): Promise<void> {
         return new Promise((resolve) => {
             chrome.storage.onChanged.addListener((changes) => this.storageChanged(changes));

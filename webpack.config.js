@@ -7,9 +7,10 @@ const dev = process.argv.includes('--mode=development');
 // eslint-disable-next-line import/no-default-export,no-restricted-syntax
 export default {
     entry: {
-        background: './src/background/init.ts',
-        content: './src/content/content.ts',
-        options: './src/options/index.tsx'
+        'background': './src/background/init.ts',
+        'content-keeweb': './src/content/content-keeweb.ts',
+        'content-page': './src/content/content-page.ts',
+        'options': './src/options/index.tsx'
     },
     output: {
         filename: 'js/[name].js',

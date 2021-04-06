@@ -25,11 +25,6 @@
     "https://*/"
   ],
   "content_security_policy": "default-src 'self'",
-  "content_scripts": [{
-    "matches": ["<all_urls>"],
-    "js": ["js/content.js"],
-    "all_frames": true
-  }],
   "options_ui": {
     "page": "pages/options.html",
     "open_in_tab": true
