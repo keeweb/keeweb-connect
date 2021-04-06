@@ -10,24 +10,27 @@ import {
 } from './types';
 import { fromBase64, randomBase64, randomBytes, toBase64 } from 'background/utils';
 import { box as tweetnaclBox, BoxKeyPair } from 'tweetnacl';
-import { TransportAdapter } from './transport-adapter';
+
+declare interface ProtocolTransportAdapter {
+    request(request: KeeWebConnectRequest): Promise<KeeWebConnectResponse>;
+}
 
 class ProtocolImpl {
     private readonly _keySize = 24;
 
-    private _transport: TransportAdapter;
+    private _transport: ProtocolTransportAdapter;
     private _clientId: string;
-    private _ownKeys: BoxKeyPair;
+    private _keys: BoxKeyPair;
     private _keewebPublicKey: Uint8Array;
 
-    constructor(transport: TransportAdapter) {
+    constructor(transport: ProtocolTransportAdapter) {
         this._transport = transport;
         this.generateKeys();
     }
 
     private generateKeys() {
         this._clientId = randomBase64(this._keySize);
-        this._ownKeys = tweetnaclBox.keyPair();
+        this._keys = tweetnaclBox.keyPair();
     }
 
     private generateNonce(): Uint8Array {
@@ -40,7 +43,7 @@ class ProtocolImpl {
 
         const nonce = this.generateNonce();
 
-        const encrypted = tweetnaclBox(data, nonce, this._keewebPublicKey, this._ownKeys.secretKey);
+        const encrypted = tweetnaclBox(data, nonce, this._keewebPublicKey, this._keys.secretKey);
 
         return {
             action: payload.action,
@@ -74,12 +77,7 @@ class ProtocolImpl {
         const message = ProtocolImpl.fieldFromBase64(response.message, 'message');
         const nonce = ProtocolImpl.fieldFromBase64(response.nonce, 'nonce');
 
-        const data = tweetnaclBox.open(
-            message,
-            nonce,
-            this._keewebPublicKey,
-            this._ownKeys.secretKey
-        );
+        const data = tweetnaclBox.open(message, nonce, this._keewebPublicKey, this._keys.secretKey);
 
         const json = new TextDecoder().decode(data);
         const payload = JSON.parse(json);
@@ -124,7 +122,7 @@ class ProtocolImpl {
     async changePublicKeys(): Promise<void> {
         const request: KeeWebConnectChangePublicKeysRequest = {
             action: 'change-public-keys',
-            publicKey: toBase64(this._ownKeys.publicKey),
+            publicKey: toBase64(this._keys.publicKey),
             nonce: toBase64(this.generateNonce()),
             clientID: this._clientId
         };
