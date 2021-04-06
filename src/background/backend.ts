@@ -135,6 +135,9 @@ class Backend extends EventEmitter {
         } else {
             this.setState(BackendConnectionState.NotConfigured);
         }
+
+        // eslint-disable-next-line no-console
+        console.log('Config changed');
     }
 
     private initTransport() {

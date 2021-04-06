@@ -116,6 +116,7 @@ chrome.runtime.onConnect.addListener((port) => {
             return;
         }
         if (e?.data?.kwConnect === 'response') {
+            delete e.data.kwConnect;
             port.postMessage(e.data);
         }
     };
