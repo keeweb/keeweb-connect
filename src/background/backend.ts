@@ -5,6 +5,7 @@ import { TransportNativeMessaging } from './transport/transport-native-messaging
 import { TransportBrowserTab } from './transport/transport-browser-tab';
 import { KeeWebConnectRequest, KeeWebConnectResponse } from './protocol/types';
 import { ProtocolImpl } from './protocol/protocol-impl';
+import { ProtocolError, ProtocolErrorCode } from './protocol/protocol-error';
 
 interface KeeWebDbKey {
     name: string;
@@ -130,6 +131,8 @@ class Backend extends EventEmitter {
 
             this.emit('connect-finished', e);
         }
+
+        this.updateOpenDatabases();
     }
 
     private resetStateByConfig() {
@@ -210,7 +213,12 @@ class Backend extends EventEmitter {
             this._currentRequest.resolve(msg);
             this._currentRequest = null;
         } else {
-            // TODO: process an event
+            switch (msg.action) {
+                case 'database-locked':
+                case 'database-unlocked':
+                    this.updateOpenDatabases();
+                    break;
+            }
         }
     }
 
@@ -225,6 +233,24 @@ class Backend extends EventEmitter {
             req.reject(err);
         }
         this._requestQueue.length = 0;
+    }
+
+    private updateOpenDatabases() {
+        (async () => {
+            try {
+                await this._protocol.getDatabaseHash();
+                // TODO: set database hash
+            } catch (e) {
+                if (e instanceof ProtocolError && e.code === ProtocolErrorCode.DatabaseNotOpened) {
+                    // TODO: empty databases
+                } else {
+                    throw e;
+                }
+            }
+        })().catch((e) => {
+            this._connectionError = `Can't update open databases: ${e.message}`;
+            this.setState(BackendConnectionState.Error);
+        });
     }
 
     getFields(url: string, fields: string[]): Promise<Map<string, string>> {

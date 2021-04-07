@@ -10,6 +10,7 @@ import {
 } from './types';
 import { fromBase64, randomBase64, randomBytes, toBase64 } from 'background/utils';
 import { box as tweetnaclBox, BoxKeyPair } from 'tweetnacl';
+import { ProtocolError } from './protocol-error';
 
 declare interface ProtocolTransportAdapter {
     request(request: KeeWebConnectRequest): Promise<KeeWebConnectResponse>;
@@ -115,7 +116,7 @@ class ProtocolImpl {
             const locErr = chrome.i18n.getMessage('errorAppReturnedError');
             const errCodeStr = response.errorCode ? `[code=${response.errorCode}] ` : '';
             const resErr = `${errCodeStr}${response.error}`;
-            throw new Error(`${locErr}: ${resErr}`);
+            throw new ProtocolError(`${locErr}: ${resErr}`, response.errorCode);
         }
         return response;
     }
