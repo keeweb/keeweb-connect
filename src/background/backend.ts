@@ -248,6 +248,8 @@ class Backend extends EventEmitter {
                 }
             }
         })().catch((e) => {
+            // eslint-disable-next-line no-console
+            console.error("Can't update open databases", e);
             this._connectionError = `Can't update open databases: ${e.message}`;
             this.setState(BackendConnectionState.Error);
         });
