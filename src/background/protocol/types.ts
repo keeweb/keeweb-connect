@@ -61,4 +61,5 @@ export interface KeeWebConnectGetDatabaseHashRequestPayload extends KeeWebConnec
 export interface KeeWebConnectGetDatabaseHashResponsePayload extends KeeWebConnectResponse {
     action: 'hash';
     hash: string;
+    hashes: string[];
 }

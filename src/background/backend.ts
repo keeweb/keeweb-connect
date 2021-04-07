@@ -5,7 +5,6 @@ import { TransportNativeMessaging } from './transport/transport-native-messaging
 import { TransportBrowserTab } from './transport/transport-browser-tab';
 import { KeeWebConnectRequest, KeeWebConnectResponse } from './protocol/types';
 import { ProtocolImpl } from './protocol/protocol-impl';
-import { ProtocolError, ProtocolErrorCode } from './protocol/protocol-error';
 
 interface KeeWebDbKey {
     name: string;
@@ -39,6 +38,7 @@ class Backend extends EventEmitter {
     private _requestQueue: RequestQueueItem[] = [];
     private _currentRequest: RequestQueueItem;
     private _protocol: ProtocolImpl;
+    private _openDbHashes: string[] = [];
 
     get state(): BackendConnectionState {
         return this._state;
@@ -237,17 +237,10 @@ class Backend extends EventEmitter {
 
     private updateOpenDatabases() {
         (async () => {
-            try {
-                await this._protocol.getDatabaseHash();
-                // TODO: set database hash
-            } catch (e) {
-                if (e instanceof ProtocolError && e.code === ProtocolErrorCode.DatabaseNotOpened) {
-                    // TODO: empty databases
-                } else {
-                    throw e;
-                }
-            }
+            this._openDbHashes = await this._protocol.getDatabaseHashes();
         })().catch((e) => {
+            this._openDbHashes = [];
+
             // eslint-disable-next-line no-console
             console.error("Can't update open databases", e);
             this._connectionError = `Can't update open databases: ${e.message}`;

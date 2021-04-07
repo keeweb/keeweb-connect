@@ -42,3 +42,17 @@ Added `appName` to response to be able to identify the app:
     "success": "true"
 }
 ```
+
+### `get-databasehash`
+
+`hash` is set to the ID of the first open database for backward compatibility.
+
+Response is extended with `hashes` property to accommodate multiple databases:
+```diff
+{
+    "action": "hash",
+    "hash": "12345",
++    "hashes": ["12345", "67890"],
+    "version": "1.2.3"
+}
+```

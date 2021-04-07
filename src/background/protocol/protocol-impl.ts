@@ -10,7 +10,7 @@ import {
 } from './types';
 import { fromBase64, randomBase64, randomBytes, toBase64 } from 'background/utils';
 import { box as tweetnaclBox, BoxKeyPair } from 'tweetnacl';
-import { ProtocolError } from './protocol-error';
+import { ProtocolError, ProtocolErrorCode } from './protocol-error';
 
 declare interface ProtocolTransportAdapter {
     request(request: KeeWebConnectRequest): Promise<KeeWebConnectResponse>;
@@ -137,15 +137,26 @@ class ProtocolImpl {
         this._connectedAppName = response.appName;
     }
 
-    async getDatabaseHash(): Promise<string> {
+    async getDatabaseHashes(): Promise<string[]> {
         const request = this.makeEncryptedRequest(<KeeWebConnectGetDatabaseHashRequestPayload>{
             action: 'get-databasehash'
         });
-        const response = await this.request(request);
+
+        let response: KeeWebConnectResponse;
+        try {
+            response = await this.request(request);
+        } catch (e) {
+            if (e instanceof ProtocolError && e.code === ProtocolErrorCode.DatabaseNotOpened) {
+                return [];
+            } else {
+                throw e;
+            }
+        }
+
         const payload = <KeeWebConnectGetDatabaseHashResponsePayload>(
             this.decryptResponsePayload(request, <KeeWebConnectEncryptedResponse>response)
         );
-        return payload.hash;
+        return payload.hashes || [payload.hash];
     }
 }
 
