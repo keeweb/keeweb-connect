@@ -18,15 +18,15 @@ This message is to verify that the connection is alive without running any logic
 Request:
 ```json
 {
-  "action": "ping",
-  "data": "<random string>"
+    "action": "ping",
+    "data": "<random string>"
 }
 ```
 
 Response:
 ```json
 {
-  "data": "<the same random string>"
+    "data": "<the same random string>"
 }
 ```
 
