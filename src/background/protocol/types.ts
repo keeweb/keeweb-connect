@@ -47,6 +47,7 @@ export interface KeeWebConnectChangePublicKeysRequest extends KeeWebConnectReque
 
 export interface KeeWebConnectChangePublicKeysResponse extends KeeWebConnectResponse {
     action: 'change-public-keys';
+    appName: string;
     publicKey: string;
     nonce: string;
 }

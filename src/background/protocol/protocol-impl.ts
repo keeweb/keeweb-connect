@@ -22,6 +22,7 @@ class ProtocolImpl {
     private _clientId: string;
     private _keys: BoxKeyPair;
     private _keewebPublicKey: Uint8Array;
+    private _connectedAppName: string;
 
     constructor(transport: ProtocolTransportAdapter) {
         this._transport = transport;
@@ -119,6 +120,10 @@ class ProtocolImpl {
         return response;
     }
 
+    get connectedAppName(): string {
+        return this._connectedAppName;
+    }
+
     async changePublicKeys(): Promise<void> {
         const request: KeeWebConnectChangePublicKeysRequest = {
             action: 'change-public-keys',
@@ -128,6 +133,7 @@ class ProtocolImpl {
         };
         const response = <KeeWebConnectChangePublicKeysResponse>await this.request(request);
         this._keewebPublicKey = fromBase64(response.publicKey);
+        this._connectedAppName = response.appName;
     }
 
     async getDatabaseHash(): Promise<string> {

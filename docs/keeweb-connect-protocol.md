@@ -29,3 +29,16 @@ Response:
   "data": "<the same random string>"
 }
 ```
+
+### `change-public-keys`
+
+Added `appName` to response to be able to identify the app:
+```diff
+{
+    "action": "change-public-keys",
++    "appName": "KeeWeb",
+    "version": "1.2.3",
+    "publicKey": "<host public key>",
+    "success": "true"
+}
+```
