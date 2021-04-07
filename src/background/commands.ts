@@ -1,6 +1,10 @@
 import { backend } from './backend';
 import { getActiveTab } from './utils';
-import { AutoFillArg, ContentScriptMessage } from 'common/content-script-interface';
+import {
+    AutoFillArg,
+    ContentScriptMessage,
+    ContentScriptReturn
+} from 'common/content-script-interface';
 import { BackendConnectionState } from 'common/backend-connection-state';
 
 const tabsWithInjectedScripts = new Set<number>();
@@ -15,12 +19,16 @@ function startCommandListener(): void {
 }
 
 async function runCommand(command: string, url: string): Promise<void> {
+    if (!url.startsWith('https?://')) {
+        return;
+    }
+
     await backend.connect();
     if (backend.state !== BackendConnectionState.Connected) {
         chrome.runtime.openOptionsPage();
     }
 
-    if (url === backend.keeWebUrl) {
+    if (url.startsWith(backend.keeWebUrl)) {
         return;
     }
 
@@ -65,16 +73,19 @@ async function runCommand(command: string, url: string): Promise<void> {
     });
 }
 
-async function getNextAutoFillCommand(url: string): Promise<string | undefined> {
+async function getNextAutoFillCommand(url: string): Promise<string> {
     const resp = await sendMessageToActiveTab(url, { url, getNextAutoFillCommand: true });
     return resp?.nextCommand;
 }
 
-async function autoFill(url: string, options: AutoFillArg): Promise<void> {
-    await sendMessageToActiveTab(url, { url, autoFill: options });
+async function autoFill(url: string, options: AutoFillArg): Promise<ContentScriptReturn> {
+    return await sendMessageToActiveTab(url, { url, autoFill: options });
 }
 
-async function sendMessageToActiveTab(url: string, message: ContentScriptMessage): Promise<any> {
+async function sendMessageToActiveTab(
+    url: string,
+    message: ContentScriptMessage
+): Promise<ContentScriptReturn> {
     const activeTab = await getActiveTab();
     if (activeTab?.url === url) {
         await injectPageContentScript(activeTab.id);
@@ -83,9 +94,8 @@ async function sendMessageToActiveTab(url: string, message: ContentScriptMessage
                 if (chrome.runtime.lastError) {
                     const msg = `Cannot send message to page: ${chrome.runtime.lastError.message}`;
                     return reject(new Error(msg));
-                } else {
-                    resolve(resp);
                 }
+                resolve(resp);
             });
         });
     }

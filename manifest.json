@@ -29,6 +29,9 @@
     "page": "pages/options.html",
     "open_in_tab": true
   },
+  "browser_action": {
+    "default_title": "__MSG_cmdSubmitAuto__"
+  },
   "default_locale": "en_US",
   "commands": {
     "submit-auto": {

@@ -1,4 +1,8 @@
-import { ContentScriptMessage, AutoFillArg } from 'common/content-script-interface';
+import {
+    ContentScriptMessage,
+    AutoFillArg,
+    ContentScriptReturn
+} from 'common/content-script-interface';
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (sender.id !== chrome.runtime.id) {
@@ -8,12 +12,12 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     const response = run(message);
     sendResponse(response);
 
-    function run(message: ContentScriptMessage) {
+    function run(message: ContentScriptMessage): ContentScriptReturn {
         if (location.href !== message.url) {
             return;
         }
         if (message.autoFill) {
-            return autoFill(message.autoFill);
+            autoFill(message.autoFill);
         } else if (message.getNextAutoFillCommand) {
             return getNextAutoFillCommand();
         }

@@ -1,6 +1,6 @@
 import { runCommand } from './commands';
 
-function createUIMenus(): void {
+export function createUIMenus(): void {
     chrome.contextMenus.onClicked.addListener(async (e) => {
         if (!e.editable) {
             return;
@@ -71,4 +71,8 @@ function createUIMenus(): void {
     );
 }
 
-export { createUIMenus };
+export function bindExtensionButtonClick(): void {
+    chrome.browserAction.onClicked.addListener(async (tab) => {
+        await runCommand('submit-auto', tab.url);
+    });
+}

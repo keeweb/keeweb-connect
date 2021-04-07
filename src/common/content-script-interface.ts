@@ -9,3 +9,7 @@ export interface ContentScriptMessage {
     autoFill?: AutoFillArg;
     getNextAutoFillCommand?: boolean;
 }
+
+export interface ContentScriptReturn {
+    nextCommand?: string;
+}
