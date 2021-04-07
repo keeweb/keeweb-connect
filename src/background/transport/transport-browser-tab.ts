@@ -13,7 +13,6 @@ class TransportBrowserTab extends TransportBase {
     private readonly _maxTabConnectionRetries = 10;
     private readonly _tabConnectionRetryMillis = 500;
     private readonly _tabConnectionTimeoutMillis = 500;
-    private static readonly _tabsWithInjectedScripts = new Set<number>();
     private _tab: chrome.tabs.Tab;
     private _port: chrome.runtime.Port;
 
@@ -109,15 +108,11 @@ class TransportBrowserTab extends TransportBase {
 
     private injectContentScript(): Promise<void> {
         return new Promise((resolve, reject) => {
-            if (TransportBrowserTab._tabsWithInjectedScripts.has(this._tab.id)) {
-                return resolve();
-            }
             chrome.tabs.executeScript(this._tab.id, { file: 'js/content-keeweb.js' }, () => {
                 if (chrome.runtime.lastError) {
                     const msg = `Content script injection error: ${chrome.runtime.lastError.message}`;
                     reject(new Error(msg));
                 } else {
-                    TransportBrowserTab._tabsWithInjectedScripts.add(this._tab.id);
                     resolve();
                 }
             });

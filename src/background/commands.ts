@@ -7,8 +7,6 @@ import {
 } from 'common/content-script-interface';
 import { BackendConnectionState } from 'common/backend-connection-state';
 
-const tabsWithInjectedScripts = new Set<number>();
-
 function startCommandListener(): void {
     chrome.commands.onCommand.addListener(async (command) => {
         const activeTab = await getActiveTab();
@@ -19,7 +17,7 @@ function startCommandListener(): void {
 }
 
 async function runCommand(command: string, url: string): Promise<void> {
-    if (!url.startsWith('https?://')) {
+    if (!/^https?:/i.test(url)) {
         return;
     }
 
@@ -88,7 +86,7 @@ async function sendMessageToActiveTab(
 ): Promise<ContentScriptReturn> {
     const activeTab = await getActiveTab();
     if (activeTab?.url === url) {
-        await injectPageContentScript(activeTab.id);
+        await injectPageContentScript();
         return new Promise((resolve, reject) => {
             chrome.tabs.sendMessage(activeTab.id, message, (resp) => {
                 if (chrome.runtime.lastError) {
@@ -101,17 +99,13 @@ async function sendMessageToActiveTab(
     }
 }
 
-function injectPageContentScript(tabId: number): Promise<void> {
+function injectPageContentScript(): Promise<void> {
     return new Promise((resolve, reject) => {
-        if (tabsWithInjectedScripts.has(tabId)) {
-            return resolve();
-        }
         chrome.tabs.executeScript({ file: 'js/content-page.js' }, () => {
             if (chrome.runtime.lastError) {
                 const msg = `Page script injection error: ${chrome.runtime.lastError.message}`;
                 return reject(new Error(msg));
             }
-            tabsWithInjectedScripts.add(tabId);
             resolve();
         });
     });
