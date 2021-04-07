@@ -211,18 +211,21 @@ class Backend extends EventEmitter {
     private transportMessage(msg: KeeWebConnectResponse) {
         // eslint-disable-next-line no-console
         console.log('%c<- KW', this._consoleLogStyleIn, msg);
+
+        switch (msg.action) {
+            case 'database-locked':
+            case 'database-unlocked':
+                this.updateOpenDatabases();
+                return;
+        }
+
         if (this._currentRequest) {
             clearTimeout(this._currentRequest.timeout);
             this._currentRequest.resolve(msg);
             this._currentRequest = null;
-        } else {
-            switch (msg.action) {
-                case 'database-locked':
-                case 'database-unlocked':
-                    this.updateOpenDatabases();
-                    break;
-            }
         }
+
+        this.processRequestQueue();
     }
 
     private rejectPendingRequests(error: string) {

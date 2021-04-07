@@ -166,7 +166,8 @@ class ProtocolImpl {
         });
 
         try {
-            await this.request(request);
+            const response = await this.request(request);
+            this.decryptResponsePayload(request, <KeeWebConnectEncryptedResponse>response);
         } catch (e) {
             if (e instanceof ProtocolError && e.code === ProtocolErrorCode.DatabaseNotOpened) {
                 return;
