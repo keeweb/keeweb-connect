@@ -46,6 +46,9 @@ class Backend extends EventEmitter {
     private setState(state: BackendConnectionState) {
         if (this._state !== state) {
             this._state = state;
+            if (this._state !== BackendConnectionState.Connected) {
+                this._openDbHashes = [];
+            }
             this.emit('state-changed');
         }
     }
@@ -239,8 +242,6 @@ class Backend extends EventEmitter {
         (async () => {
             this._openDbHashes = await this._protocol.getDatabaseHashes();
         })().catch((e) => {
-            this._openDbHashes = [];
-
             // eslint-disable-next-line no-console
             console.error("Can't update open databases", e);
             this._connectionError = `Can't update open databases: ${e.message}`;
@@ -257,6 +258,10 @@ class Backend extends EventEmitter {
             result.set('UserName', 'user');
         }
         return Promise.resolve(result);
+    }
+
+    async lockWorkspace() {
+        await this._protocol.lockDatabase();
     }
 }
 

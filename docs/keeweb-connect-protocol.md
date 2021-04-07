@@ -56,3 +56,7 @@ Response is extended with `hashes` property to accommodate multiple databases:
     "version": "1.2.3"
 }
 ```
+
+### `lock-database`
+
+Same messages, however it will lock all open databases.

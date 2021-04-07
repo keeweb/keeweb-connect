@@ -6,7 +6,8 @@ import {
     KeeWebConnectEncryptedResponse,
     KeeWebConnectGetDatabaseHashResponsePayload,
     KeeWebConnectEncryptedRequest,
-    KeeWebConnectGetDatabaseHashRequestPayload
+    KeeWebConnectGetDatabaseHashRequestPayload,
+    KeeWebConnectLockDatabaseRequestPayload
 } from './types';
 import { fromBase64, randomBase64, randomBytes, toBase64 } from 'background/utils';
 import { box as tweetnaclBox, BoxKeyPair } from 'tweetnacl';
@@ -157,6 +158,21 @@ class ProtocolImpl {
             this.decryptResponsePayload(request, <KeeWebConnectEncryptedResponse>response)
         );
         return payload.hashes || [payload.hash];
+    }
+
+    async lockDatabase(): Promise<void> {
+        const request = this.makeEncryptedRequest(<KeeWebConnectLockDatabaseRequestPayload>{
+            action: 'lock-database'
+        });
+
+        try {
+            await this.request(request);
+        } catch (e) {
+            if (e instanceof ProtocolError && e.code === ProtocolErrorCode.DatabaseNotOpened) {
+                return;
+            }
+            throw e;
+        }
     }
 }
 

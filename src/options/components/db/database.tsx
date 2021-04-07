@@ -8,14 +8,6 @@ type DatabaseProps = {
 };
 
 const Database: FunctionComponent<DatabaseProps> = ({ db }) => {
-    const openDb = () => {
-        model.openDatabase(db);
-    };
-
-    const closeDb = () => {
-        model.closeDatabase(db);
-    };
-
     const disconnectDb = () => {
         model.disconnectDatabase(db);
     };
@@ -31,15 +23,9 @@ const Database: FunctionComponent<DatabaseProps> = ({ db }) => {
                 ) : null}
             </td>
             <td>
-                {db.state === ConnectedDatabaseState.Open ? (
-                    <button class="secondary" onClick={closeDb}>
-                        {res('optionsDatabaseActionClose')}
-                    </button>
-                ) : db.state === ConnectedDatabaseState.Closed ? (
-                    <button class="secondary" onClick={openDb}>
-                        {res('optionsDatabaseActionOpen')}
-                    </button>
-                ) : null}
+                <button class="destructive" onClick={disconnectDb}>
+                    {res('optionsDatabaseActionDisconnect')}
+                </button>
                 <button class="destructive" onClick={disconnectDb}>
                     {res('optionsDatabaseActionDisconnect')}
                 </button>

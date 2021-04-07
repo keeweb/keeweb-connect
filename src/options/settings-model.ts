@@ -176,18 +176,6 @@ class SettingsModel extends EventEmitter {
         return this._databases;
     }
 
-    openDatabase(db: ConnectedDatabase) {
-        // TODO
-        db.state = ConnectedDatabaseState.Open;
-        this.emit('change');
-    }
-
-    closeDatabase(db: ConnectedDatabase) {
-        // TODO
-        db.state = ConnectedDatabaseState.Closed;
-        this.emit('change');
-    }
-
     disconnectDatabase(db: ConnectedDatabase) {
         // TODO
         this._databases = this._databases.filter((d) => d !== db);
@@ -197,6 +185,11 @@ class SettingsModel extends EventEmitter {
     connectDatabase() {
         // TODO
         this.emit('change');
+    }
+
+    lockWorkspace() {
+        const message: BackgroundMessageFromPage = { lockWorkspace: true };
+        this._backgroundPagePort.postMessage(message);
     }
 }
 

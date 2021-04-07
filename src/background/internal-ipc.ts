@@ -21,9 +21,9 @@ function startInternalIpc(): void {
 
         connectedPorts.set(port.name, port);
 
-        port.onMessage.addListener((message) =>
-            processMessage(message as BackgroundMessageFromPage)
-        );
+        port.onMessage.addListener(async (message) => {
+            await processMessage(message as BackgroundMessageFromPage);
+        });
         port.onDisconnect.addListener(() => {
             connectedPorts.delete(port.name);
         });
@@ -42,11 +42,13 @@ function startInternalIpc(): void {
     });
 }
 
-function processMessage(message: BackgroundMessageFromPage) {
+async function processMessage(message: BackgroundMessageFromPage) {
     if (message.connectToKeeWeb) {
         backend.connect().catch(noop);
+    } else if (message.lockWorkspace) {
+        await backend.lockWorkspace();
     } else if (message.openTab) {
-        openTab(message.openTab).catch(noop);
+        await openTab(message.openTab);
     }
 }
 

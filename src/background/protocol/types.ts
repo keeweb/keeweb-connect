@@ -63,3 +63,9 @@ export interface KeeWebConnectGetDatabaseHashResponsePayload extends KeeWebConne
     hash: string;
     hashes: string[];
 }
+
+// lock-database
+
+export interface KeeWebConnectLockDatabaseRequestPayload extends KeeWebConnectRequest {
+    action: 'lock-database';
+}

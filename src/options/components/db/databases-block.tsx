@@ -9,6 +9,10 @@ const DatabasesBlock: FunctionComponent = () => {
         model.connectDatabase();
     };
 
+    const lockWorkspace = () => {
+        model.lockWorkspace();
+    };
+
     return (
         <>
             <h2 id="databases">{res('optionsDatabases')}</h2>
@@ -33,6 +37,9 @@ const DatabasesBlock: FunctionComponent = () => {
                         <p>{res('optionsDatabasesEmpty')}</p>
                     )}
                     <button onClick={connectDb}>{res('optionsDatabasesConnectDb')}</button>
+                    <button onClick={lockWorkspace} class="secondary">
+                        {res('optionsDatabasesLockWorkspace')}
+                    </button>
                 </>
             ) : (
                 <>
