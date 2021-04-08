@@ -37,9 +37,11 @@ const DatabasesBlock: FunctionComponent = () => {
                         <p>{res('optionsDatabasesEmpty')}</p>
                     )}
                     <button onClick={connectDb}>{res('optionsDatabasesConnectDb')}</button>
-                    <button onClick={lockWorkspace} class="secondary">
-                        {res('optionsDatabasesLockWorkspace')}
-                    </button>
+                    {model.databases.length ? (
+                        <button onClick={lockWorkspace} class="secondary">
+                            {res('optionsDatabasesLockWorkspace')}
+                        </button>
+                    ) : null}
                 </>
             ) : (
                 <>
