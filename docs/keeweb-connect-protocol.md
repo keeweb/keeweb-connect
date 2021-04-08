@@ -76,8 +76,9 @@ Same messages, however it will lock all open databases.
 
 ### `attention-required`
 
-Event emitted by the KeeWeb when its own tab needs user attention, for example, to approve a connection request.
+Event emitted by KeeWeb when its own tab needs user attention, for example, to approve a connection request.
 The extension must focus the tab with KeeWeb when it receives this event, because a browser tab cannot focus itself.
+Desktop apps never send this event.
 
 ```json
 {
