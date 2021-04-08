@@ -19,6 +19,12 @@ declare interface ProtocolTransportAdapter {
     request(request: KeeWebConnectRequest): Promise<KeeWebConnectResponse>;
 }
 
+declare global {
+    interface Window {
+        logDecryptedPayload: boolean;
+    }
+}
+
 class ProtocolImpl {
     private readonly _keySize = 24;
 
@@ -43,6 +49,11 @@ class ProtocolImpl {
     }
 
     private makeEncryptedRequest(payload: KeeWebConnectRequest): KeeWebConnectEncryptedRequest {
+        if (window.logDecryptedPayload) {
+            // eslint-disable-next-line no-console
+            console.log('Request payload', payload);
+        }
+
         const json = JSON.stringify(payload);
         const data = new TextEncoder().encode(json);
 
@@ -86,6 +97,11 @@ class ProtocolImpl {
 
         const json = new TextDecoder().decode(data);
         const payload = JSON.parse(json);
+
+        if (window.logDecryptedPayload) {
+            // eslint-disable-next-line no-console
+            console.log('Response payload', payload);
+        }
 
         if (!payload) {
             throw new Error('Empty response payload');
