@@ -217,6 +217,9 @@ class Backend extends EventEmitter {
             case 'database-unlocked':
                 this.updateOpenDatabases();
                 return;
+            case 'attention-required':
+                this.focusKeeWebTab();
+                return;
         }
 
         if (this._currentRequest) {
@@ -250,6 +253,10 @@ class Backend extends EventEmitter {
             this._connectionError = `Can't update open databases: ${e.message}`;
             this.setState(BackendConnectionState.Error);
         });
+    }
+
+    private focusKeeWebTab() {
+        this._transport.focusKeeWeb();
     }
 
     getFields(url: string, fields: string[]): Promise<Map<string, string>> {

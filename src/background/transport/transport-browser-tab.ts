@@ -66,6 +66,12 @@ class TransportBrowserTab extends TransportBase {
         }
     }
 
+    focusKeeWeb(): void {
+        if (this._tab) {
+            activateTab(this._tab).catch(noop);
+        }
+    }
+
     private checkPermissions(): Promise<boolean> {
         return new Promise((resolve) => {
             chrome.permissions.contains(

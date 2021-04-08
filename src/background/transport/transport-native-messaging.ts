@@ -28,6 +28,10 @@ class TransportNativeMessaging extends TransportBase {
         this._port?.postMessage(message);
     }
 
+    focusKeeWeb(): void {
+        // not needed, desktop apps can handle focus themselves
+    }
+
     private portDisconnected() {
         if (this._port) {
             this._port = undefined;

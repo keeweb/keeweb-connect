@@ -10,6 +10,7 @@ abstract class TransportBase extends EventEmitter {
     abstract connect(): Promise<void>;
     abstract disconnect(): Promise<void>;
     abstract request(message: KeeWebConnectRequest): void;
+    abstract focusKeeWeb(): void;
 }
 
 export { TransportBase };

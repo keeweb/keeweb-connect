@@ -60,3 +60,14 @@ Response is extended with `hashes` property to accommodate multiple databases:
 ### `lock-database`
 
 Same messages, however it will lock all open databases.
+
+### `attention-required`
+
+Event emitted by the app when the app needs user attention.
+The plugin must focus the KeeWeb tab when it receives this event, because a browser tab cannot focus itself.
+
+```json
+{
+    "action": "attention-required"
+}
+```

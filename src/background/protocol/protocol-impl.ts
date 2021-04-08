@@ -149,9 +149,8 @@ class ProtocolImpl {
         } catch (e) {
             if (e instanceof ProtocolError && e.code === ProtocolErrorCode.DatabaseNotOpened) {
                 return [];
-            } else {
-                throw e;
             }
+            throw e;
         }
 
         const payload = <KeeWebConnectGetDatabaseHashResponsePayload>(

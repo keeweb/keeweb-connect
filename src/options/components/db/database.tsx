@@ -26,9 +26,6 @@ const Database: FunctionComponent<DatabaseProps> = ({ db }) => {
                 <button class="destructive" onClick={disconnectDb}>
                     {res('optionsDatabaseActionDisconnect')}
                 </button>
-                <button class="destructive" onClick={disconnectDb}>
-                    {res('optionsDatabaseActionDisconnect')}
-                </button>
             </td>
         </tr>
     );
