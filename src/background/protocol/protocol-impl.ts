@@ -85,6 +85,13 @@ class ProtocolImpl {
         const json = new TextDecoder().decode(data);
         const payload = JSON.parse(json);
 
+        if (!payload) {
+            throw new Error('Empty response payload');
+        }
+        if (payload.nonce !== response.nonce) {
+            throw new Error("Response nonce doesn't match");
+        }
+
         return ProtocolImpl.checkResponseError(payload);
     }
 
