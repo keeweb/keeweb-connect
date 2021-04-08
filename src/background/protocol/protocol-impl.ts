@@ -7,7 +7,9 @@ import {
     KeeWebConnectGetDatabaseHashResponsePayload,
     KeeWebConnectEncryptedRequest,
     KeeWebConnectGetDatabaseHashRequestPayload,
-    KeeWebConnectLockDatabaseRequestPayload
+    KeeWebConnectLockDatabaseRequestPayload,
+    KeeWebConnectGeneratePasswordRequest,
+    KeeWebConnectGeneratePasswordResponsePayload
 } from './types';
 import { fromBase64, randomBase64, randomBytes, toBase64 } from 'background/utils';
 import { box as tweetnaclBox, BoxKeyPair } from 'tweetnacl';
@@ -164,6 +166,24 @@ class ProtocolImpl {
             this.decryptResponsePayload(request, <KeeWebConnectEncryptedResponse>response)
         );
         return payload.hashes || [payload.hash];
+    }
+
+    async generatePassword(): Promise<string> {
+        const request: KeeWebConnectGeneratePasswordRequest = {
+            action: 'generate-password',
+            nonce: toBase64(this.generateNonce()),
+            message: undefined,
+            clientID: this._clientId
+        };
+        const response = await this.request(request);
+        const payload = <KeeWebConnectGeneratePasswordResponsePayload>(
+            this.decryptResponsePayload(request, <KeeWebConnectEncryptedResponse>response)
+        );
+        const password = payload.entries?.[0]?.password;
+        if (!password) {
+            throw new Error('Password was not generated');
+        }
+        return password;
     }
 
     async lockDatabase(): Promise<void> {

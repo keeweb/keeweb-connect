@@ -64,6 +64,23 @@ export interface KeeWebConnectGetDatabaseHashResponsePayload extends KeeWebConne
     hashes: string[];
 }
 
+// generate-password
+
+export interface KeeWebConnectGeneratePasswordRequest extends KeeWebConnectEncryptedRequest {
+    action: 'generate-password';
+}
+
+export interface KeeWebConnectGeneratedPassword {
+    entropy: number;
+    login: number;
+    password: string;
+}
+
+export interface KeeWebConnectGeneratePasswordResponsePayload extends KeeWebConnectResponse {
+    action: 'generate-password';
+    entries: KeeWebConnectGeneratedPassword[];
+}
+
 // lock-database
 
 export interface KeeWebConnectLockDatabaseRequestPayload extends KeeWebConnectRequest {
