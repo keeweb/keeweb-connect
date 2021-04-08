@@ -138,6 +138,7 @@ class ProtocolImpl {
     async changePublicKeys(): Promise<void> {
         const request: KeeWebConnectChangePublicKeysRequest = {
             action: 'change-public-keys',
+            extensionName: 'keeweb-connect',
             publicKey: toBase64(this._keys.publicKey),
             nonce: toBase64(this.generateNonce()),
             clientID: this._clientId

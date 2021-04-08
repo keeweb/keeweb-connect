@@ -32,7 +32,20 @@ Response:
 
 ### `change-public-keys`
 
-Added `appName` to response to be able to identify the app:
+To be able to identify the app and extension, response and request are extended with additional fields:
+
+Request:
+```diff
+{
+    "action": "change-public-keys",
++    "extensionName": "keeweb-connect",
+    "publicKey": "<client public key>",
+    "nonce": "34e5d6t7gy8jok",
+    "clientID": "<clientID>"
+}
+```
+
+Response:
 ```diff
 {
     "action": "change-public-keys",
@@ -51,8 +64,8 @@ Response is extended with `hashes` property to accommodate multiple databases:
 ```diff
 {
     "action": "hash",
-    "hash": "12345",
-+    "hashes": ["12345", "67890"],
+    "hash": "h7g86f67fygu",
++    "hashes": ["w112wewe21w123", "12w2e1212e1e"],
     "version": "1.2.3"
 }
 ```
