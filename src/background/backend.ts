@@ -125,6 +125,8 @@ class Backend extends EventEmitter {
             console.log('Connected to KeeWeb');
 
             this.emit('connect-finished');
+
+            this.updateOpenDatabases();
         } catch (e) {
             // eslint-disable-next-line no-console
             console.error('Connect error', e);
@@ -134,8 +136,6 @@ class Backend extends EventEmitter {
 
             this.emit('connect-finished', e);
         }
-
-        this.updateOpenDatabases();
     }
 
     private resetStateByConfig() {

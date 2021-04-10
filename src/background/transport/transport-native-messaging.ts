@@ -35,7 +35,7 @@ class TransportNativeMessaging extends TransportBase {
     private portDisconnected() {
         if (this._port) {
             this._port = undefined;
-            this.emit('disconnected');
+            this.emit('disconnected', chrome.runtime.lastError?.message);
         }
     }
 
