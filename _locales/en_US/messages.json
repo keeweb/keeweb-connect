@@ -10,6 +10,7 @@
 
   "menuOtherOptions": { "message": "Other options" },
 
+  "errorConnectionError": { "message": "Cannot connect to KeeWeb, please check if KeeWeb is open and browser integration is enabled in settings" },
   "errorKeeWebDisconnected": { "message": "KeeWeb disconnected from the extension" },
   "errorBrowserTabNoPermissions": { "message": "Permission to access $1 was not granted" },
   "errorBrowserCannotCreateTab": { "message": "Cannot create a new tab" },

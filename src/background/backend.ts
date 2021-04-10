@@ -161,7 +161,12 @@ class Backend extends EventEmitter {
             // eslint-disable-next-line no-console
             console.log('KeeWeb disconnected');
 
-            this._connectionError = chrome.i18n.getMessage('errorKeeWebDisconnected');
+            if (this.state === BackendConnectionState.Connecting) {
+                this._connectionError = chrome.i18n.getMessage('errorConnectionError');
+            } else {
+                this._connectionError = chrome.i18n.getMessage('errorKeeWebDisconnected');
+            }
+
             this.setState(BackendConnectionState.Error);
 
             this.rejectPendingRequests(this._connectionError);
