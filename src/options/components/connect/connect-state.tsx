@@ -13,8 +13,7 @@ const ConnectState: FunctionComponent = () => {
     return (
         <>
             <p>
-                {res('optionsConnectionState')}
-                {': '}
+                {res('optionsConnectionState')}{' '}
                 {state === BackendConnectionState.Error ? (
                     <span class="error">{res('optionsConnectionStateError')}</span>
                 ) : null}

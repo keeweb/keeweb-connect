@@ -5,7 +5,13 @@ const Footer: FunctionComponent = () => {
     return (
         <>
             <h2 id="about">{res('optionsAbout')}</h2>
-            <p>{res('optionsAboutLicense')}:</p>
+            <p>
+                {res('optionsAboutContact')}{' '}
+                <a href="https://github.com/keeweb/keeweb-browser" target="_blank" rel="noreferrer">
+                    https://github.com/keeweb/keeweb-browser
+                </a>
+            </p>
+            <p>{res('optionsAboutLicense')}</p>
             <ul>
                 <li>
                     <a href="https://preactjs.com/" target="_blank" rel="noreferrer">

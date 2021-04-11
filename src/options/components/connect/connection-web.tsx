@@ -44,7 +44,7 @@ const ConnectionWeb: FunctionComponent = () => {
 
     return (
         <>
-            <p>{res('optionsWebConnectionKeeWebUrl')}:</p>
+            <p>{res('optionsWebConnectionKeeWebUrl')}</p>
             <div>
                 <form onSubmit={changeKeeWebUrl}>
                     <input
@@ -72,7 +72,7 @@ const ConnectionWeb: FunctionComponent = () => {
             <div class="error top-padding-small">{inputKeeWebUrlError}</div>
             {model.canAccessKeeWebTab === false ? (
                 <>
-                    <p>{res('optionsWebConnectionTabPermission')}:</p>
+                    <p>{res('optionsWebConnectionTabPermission')}</p>
                     <div>
                         <button onClick={askKeeWebTabPermission}>
                             {res('optionsWebConnectionTabPermissionButton')}

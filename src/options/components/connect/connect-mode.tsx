@@ -14,7 +14,7 @@ const ConnectMode: FunctionComponent = () => {
 
     return (
         <>
-            <p>{res('optionsConnectionMode')}:</p>
+            <p>{res('optionsConnectionMode')}</p>
             <ul>
                 <li>
                     <label>
@@ -25,8 +25,7 @@ const ConnectMode: FunctionComponent = () => {
                             checked={model.useNativeApp}
                             onChange={() => setUseNativeApp(true)}
                         />{' '}
-                        {res('optionsConnectionModeApp')}
-                        {': '}
+                        {res('optionsConnectionModeApp')}{' '}
                         <a
                             href="https://github.com/keeweb/keeweb/releases/latest"
                             target="_blank"
@@ -46,8 +45,7 @@ const ConnectMode: FunctionComponent = () => {
                             checked={model.useWebApp}
                             onChange={() => setUseNativeApp(false)}
                         />{' '}
-                        {res('optionsConnectionModeWeb')}
-                        {': '}
+                        {res('optionsConnectionModeWeb')}{' '}
                         <a target="_blank" rel="noreferrer" onClick={openKeeWebTab}>
                             {res('optionsConnectionModeWebLink')}
                         </a>
