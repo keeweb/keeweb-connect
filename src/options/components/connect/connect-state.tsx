@@ -15,9 +15,6 @@ const ConnectState: FunctionComponent = () => {
             <p>
                 {res('optionsConnectionState')}
                 {': '}
-                {state === BackendConnectionState.NotConfigured ? (
-                    <span class="error">{res('optionsConnectionStateNotConfigured')}</span>
-                ) : null}
                 {state === BackendConnectionState.Error ? (
                     <span class="error">{res('optionsConnectionStateError')}</span>
                 ) : null}
@@ -31,8 +28,7 @@ const ConnectState: FunctionComponent = () => {
                     <span class="success">{res('optionsConnectionStateConnected')}</span>
                 ) : null}
             </p>
-            {state === BackendConnectionState.NotConfigured ||
-            state === BackendConnectionState.ReadyToConnect ||
+            {state === BackendConnectionState.ReadyToConnect ||
             state === BackendConnectionState.Error ? (
                 <div>
                     {model.backendConnectionError ? (

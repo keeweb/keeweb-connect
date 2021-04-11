@@ -132,8 +132,7 @@ class Backend extends EventEmitter {
     private resetStateByConfig() {
         this._connectionError = undefined;
 
-        // this.setState(BackendConnectionState.ReadyToConnect); // TODO: understand when we can connect
-        this.setState(BackendConnectionState.NotConfigured);
+        this.setState(BackendConnectionState.ReadyToConnect);
 
         // eslint-disable-next-line no-console
         console.log('Config changed');

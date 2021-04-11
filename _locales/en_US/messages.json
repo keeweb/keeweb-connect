@@ -35,7 +35,6 @@
   "optionsWebConnectionKeeWebUrlInvalid": { "message": "The URL is not valid" },
   "optionsWebConnectionKeeWebUrlNotHttps": { "message": "The URL must start with https://" },
   "optionsConnectionState": { "message": "Connection state" },
-  "optionsConnectionStateNotConfigured": { "message": "Not configured" },
   "optionsConnectionStateError": { "message": "Error" },
   "optionsConnectionStateConnecting": { "message": "Connecting" },
   "optionsConnectionStateReadyToConnect": { "message": "Ready to connect" },

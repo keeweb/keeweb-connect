@@ -35,7 +35,9 @@ class TransportNativeMessaging extends TransportBase {
     private portDisconnected() {
         if (this._port) {
             this._port = undefined;
-            this.emit('disconnected', chrome.runtime.lastError?.message);
+            // eslint-disable-next-line no-console
+            console.log('KeeWeb host disconnected', chrome.runtime.lastError?.message);
+            this.emit('disconnected');
         }
     }
 
