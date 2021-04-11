@@ -165,7 +165,7 @@ class ProtocolImpl {
         this._connectedAppName = response.appName;
     }
 
-    async getDatabaseHashes(): Promise<string[]> {
+    async getDatabaseHash(): Promise<string> {
         const request = this.makeEncryptedRequest(<KeeWebConnectGetDatabaseHashRequestPayload>{
             action: 'get-databasehash'
         });
@@ -175,7 +175,7 @@ class ProtocolImpl {
             response = await this.request(request);
         } catch (e) {
             if (e instanceof ProtocolError && e.code === ProtocolErrorCode.DatabaseNotOpened) {
-                return [];
+                return undefined;
             }
             throw e;
         }
@@ -183,7 +183,7 @@ class ProtocolImpl {
         const payload = <KeeWebConnectGetDatabaseHashResponsePayload>(
             this.decryptResponsePayload(request, <KeeWebConnectEncryptedResponse>response)
         );
-        return payload.hashes || [payload.hash];
+        return payload.hash;
     }
 
     async generatePassword(): Promise<string> {

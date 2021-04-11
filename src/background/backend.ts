@@ -38,7 +38,7 @@ class Backend extends EventEmitter {
     private _requestQueue: RequestQueueItem[] = [];
     private _currentRequest: RequestQueueItem;
     private _protocol: ProtocolImpl;
-    private _openDbHashes: string[] = [];
+    private _openDbHash: string = undefined;
 
     get state(): BackendConnectionState {
         return this._state;
@@ -47,7 +47,7 @@ class Backend extends EventEmitter {
         if (this._state !== state) {
             this._state = state;
             if (this._state !== BackendConnectionState.Connected) {
-                this._openDbHashes = [];
+                this._openDbHash = undefined;
             }
             this.emit('state-changed');
         }
@@ -251,7 +251,7 @@ class Backend extends EventEmitter {
 
     private updateOpenDatabases() {
         (async () => {
-            this._openDbHashes = await this._protocol.getDatabaseHashes();
+            this._openDbHash = await this._protocol.getDatabaseHash();
         })().catch((e) => {
             // eslint-disable-next-line no-console
             console.error("Can't update open databases", e);
