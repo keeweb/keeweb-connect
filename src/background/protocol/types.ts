@@ -41,6 +41,7 @@ export interface KeeWebConnectPingResponse extends KeeWebConnectResponse {
 export interface KeeWebConnectChangePublicKeysRequest extends KeeWebConnectRequest {
     action: 'change-public-keys';
     extensionName: string;
+    version: string;
     publicKey: string;
     nonce: string;
     clientID: string;

@@ -39,6 +39,7 @@ Request:
 {
     "action": "change-public-keys",
 +    "extensionName": "keeweb-connect",
++    "version": "1.0",
     "publicKey": "<client public key>",
     "nonce": "34e5d6t7gy8jok",
     "clientID": "<clientID>"
