@@ -4,7 +4,10 @@ import { startInternalIpc } from './internal-ipc';
 import { startCommandListener } from './commands';
 import { BackendConnectionState } from 'common/backend-connection-state';
 
-chrome.runtime.onInstalled.addListener(async () => {
+chrome.runtime.onStartup.addListener(start);
+chrome.runtime.onInstalled.addListener(start);
+
+async function start() {
     startCommandListener();
     createUIMenus();
     bindExtensionButtonClick();
@@ -14,4 +17,4 @@ chrome.runtime.onInstalled.addListener(async () => {
     if (backend.state === BackendConnectionState.NotConfigured) {
         chrome.runtime.openOptionsPage();
     }
-});
+}
