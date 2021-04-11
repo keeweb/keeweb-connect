@@ -1,5 +1,5 @@
 import { TransportBase } from './transport-base';
-import { activateTab, getActiveTab, randomBase64 } from 'background/utils';
+import { activateTab, randomBase64 } from 'background/utils';
 import {
     KeeWebConnectRequest,
     KeeWebConnectResponse,
@@ -28,25 +28,17 @@ class TransportBrowserTab extends TransportBase {
             throw new Error(msg);
         }
 
-        const activeTab = await getActiveTab();
         this._tab = await this.findOrCreateTab();
 
         await this.injectContentScript();
 
         this._port = await this.connectToTab(this._maxTabConnectionRetries);
         if (!this._port) {
-            if (activeTab && this._tab.id !== activeTab.id) {
-                await activateTab(activeTab);
-            }
             throw new Error(chrome.i18n.getMessage('errorBrowserCannotConnectToTab'));
         }
 
         this._port.onDisconnect.addListener(() => this.portDisconnected());
         this._port.onMessage.addListener((msg) => this.portMessage(msg));
-
-        if (activeTab && this._tab.id !== activeTab.id) {
-            await activateTab(activeTab);
-        }
     }
 
     disconnect(): Promise<void> {

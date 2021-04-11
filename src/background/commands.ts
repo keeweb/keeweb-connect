@@ -1,27 +1,26 @@
 import { backend } from './backend';
-import { getActiveTab } from './utils';
 import {
     AutoFillArg,
     ContentScriptMessage,
     ContentScriptReturn
 } from 'common/content-script-interface';
 import { BackendConnectionState } from 'common/backend-connection-state';
+import { activateTab } from './utils';
 
 function startCommandListener(): void {
-    chrome.commands.onCommand.addListener(async (command) => {
-        const activeTab = await getActiveTab();
-        if (activeTab?.url) {
-            await runCommand(command, activeTab.url);
-        }
+    chrome.commands.onCommand.addListener(async (command, tab) => {
+        await runCommand(command, tab, tab.url);
     });
 }
 
-async function runCommand(command: string, url: string): Promise<void> {
+async function runCommand(command: string, tab: chrome.tabs.Tab, url: string): Promise<void> {
     if (!/^https?:/i.test(url)) {
         return;
     }
 
     await backend.connect();
+    await activateTab(tab);
+
     if (backend.state !== BackendConnectionState.Connected) {
         chrome.runtime.openOptionsPage();
     }
@@ -39,9 +38,9 @@ async function runCommand(command: string, url: string): Promise<void> {
     };
 
     if (options.auto) {
-        const nextCommand = await getNextAutoFillCommand(url);
+        const nextCommand = await getNextAutoFillCommand(tab, url);
         if (nextCommand) {
-            await runCommand(nextCommand, url);
+            await runCommand(nextCommand, tab, url);
         }
         return;
     }
@@ -64,31 +63,35 @@ async function runCommand(command: string, url: string): Promise<void> {
     const user = fieldValues.get('UserName');
     const pass = fieldValues.get('Password');
 
-    await autoFill(url, {
+    await autoFill(tab, url, {
         text: options.username ? user : options.password ? pass : undefined,
         password: options.username ? (options.password ? pass : undefined) : undefined,
         submit: options.submit
     });
 }
 
-async function getNextAutoFillCommand(url: string): Promise<string> {
-    const resp = await sendMessageToActiveTab(url, { url, getNextAutoFillCommand: true });
+async function getNextAutoFillCommand(tab: chrome.tabs.Tab, url: string): Promise<string> {
+    const resp = await sendMessageToTab(tab, url, { url, getNextAutoFillCommand: true });
     return resp?.nextCommand;
 }
 
-async function autoFill(url: string, options: AutoFillArg): Promise<ContentScriptReturn> {
-    return await sendMessageToActiveTab(url, { url, autoFill: options });
+async function autoFill(
+    tab: chrome.tabs.Tab,
+    url: string,
+    options: AutoFillArg
+): Promise<ContentScriptReturn> {
+    return await sendMessageToTab(tab, url, { url, autoFill: options });
 }
 
-async function sendMessageToActiveTab(
+async function sendMessageToTab(
+    tab: chrome.tabs.Tab,
     url: string,
     message: ContentScriptMessage
 ): Promise<ContentScriptReturn> {
-    const activeTab = await getActiveTab();
-    if (activeTab?.url === url) {
+    if (tab.url === url) {
         await injectPageContentScript();
         return new Promise((resolve, reject) => {
-            chrome.tabs.sendMessage(activeTab.id, message, (resp) => {
+            chrome.tabs.sendMessage(tab.id, message, (resp) => {
                 if (chrome.runtime.lastError) {
                     const msg = `Cannot send message to page: ${chrome.runtime.lastError.message}`;
                     return reject(new Error(msg));

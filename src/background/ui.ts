@@ -1,13 +1,12 @@
 import { runCommand } from './commands';
 
 export function createUIMenus(): void {
-    chrome.contextMenus.onClicked.addListener(async (e) => {
+    chrome.contextMenus.onClicked.addListener(async (e, tab) => {
         if (!e.editable) {
             return;
         }
         const command = e.menuItemId;
-        const url = e.frameUrl || e.pageUrl;
-        await runCommand(command, url);
+        await runCommand(command, tab, e.frameUrl || e.pageUrl);
     });
 
     chrome.contextMenus.create(
@@ -73,6 +72,6 @@ export function createUIMenus(): void {
 
 export function bindExtensionButtonClick(): void {
     chrome.browserAction.onClicked.addListener(async (tab) => {
-        await runCommand('submit-auto', tab.url);
+        await runCommand('submit-auto', tab, tab.url);
     });
 }
