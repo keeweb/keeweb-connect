@@ -1,0 +1,9 @@
+{
+  "allowed_extensions": [
+    "keeweb-connect@keeweb.info"
+  ],
+  "description": "KeeWeb native messaging host",
+  "name": "net.antelle.keeweb.keeweb_connect",
+  "path": "keeweb-native-messaging-host",
+  "type": "stdio"
+}
