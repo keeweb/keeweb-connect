@@ -73,7 +73,11 @@ Response is extended with `hashes` property to accommodate multiple databases:
 
 ### `lock-database`
 
-Same messages, however it will lock all open databases.
+Same contract, however it will lock all open databases.
+
+### `generate-password`
+
+Same contract, but passwords will be returned even if there's no open database.
 
 ### `attention-required`
 
