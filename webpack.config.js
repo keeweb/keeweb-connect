@@ -40,6 +40,7 @@ export default {
                 { from: '_locales', to: '_locales' },
                 { from: 'icons', to: 'icons' },
                 { from: 'pages', to: 'pages' },
+                { from: 'img', to: 'img' },
                 { from: 'styles', to: 'styles' },
                 {
                     from: 'manifest.json',
