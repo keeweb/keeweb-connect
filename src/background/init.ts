@@ -5,7 +5,12 @@ import { startCommandListener } from './commands';
 import { BackendConnectionState } from 'common/backend-connection-state';
 
 chrome.runtime.onStartup.addListener(start);
-chrome.runtime.onInstalled.addListener(start);
+chrome.runtime.onInstalled.addListener(async (e) => {
+    await start();
+    if (e.reason === 'install') {
+        openSettingsIfNotConfigured();
+    }
+});
 
 async function start() {
     startCommandListener();
@@ -14,6 +19,9 @@ async function start() {
     startInternalIpc();
 
     await backend.init();
+}
+
+function openSettingsIfNotConfigured() {
     if (backend.state === BackendConnectionState.NotConfigured) {
         chrome.runtime.openOptionsPage();
     }
