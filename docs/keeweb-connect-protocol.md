@@ -9,6 +9,15 @@ because it works well with several databases open at the same time.
 However, KeeWeb Connect extension will work only with KeeWeb
 because it's relying on our additions.
 
+
+## Overall differences
+
+Extensions cannot save database ID safely. This means that KeeWeb will present a question
+every time an extension is trying to connect.
+
+This way you connect to KeeWeb instead of a particular database, 
+and the user can choose what exactly to share when it comes to sharing credentials.
+
 ## List of modifications
 
 ### `ping`
@@ -59,25 +68,20 @@ Response:
 
 ### `get-databasehash`
 
-`hash` is set to the ID of the first open database for backward compatibility.
+`hash` is always set to `sha256('KeeWeb')`.
 
-Response is extended with `hashes` property to accommodate multiple databases:
-```diff
-{
-    "action": "hash",
-    "hash": "h7g86f67fygu",
-+    "hashes": ["w112wewe21w123", "12w2e1212e1e"],
-    "version": "1.2.3"
-}
-```
+### `associate`
 
-### `lock-database`
+This is a no-op, it won't store anything in the file.
+It will always return `KeeWeb` as a database ID and the same hash.
 
-Same contract, however it will lock all open databases.
+### `test-associate`
+
+Always returns success assuming the client is authenticated and there's an open file.
 
 ### `generate-password`
 
-Same contract, but passwords will be returned even if there's no open database.
+Same contract, but passwords will be generated even if there's no open database.
 
 ### `attention-required`
 

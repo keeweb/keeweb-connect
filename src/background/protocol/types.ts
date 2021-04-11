@@ -62,7 +62,6 @@ export interface KeeWebConnectGetDatabaseHashRequestPayload extends KeeWebConnec
 
 export interface KeeWebConnectGetDatabaseHashResponsePayload extends KeeWebConnectResponse {
     hash: string;
-    hashes: string[];
 }
 
 // generate-password
