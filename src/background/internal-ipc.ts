@@ -45,8 +45,6 @@ function startInternalIpc(): void {
 async function processMessage(message: BackgroundMessageFromPage) {
     if (message.connectToKeeWeb) {
         backend.connect().catch(noop);
-    } else if (message.lockWorkspace) {
-        await backend.lockWorkspace();
     } else if (message.openTab) {
         await openTab(message.openTab);
     }

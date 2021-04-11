@@ -6,13 +6,6 @@ import { TransportBrowserTab } from './transport/transport-browser-tab';
 import { KeeWebConnectRequest, KeeWebConnectResponse } from './protocol/types';
 import { ProtocolImpl } from './protocol/protocol-impl';
 
-interface KeeWebDbKey {
-    name: string;
-    dbHash: string;
-    idKey: string;
-    created: number;
-}
-
 interface RequestQueueItem {
     request: KeeWebConnectRequest;
     resolve: (response: KeeWebConnectResponse) => void;
@@ -34,11 +27,10 @@ class Backend extends EventEmitter {
     private _state: BackendConnectionState;
     private _connectionError: string;
     private _transport: TransportBase;
-    private _dbKeys: KeeWebDbKey[] = [];
     private _requestQueue: RequestQueueItem[] = [];
     private _currentRequest: RequestQueueItem;
     private _protocol: ProtocolImpl;
-    private _openDbHash: string = undefined;
+    private _dbIsOpen = false;
 
     get state(): BackendConnectionState {
         return this._state;
@@ -47,7 +39,7 @@ class Backend extends EventEmitter {
         if (this._state !== state) {
             this._state = state;
             if (this._state !== BackendConnectionState.Connected) {
-                this._openDbHash = undefined;
+                this._dbIsOpen = undefined;
             }
             this.emit('state-changed');
         }
@@ -64,10 +56,9 @@ class Backend extends EventEmitter {
     init(): Promise<void> {
         return new Promise((resolve) => {
             chrome.storage.onChanged.addListener((changes) => this.storageChanged(changes));
-            chrome.storage.local.get(['useNativeApp', 'keeWebUrl', 'keys'], (storageData) => {
+            chrome.storage.local.get(['useNativeApp', 'keeWebUrl'], (storageData) => {
                 this._useNativeApp = storageData.useNativeApp ?? true;
                 this._keeWebUrl = storageData.keeWebUrl;
-                this._dbKeys = storageData.keys ?? []; // TODO: better key storage
                 this.resetStateByConfig();
                 resolve();
             });
@@ -126,7 +117,7 @@ class Backend extends EventEmitter {
 
             this.emit('connect-finished');
 
-            this.updateOpenDatabases();
+            this.updateOpenDatabase();
         } catch (e) {
             // eslint-disable-next-line no-console
             console.error('Connect error', e);
@@ -140,11 +131,9 @@ class Backend extends EventEmitter {
 
     private resetStateByConfig() {
         this._connectionError = undefined;
-        if (this._dbKeys.length) {
-            this.setState(BackendConnectionState.ReadyToConnect);
-        } else {
-            this.setState(BackendConnectionState.NotConfigured);
-        }
+
+        // this.setState(BackendConnectionState.ReadyToConnect); // TODO: understand when we can connect
+        this.setState(BackendConnectionState.NotConfigured);
 
         // eslint-disable-next-line no-console
         console.log('Config changed');
@@ -219,8 +208,10 @@ class Backend extends EventEmitter {
 
         switch (msg.action) {
             case 'database-locked':
+                this._dbIsOpen = false;
+                return;
             case 'database-unlocked':
-                this.updateOpenDatabases();
+                this._dbIsOpen = true;
                 return;
             case 'attention-required':
                 this.focusKeeWebTab();
@@ -249,9 +240,10 @@ class Backend extends EventEmitter {
         this._requestQueue.length = 0;
     }
 
-    private updateOpenDatabases() {
+    private updateOpenDatabase() {
         (async () => {
-            this._openDbHash = await this._protocol.getDatabaseHash();
+            const dbHash = await this._protocol.getDatabaseHash();
+            this._dbIsOpen = dbHash !== undefined;
         })().catch((e) => {
             // eslint-disable-next-line no-console
             console.error("Can't update open databases", e);
@@ -273,10 +265,6 @@ class Backend extends EventEmitter {
             result.set('UserName', 'user');
         }
         return Promise.resolve(result);
-    }
-
-    async lockWorkspace() {
-        await this._protocol.lockDatabase();
     }
 }
 

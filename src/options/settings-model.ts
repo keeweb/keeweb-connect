@@ -2,7 +2,6 @@ import { EventEmitter } from 'events';
 import { OptionsPageMessage } from 'common/options-page-interface';
 import { BackendConnectionState } from 'common/backend-connection-state';
 import { BackgroundMessageFromPage } from 'common/background-interface';
-import { ConnectedDatabase, ConnectedDatabaseState } from 'common/connected-database';
 import { noop } from 'common/utils';
 
 class SettingsModel extends EventEmitter {
@@ -16,10 +15,6 @@ class SettingsModel extends EventEmitter {
     private _chromeCommands: chrome.commands.Command[];
     private _backendConnectionState: BackendConnectionState;
     private _backendConnectionError: string;
-    private _databases: ConnectedDatabase[] = [
-        { name: 'Hello', state: ConnectedDatabaseState.Open, dbHash: '123' },
-        { name: 'World', state: ConnectedDatabaseState.Closed, dbHash: '456' }
-    ];
 
     async init() {
         await this.loadStorageConfig();
@@ -171,28 +166,8 @@ class SettingsModel extends EventEmitter {
         const message: BackgroundMessageFromPage = { openTab: this.keeWebUrl };
         this._backgroundPagePort.postMessage(message);
     }
-
-    get databases(): ConnectedDatabase[] {
-        return this._databases;
-    }
-
-    disconnectDatabase(db: ConnectedDatabase) {
-        // TODO
-        this._databases = this._databases.filter((d) => d !== db);
-        this.emit('change');
-    }
-
-    connectDatabase() {
-        // TODO
-        this.emit('change');
-    }
-
-    lockWorkspace() {
-        const message: BackgroundMessageFromPage = { lockWorkspace: true };
-        this._backgroundPagePort.postMessage(message);
-    }
 }
 
 const model = new SettingsModel();
 
-export { model, ConnectedDatabase };
+export { model };
