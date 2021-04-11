@@ -19,7 +19,7 @@ async function runCommand(command: string, tab: chrome.tabs.Tab, url: string): P
     }
 
     await backend.connect();
-    await activateTab(tab);
+    await activateTab(tab.id);
 
     if (backend.state !== BackendConnectionState.Connected) {
         chrome.runtime.openOptionsPage();

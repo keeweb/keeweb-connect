@@ -60,7 +60,7 @@ class TransportBrowserTab extends TransportBase {
 
     focusKeeWeb(): void {
         if (this._tab) {
-            activateTab(this._tab).catch(noop);
+            activateTab(this._tab.id).catch(noop);
         }
     }
 

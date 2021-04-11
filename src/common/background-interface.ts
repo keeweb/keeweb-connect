@@ -1,4 +1,4 @@
 export interface BackgroundMessageFromPage {
-    connectToKeeWeb?: boolean;
+    connectToKeeWeb?: { activeTabId: number };
     openTab?: string;
 }

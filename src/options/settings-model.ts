@@ -158,8 +158,10 @@ class SettingsModel extends EventEmitter {
     }
 
     connectToKeeWeb() {
-        const message: BackgroundMessageFromPage = { connectToKeeWeb: true };
-        this._backgroundPagePort.postMessage(message);
+        chrome.tabs.getCurrent((tab) => {
+            const message: BackgroundMessageFromPage = { connectToKeeWeb: { activeTabId: tab.id } };
+            this._backgroundPagePort.postMessage(message);
+        });
     }
 
     openKeeWebTab() {
