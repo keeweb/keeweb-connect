@@ -1,4 +1,12 @@
-if (!chrome.runtime.onConnect.hasListeners()) {
+declare global {
+    interface Window {
+        kwExtensionInstalled: boolean;
+    }
+}
+
+if (!window.kwExtensionInstalled) {
+    window.kwExtensionInstalled = true;
+
     chrome.runtime.onConnect.addListener((port) => {
         if (port.sender.id !== chrome.runtime.id) {
             return;
@@ -30,3 +38,5 @@ if (!chrome.runtime.onConnect.hasListeners()) {
         });
     });
 }
+
+export {};

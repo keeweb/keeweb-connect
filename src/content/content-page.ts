@@ -4,7 +4,15 @@ import {
     ContentScriptReturn
 } from 'common/content-script-interface';
 
-if (!chrome.runtime.onMessage.hasListeners()) {
+declare global {
+    interface Window {
+        kwExtensionInstalled: boolean;
+    }
+}
+
+if (!window.kwExtensionInstalled) {
+    window.kwExtensionInstalled = true;
+
     chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         if (sender.id !== chrome.runtime.id) {
             return;
@@ -107,3 +115,5 @@ if (!chrome.runtime.onMessage.hasListeners()) {
         }
     });
 }
+
+export {};
