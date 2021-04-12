@@ -22,6 +22,7 @@
   ],
   "optional_permissions": [
     "tabs",
+    "http://*/",
     "https://*/"
   ],
   "content_security_policy": "default-src 'self'",

@@ -1,4 +1,7 @@
 {
+  "allowed_origins": [
+    "chrome-extension://enjifmdnhaddmajefhfaoglcfdobkcpj/"
+  ],
   "allowed_extensions": [
     "keeweb-connect@keeweb.info"
   ],
