@@ -34,7 +34,7 @@ if (!window.kwExtensionInstalled) {
 
         function getNextAutoFillCommand() {
             const input = <HTMLInputElement>document.activeElement;
-            if (!input) {
+            if (input?.tagName !== 'INPUT') {
                 return;
             }
 

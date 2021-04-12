@@ -260,7 +260,7 @@ class Backend extends EventEmitter {
         if (fields.includes('Password')) {
             result.set('Password', 'p@ssw0rd');
         }
-        if (fields.includes('Password')) {
+        if (fields.includes('UserName')) {
             result.set('UserName', 'user');
         }
         return Promise.resolve(result);

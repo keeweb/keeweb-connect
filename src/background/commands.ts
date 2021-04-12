@@ -7,50 +7,52 @@ import {
 import { BackendConnectionState } from 'common/backend-connection-state';
 import { activateTab } from './utils';
 
+interface CommandArgs {
+    command: string;
+    tab: chrome.tabs.Tab;
+    url?: string;
+    frameId?: number;
+}
+
+interface Frame {
+    id: number;
+    url: string;
+}
+
 function startCommandListener(): void {
     chrome.commands.onCommand.addListener(async (command, tab) => {
-        await runCommand(command, tab, tab.url);
+        await runCommand({ command, tab });
     });
 }
 
-async function runCommand(command: string, tab: chrome.tabs.Tab, url: string): Promise<void> {
-    if (!/^https?:/i.test(url)) {
-        return;
-    }
-
+async function runCommand(args: CommandArgs): Promise<void> {
     await backend.connect();
-    await activateTab(tab.id);
-
     if (backend.state !== BackendConnectionState.Connected) {
         chrome.runtime.openOptionsPage();
-    }
-
-    if (url.startsWith(backend.keeWebUrl)) {
         return;
     }
 
-    const options = {
-        auto: command.includes('auto'),
-        username: command.includes('username'),
-        password: command.includes('password'),
-        submit: command.includes('submit'),
-        other: command.includes('other')
-    };
+    await activateTab(args.tab.id);
 
-    if (options.auto) {
-        const nextCommand = await getNextAutoFillCommand(tab, url);
+    if (args.command.includes('auto')) {
+        const nextCommand = await getNextAutoFillCommand(args);
         if (nextCommand) {
-            await runCommand(nextCommand, tab, url);
+            await runCommand(nextCommand);
         }
         return;
     }
 
-    if (options.other) {
-        // not implemented
+    if (!isValidUrl(args.url) || typeof args.frameId !== 'number') {
         return;
     }
 
-    const fieldsToGet = [];
+    const options = {
+        username: args.command.includes('username'),
+        password: args.command.includes('password'),
+        submit: args.command.includes('submit')
+    };
+
+    const fieldsToGet: string[] = [];
     if (options.username) {
         fieldsToGet.push('UserName');
     }
@@ -58,58 +60,93 @@ async function runCommand(command: string, tab: chrome.tabs.Tab, url: string): P
         fieldsToGet.push('Password');
     }
 
-    const fieldValues = await backend.getFields(url, fieldsToGet);
+    const fieldValues = await backend.getFields(args.url, fieldsToGet);
 
     const user = fieldValues.get('UserName');
     const pass = fieldValues.get('Password');
 
-    await autoFill(tab, url, {
+    await autoFill(args, {
         text: options.username ? user : options.password ? pass : undefined,
         password: options.username ? (options.password ? pass : undefined) : undefined,
         submit: options.submit
     });
 }
 
-async function getNextAutoFillCommand(tab: chrome.tabs.Tab, url: string): Promise<string> {
-    const resp = await sendMessageToTab(tab, url, { url, getNextAutoFillCommand: true });
-    return resp?.nextCommand;
+function isValidUrl(url: string): boolean {
+    return url && /^https?:/i.test(url) && !url.startsWith(backend.keeWebUrl);
 }
 
-async function autoFill(
-    tab: chrome.tabs.Tab,
-    url: string,
-    options: AutoFillArg
-): Promise<ContentScriptReturn> {
-    return await sendMessageToTab(tab, url, { url, autoFill: options });
+async function getNextAutoFillCommand(args: CommandArgs): Promise<CommandArgs> {
+    const frameCount = await injectPageContentScript();
+    let allFrames: Frame[];
+    if (frameCount > 1) {
+        allFrames = await getAllFrames(args.tab);
+    } else {
+        allFrames = [{ id: 0, url: args.tab.url }];
+    }
+    for (const frame of allFrames) {
+        if (!isValidUrl(frame.url)) {
+            continue;
+        }
+        const resp = await sendMessageToTab(args.tab, frame.id, {
+            url: frame.url,
+            getNextAutoFillCommand: true
+        });
+        if (resp?.nextCommand) {
+            args.command = resp.nextCommand;
+            args.frameId = frame.id;
+            args.url = frame.url;
+            return {
+                command: resp.nextCommand,
+                tab: args.tab,
+                frameId: frame.id,
+                url: frame.url
+            };
+        }
+    }
+}
+
+async function getAllFrames(tab: chrome.tabs.Tab): Promise<Frame[]> {
+    return new Promise((resolve, reject) => {
+        chrome.webNavigation.getAllFrames({ tabId: tab.id }, (frames) => {
+            if (chrome.runtime.lastError) {
+                const msg = `Cannot get tab frames: ${chrome.runtime.lastError.message}`;
+                return reject(new Error(msg));
+            }
+            resolve(frames.map((f) => ({ id: f.frameId, url: f.url })));
+        });
+    });
+}
+
+async function autoFill(args: CommandArgs, options: AutoFillArg): Promise<ContentScriptReturn> {
+    return await sendMessageToTab(args.tab, args.frameId, { url: args.url, autoFill: options });
 }
 
 async function sendMessageToTab(
     tab: chrome.tabs.Tab,
-    url: string,
+    frameId: number,
     message: ContentScriptMessage
 ): Promise<ContentScriptReturn> {
-    if (tab.url === url) {
-        await injectPageContentScript();
-        return new Promise((resolve, reject) => {
-            chrome.tabs.sendMessage(tab.id, message, (resp) => {
-                if (chrome.runtime.lastError) {
-                    const msg = `Cannot send message to page: ${chrome.runtime.lastError.message}`;
-                    return reject(new Error(msg));
-                }
-                resolve(resp);
-            });
+    await injectPageContentScript();
+    return new Promise((resolve, reject) => {
+        chrome.tabs.sendMessage(tab.id, message, { frameId }, (resp) => {
+            if (chrome.runtime.lastError) {
+                const msg = `Cannot send message to a tab: ${chrome.runtime.lastError.message}`;
+                return reject(new Error(msg));
+            }
+            resolve(resp);
         });
-    }
+    });
 }
 
-function injectPageContentScript(): Promise<void> {
+function injectPageContentScript(): Promise<number> {
     return new Promise((resolve, reject) => {
-        chrome.tabs.executeScript({ file: 'js/content-page.js' }, () => {
+        chrome.tabs.executeScript({ file: 'js/content-page.js', allFrames: true }, (results) => {
             if (chrome.runtime.lastError) {
                 const msg = `Page script injection error: ${chrome.runtime.lastError.message}`;
                 return reject(new Error(msg));
             }
-            resolve();
+            resolve(results.length);
         });
     });
 }

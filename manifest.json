@@ -15,15 +15,12 @@
     ]
   },
   "permissions": [
-    "activeTab",
+    "tabs",
     "contextMenus",
     "storage",
-    "nativeMessaging"
-  ],
-  "optional_permissions": [
-    "tabs",
-    "http://*/",
-    "https://*/"
+    "nativeMessaging",
+    "webNavigation",
+    "<all_urls>"
   ],
   "content_security_policy": "default-src 'self'",
   "options_ui": {

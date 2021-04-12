@@ -6,7 +6,9 @@ export function createUIMenus(): void {
             return;
         }
         const command = e.menuItemId;
-        await runCommand(command, tab, e.frameUrl || e.pageUrl);
+        const url = e.frameId ? e.frameUrl : e.pageUrl;
+        const frameId = e.frameId;
+        await runCommand({ command, tab, url, frameId });
     });
 
     chrome.contextMenus.create(
@@ -72,6 +74,6 @@ export function createUIMenus(): void {
 
 export function bindExtensionButtonClick(): void {
     chrome.browserAction.onClicked.addListener(async (tab) => {
-        await runCommand('submit-auto', tab, tab.url);
+        await runCommand({ command: 'submit-auto', tab });
     });
 }
