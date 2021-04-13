@@ -34,7 +34,7 @@ class TransportBrowserTab extends TransportBase {
 
         this._port = await this.connectToTab(this._maxTabConnectionRetries);
         if (!this._port) {
-            throw new Error(chrome.i18n.getMessage('errorBrowserCannotConnectToTab'));
+            throw new Error(chrome.i18n.getMessage('errorConnectionErrorWeb'));
         }
 
         this._port.onDisconnect.addListener(() => this.portDisconnected());

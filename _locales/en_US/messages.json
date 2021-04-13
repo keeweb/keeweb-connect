@@ -10,13 +10,13 @@
 
   "menuOtherOptions": { "message": "Other options" },
 
-  "errorConnectionError": { "message": "Cannot connect to KeeWeb, please check if KeeWeb is open and browser integration is enabled in settings" },
-  "errorKeeWebDisconnected": { "message": "KeeWeb disconnected from the extension" },
-  "errorBrowserTabNoPermissions": { "message": "Permission to access $1 was not granted" },
-  "errorBrowserCannotCreateTab": { "message": "Cannot create a new tab" },
-  "errorBrowserCannotConnectToTab": { "message": "Cannot connect to KeeWeb, refreshing a tab with KeeWeb may help" },
+  "errorConnectionErrorApp": { "message": "Cannot connect to KeeWeb, please check if KeeWeb is open and browser integration is enabled in settings." },
+  "errorConnectionErrorWeb": { "message": "Cannot connect to KeeWeb, refreshing a tab with KeeWeb may help. Inspect the extension background page to get more details." },
+  "errorKeeWebDisconnected": { "message": "KeeWeb disconnected from the extension." },
+  "errorBrowserTabNoPermissions": { "message": "Permission to access $1 was not granted." },
+  "errorBrowserCannotCreateTab": { "message": "Cannot create a new tab." },
   "errorAppReturnedError": { "message": "KeeWeb returned an error" },
-  "errorRequestTimeout": { "message": "KeeWeb didn't respond to our request in time" },
+  "errorRequestTimeout": { "message": "KeeWeb didn't respond to our request in time." },
 
   "optionsTitle": { "message": "Options" },
   "optionsIntro": { "message":  "This is a browser extension for KeeWeb, a free cross-platform manager compatible with KeePass." },

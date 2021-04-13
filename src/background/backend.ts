@@ -150,7 +150,10 @@ class Backend extends EventEmitter {
             console.log('KeeWeb disconnected');
 
             if (this.state === BackendConnectionState.Connecting) {
-                this._connectionError = chrome.i18n.getMessage('errorConnectionError');
+                const msgName = this._useNativeApp
+                    ? 'errorConnectionErrorApp'
+                    : 'errorConnectionErrorWeb';
+                this._connectionError = chrome.i18n.getMessage(msgName);
             } else {
                 this._connectionError = chrome.i18n.getMessage('errorKeeWebDisconnected');
             }
