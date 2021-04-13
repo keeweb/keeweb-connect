@@ -1,8 +1,21 @@
 import path from 'path';
 import fs from 'fs';
+import merge from 'merge';
 import CopyPlugin from 'copy-webpack-plugin';
 
 const dev = process.argv.includes('--mode=development');
+
+const knownBrowsers = {
+    chrome: true,
+    firefox: true,
+    safari: true,
+    edge: true
+};
+
+const browser = process.env.KW_BROWSER || 'chrome';
+if (!knownBrowsers[browser]) {
+    throw new Error(`Unknown browser: ${browser}`);
+}
 
 // eslint-disable-next-line import/no-default-export,no-restricted-syntax
 export default {
@@ -14,7 +27,7 @@ export default {
     },
     output: {
         filename: 'js/[name].js',
-        path: path.resolve('dist')
+        path: path.resolve('dist', browser)
     },
     module: {
         rules: [
@@ -40,22 +53,25 @@ export default {
                 { from: '_locales', to: '_locales' },
                 { from: 'icons', to: 'icons' },
                 { from: 'pages', to: 'pages' },
-                { from: 'img', to: 'img' },
+                { from: `img/${browser}`, to: 'img' },
                 { from: 'styles', to: 'styles' },
                 {
                     from: 'manifest.json',
                     transform: (content) => {
+                        const manifest = JSON.parse(content.toString());
+                        const patchFiles = [`manifest.${browser}.json`];
                         if (dev) {
-                            const manifest = JSON.parse(content.toString());
-                            const devManifest = JSON.parse(
-                                fs.readFileSync('manifest.dev.json', 'utf8')
-                            );
-                            for (const [key, value] of Object.entries(devManifest)) {
-                                manifest[key] = value;
-                            }
-                            const str = JSON.stringify(manifest, null, 2);
-                            content = Buffer.from(str, 'utf8');
+                            patchFiles.push('manifest.dev.json');
                         }
+                        for (const patchFile of patchFiles) {
+                            if (!fs.existsSync(patchFile)) {
+                                continue;
+                            }
+                            const patchData = JSON.parse(fs.readFileSync(patchFile, 'utf8'));
+                            merge.recursive(manifest, patchData);
+                        }
+                        const str = JSON.stringify(manifest, null, 2);
+                        content = Buffer.from(str, 'utf8');
                         return content;
                     }
                 }

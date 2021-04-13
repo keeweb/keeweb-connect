@@ -31,11 +31,6 @@
     "default_title": "__MSG_cmdSubmitAuto__"
   },
   "default_locale": "en_US",
-  "browser_specific_settings": {
-    "gecko": {
-      "id": "keeweb-connect@keeweb.info"
-    }
-  },
   "commands": {
     "submit-auto": {
       "description": "__MSG_cmdSubmitAuto__",
