@@ -8,10 +8,10 @@ const connectedPorts = new Map<string, chrome.runtime.Port>();
 
 function startInternalIpc(): void {
     chrome.runtime.onConnect.addListener((port) => {
-        if (
-            !port.sender.url?.startsWith(location.origin) ||
-            !port.sender.tab?.url?.startsWith(location.origin)
-        ) {
+        const senderUrl = port.sender.url || port.sender.tab.url || '';
+
+        // on Safari, case in extension ID will be different
+        if (!senderUrl.toLowerCase().startsWith(location.origin)) {
             return;
         }
 
