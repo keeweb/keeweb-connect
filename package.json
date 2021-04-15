@@ -9,7 +9,10 @@
     "build-firefox": "cross-env KW_BROWSER=firefox webpack --mode=production",
     "build-edge": "cross-env KW_BROWSER=edge webpack --mode=production",
     "build-safari": "cross-env KW_BROWSER=safari webpack --mode=production",
-    "watch": "cross-env KW_BROWSER=chrome webpack --mode=development --watch",
+    "watch-chrome": "cross-env KW_BROWSER=chrome webpack --mode=development --watch",
+    "watch-firefox": "cross-env KW_BROWSER=firefox webpack --mode=development --watch",
+    "watch-edge": "cross-env KW_BROWSER=edge webpack --mode=development --watch",
+    "watch-safari": "cross-env KW_BROWSER=safari webpack --mode=development --watch",
     "lint": "eslint webpack.config.js src",
     "prettier": "prettier --write src/**/*.ts src/**/*.tsx *.js pages/*.html styles/*.css"
   },
