@@ -22,6 +22,7 @@
   "optionsIntro": { "message":  "This is a browser extension for KeeWeb, a free cross-platform manager compatible with KeePass." },
   "optionsConnection": { "message": "Connection" },
   "optionsConnectionModeApp": { "message": "Using the native app. This is the most convenient mode of integration: KeeWeb runs in background, the extension connects to the app to fetch credentials. If you don't have the app installed:" },
+  "optionsConnectionModeAppOnly": { "message": "To use the extension, your need KeeWeb app installed on macOS. The app is running in background and the extension connects to it to fetch passwords. If you don't have the app installed:" },
   "optionsConnectionModeAppDownloadLink": { "message": "download KeeWeb" },
   "optionsConnectionModeWeb": { "message": "Web-only: you need to have a tab with KeeWeb open, the extension connects to this tab. It's less convenient, however you don't have to install a desktop app:" },
   "optionsConnectionModeWebLink": { "message": "open KeeWeb" },

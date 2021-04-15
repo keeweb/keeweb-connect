@@ -7,6 +7,8 @@ import { noop } from 'common/utils';
 class SettingsModel extends EventEmitter {
     readonly defaultKeeWebUrl = 'https://app.keeweb.info/';
 
+    private readonly _isSafari = location.origin.includes('safari');
+
     private _loaded = false;
     private _canAccessKeeWebTab: boolean;
     private _keeWebUrl: string;
@@ -75,6 +77,10 @@ class SettingsModel extends EventEmitter {
 
     get loaded(): boolean {
         return this._loaded;
+    }
+
+    get canUseOnlyApp(): boolean {
+        return this._isSafari;
     }
 
     get useNativeApp(): boolean {

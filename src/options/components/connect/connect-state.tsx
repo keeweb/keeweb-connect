@@ -12,6 +12,18 @@ const ConnectState: FunctionComponent = () => {
 
     return (
         <>
+            {model.canUseOnlyApp ? (
+                <p>
+                    {res('optionsConnectionModeAppOnly')}{' '}
+                    <a
+                        href="https://github.com/keeweb/keeweb/releases/latest"
+                        target="_blank"
+                        rel="noreferrer"
+                    >
+                        {res('optionsConnectionModeAppDownloadLink')}
+                    </a>
+                </p>
+            ) : null}
             <p>
                 {res('optionsConnectionState')}{' '}
                 {state === BackendConnectionState.Error ? (

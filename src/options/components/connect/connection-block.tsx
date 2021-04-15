@@ -9,7 +9,7 @@ const ConnectionBlock: FunctionComponent = () => {
     return (
         <>
             <h2 id="connection">{res('optionsConnection')}</h2>
-            <ConnectMode />
+            {model.canUseOnlyApp ? null : <ConnectMode />}
             {model.useWebApp ? <ConnectionWeb /> : null}
             <ConnectState />
         </>
