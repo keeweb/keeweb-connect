@@ -1,0 +1,529 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		BC864A3226277CB900638CB7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BC864A3126277CB900638CB7 /* AppDelegate.m */; };
+		BC864A3526277CB900638CB7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC864A3326277CB900638CB7 /* Main.storyboard */; };
+		BC864A3826277CB900638CB7 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC864A3726277CB900638CB7 /* ViewController.m */; };
+		BC864A3A26277CBB00638CB7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC864A3926277CBB00638CB7 /* Assets.xcassets */; };
+		BC864A3D26277CBB00638CB7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BC864A3C26277CBB00638CB7 /* main.m */; };
+		BC864A4326277CBB00638CB7 /* KeeWeb Connect Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = BC864A4226277CBB00638CB7 /* KeeWeb Connect Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		BC864A4826277CBB00638CB7 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC864A4726277CBB00638CB7 /* Cocoa.framework */; };
+		BC864A4C26277CBB00638CB7 /* SafariWebExtensionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = BC864A4B26277CBB00638CB7 /* SafariWebExtensionHandler.m */; };
+		BC864A6026277CBD00638CB7 /* js in Resources */ = {isa = PBXBuildFile; fileRef = BC864A5926277CBD00638CB7 /* js */; };
+		BC864A6126277CBD00638CB7 /* img in Resources */ = {isa = PBXBuildFile; fileRef = BC864A5A26277CBD00638CB7 /* img */; };
+		BC864A6226277CBD00638CB7 /* styles in Resources */ = {isa = PBXBuildFile; fileRef = BC864A5B26277CBD00638CB7 /* styles */; };
+		BC864A6326277CBD00638CB7 /* icons in Resources */ = {isa = PBXBuildFile; fileRef = BC864A5C26277CBD00638CB7 /* icons */; };
+		BC864A6426277CBD00638CB7 /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = BC864A5D26277CBD00638CB7 /* manifest.json */; };
+		BC864A6526277CBD00638CB7 /* _locales in Resources */ = {isa = PBXBuildFile; fileRef = BC864A5E26277CBD00638CB7 /* _locales */; };
+		BC864A6626277CBD00638CB7 /* pages in Resources */ = {isa = PBXBuildFile; fileRef = BC864A5F26277CBD00638CB7 /* pages */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		BC864A4426277CBB00638CB7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BC864A2426277CB900638CB7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BC864A4126277CBB00638CB7;
+			remoteInfo = "KeeWeb Connect Extension";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		BC864A5426277CBB00638CB7 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				BC864A4326277CBB00638CB7 /* KeeWeb Connect Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		BC864A2C26277CB900638CB7 /* KeeWeb Connect.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "KeeWeb Connect.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BC864A2F26277CB900638CB7 /* KeeWeb_Connect.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = KeeWeb_Connect.entitlements; sourceTree = "<group>"; };
+		BC864A3026277CB900638CB7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		BC864A3126277CB900638CB7 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		BC864A3426277CB900638CB7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		BC864A3626277CB900638CB7 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		BC864A3726277CB900638CB7 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		BC864A3926277CBB00638CB7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		BC864A3B26277CBB00638CB7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BC864A3C26277CBB00638CB7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		BC864A4226277CBB00638CB7 /* KeeWeb Connect Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "KeeWeb Connect Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BC864A4726277CBB00638CB7 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		BC864A4A26277CBB00638CB7 /* SafariWebExtensionHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SafariWebExtensionHandler.h; sourceTree = "<group>"; };
+		BC864A4B26277CBB00638CB7 /* SafariWebExtensionHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SafariWebExtensionHandler.m; sourceTree = "<group>"; };
+		BC864A4D26277CBB00638CB7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BC864A4E26277CBB00638CB7 /* KeeWeb_Connect_Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = KeeWeb_Connect_Extension.entitlements; sourceTree = "<group>"; };
+		BC864A5926277CBD00638CB7 /* js */ = {isa = PBXFileReference; lastKnownFileType = folder; name = js; path = ../../dist/safari/js; sourceTree = "<group>"; };
+		BC864A5A26277CBD00638CB7 /* img */ = {isa = PBXFileReference; lastKnownFileType = folder; name = img; path = ../../dist/safari/img; sourceTree = "<group>"; };
+		BC864A5B26277CBD00638CB7 /* styles */ = {isa = PBXFileReference; lastKnownFileType = folder; name = styles; path = ../../dist/safari/styles; sourceTree = "<group>"; };
+		BC864A5C26277CBD00638CB7 /* icons */ = {isa = PBXFileReference; lastKnownFileType = folder; name = icons; path = ../../dist/safari/icons; sourceTree = "<group>"; };
+		BC864A5D26277CBD00638CB7 /* manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = manifest.json; path = ../../dist/safari/manifest.json; sourceTree = "<group>"; };
+		BC864A5E26277CBD00638CB7 /* _locales */ = {isa = PBXFileReference; lastKnownFileType = folder; name = _locales; path = ../../dist/safari/_locales; sourceTree = "<group>"; };
+		BC864A5F26277CBD00638CB7 /* pages */ = {isa = PBXFileReference; lastKnownFileType = folder; name = pages; path = ../../dist/safari/pages; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		BC864A2926277CB900638CB7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BC864A3F26277CBB00638CB7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BC864A4826277CBB00638CB7 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		BC864A2326277CB900638CB7 = {
+			isa = PBXGroup;
+			children = (
+				BC864A2E26277CB900638CB7 /* KeeWeb Connect */,
+				BC864A4926277CBB00638CB7 /* KeeWeb Connect Extension */,
+				BC864A4626277CBB00638CB7 /* Frameworks */,
+				BC864A2D26277CB900638CB7 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		BC864A2D26277CB900638CB7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BC864A2C26277CB900638CB7 /* KeeWeb Connect.app */,
+				BC864A4226277CBB00638CB7 /* KeeWeb Connect Extension.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BC864A2E26277CB900638CB7 /* KeeWeb Connect */ = {
+			isa = PBXGroup;
+			children = (
+				BC864A2F26277CB900638CB7 /* KeeWeb_Connect.entitlements */,
+				BC864A3026277CB900638CB7 /* AppDelegate.h */,
+				BC864A3126277CB900638CB7 /* AppDelegate.m */,
+				BC864A3326277CB900638CB7 /* Main.storyboard */,
+				BC864A3626277CB900638CB7 /* ViewController.h */,
+				BC864A3726277CB900638CB7 /* ViewController.m */,
+				BC864A3926277CBB00638CB7 /* Assets.xcassets */,
+				BC864A3B26277CBB00638CB7 /* Info.plist */,
+				BC864A3C26277CBB00638CB7 /* main.m */,
+			);
+			path = "KeeWeb Connect";
+			sourceTree = "<group>";
+		};
+		BC864A4626277CBB00638CB7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BC864A4726277CBB00638CB7 /* Cocoa.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BC864A4926277CBB00638CB7 /* KeeWeb Connect Extension */ = {
+			isa = PBXGroup;
+			children = (
+				BC864A5826277CBD00638CB7 /* Resources */,
+				BC864A4A26277CBB00638CB7 /* SafariWebExtensionHandler.h */,
+				BC864A4B26277CBB00638CB7 /* SafariWebExtensionHandler.m */,
+				BC864A4D26277CBB00638CB7 /* Info.plist */,
+				BC864A4E26277CBB00638CB7 /* KeeWeb_Connect_Extension.entitlements */,
+			);
+			path = "KeeWeb Connect Extension";
+			sourceTree = "<group>";
+		};
+		BC864A5826277CBD00638CB7 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				BC864A5926277CBD00638CB7 /* js */,
+				BC864A5A26277CBD00638CB7 /* img */,
+				BC864A5B26277CBD00638CB7 /* styles */,
+				BC864A5C26277CBD00638CB7 /* icons */,
+				BC864A5D26277CBD00638CB7 /* manifest.json */,
+				BC864A5E26277CBD00638CB7 /* _locales */,
+				BC864A5F26277CBD00638CB7 /* pages */,
+			);
+			name = Resources;
+			path = "KeeWeb Connect Extension";
+			sourceTree = SOURCE_ROOT;
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		BC864A2B26277CB900638CB7 /* KeeWeb Connect */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BC864A5526277CBB00638CB7 /* Build configuration list for PBXNativeTarget "KeeWeb Connect" */;
+			buildPhases = (
+				BC864A2826277CB900638CB7 /* Sources */,
+				BC864A2926277CB900638CB7 /* Frameworks */,
+				BC864A2A26277CB900638CB7 /* Resources */,
+				BC864A5426277CBB00638CB7 /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BC864A4526277CBB00638CB7 /* PBXTargetDependency */,
+			);
+			name = "KeeWeb Connect";
+			productName = "KeeWeb Connect";
+			productReference = BC864A2C26277CB900638CB7 /* KeeWeb Connect.app */;
+			productType = "com.apple.product-type.application";
+		};
+		BC864A4126277CBB00638CB7 /* KeeWeb Connect Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BC864A5126277CBB00638CB7 /* Build configuration list for PBXNativeTarget "KeeWeb Connect Extension" */;
+			buildPhases = (
+				BC864A3E26277CBB00638CB7 /* Sources */,
+				BC864A3F26277CBB00638CB7 /* Frameworks */,
+				BC864A4026277CBB00638CB7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "KeeWeb Connect Extension";
+			productName = "KeeWeb Connect Extension";
+			productReference = BC864A4226277CBB00638CB7 /* KeeWeb Connect Extension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BC864A2426277CB900638CB7 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1240;
+				TargetAttributes = {
+					BC864A2B26277CB900638CB7 = {
+						CreatedOnToolsVersion = 12.4;
+					};
+					BC864A4126277CBB00638CB7 = {
+						CreatedOnToolsVersion = 12.4;
+					};
+				};
+			};
+			buildConfigurationList = BC864A2726277CB900638CB7 /* Build configuration list for PBXProject "KeeWeb Connect" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = BC864A2326277CB900638CB7;
+			productRefGroup = BC864A2D26277CB900638CB7 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				BC864A2B26277CB900638CB7 /* KeeWeb Connect */,
+				BC864A4126277CBB00638CB7 /* KeeWeb Connect Extension */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		BC864A2A26277CB900638CB7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BC864A3A26277CBB00638CB7 /* Assets.xcassets in Resources */,
+				BC864A3526277CB900638CB7 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BC864A4026277CBB00638CB7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BC864A6526277CBD00638CB7 /* _locales in Resources */,
+				BC864A6626277CBD00638CB7 /* pages in Resources */,
+				BC864A6126277CBD00638CB7 /* img in Resources */,
+				BC864A6326277CBD00638CB7 /* icons in Resources */,
+				BC864A6426277CBD00638CB7 /* manifest.json in Resources */,
+				BC864A6226277CBD00638CB7 /* styles in Resources */,
+				BC864A6026277CBD00638CB7 /* js in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		BC864A2826277CB900638CB7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BC864A3826277CB900638CB7 /* ViewController.m in Sources */,
+				BC864A3D26277CBB00638CB7 /* main.m in Sources */,
+				BC864A3226277CB900638CB7 /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BC864A3E26277CBB00638CB7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BC864A4C26277CBB00638CB7 /* SafariWebExtensionHandler.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		BC864A4526277CBB00638CB7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BC864A4126277CBB00638CB7 /* KeeWeb Connect Extension */;
+			targetProxy = BC864A4426277CBB00638CB7 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		BC864A3326277CB900638CB7 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BC864A3426277CB900638CB7 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		BC864A4F26277CBB00638CB7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 11.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		BC864A5026277CBB00638CB7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 11.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		BC864A5226277CBB00638CB7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "KeeWeb Connect Extension/KeeWeb_Connect_Extension.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3LE7JZ657W;
+				INFOPLIST_FILE = "KeeWeb Connect Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				PRODUCT_BUNDLE_IDENTIFIER = "net.antelle.keeweb-connect.extension";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		BC864A5326277CBB00638CB7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "KeeWeb Connect Extension/KeeWeb_Connect_Extension.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3LE7JZ657W;
+				INFOPLIST_FILE = "KeeWeb Connect Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				PRODUCT_BUNDLE_IDENTIFIER = "net.antelle.keeweb-connect.extension";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		BC864A5626277CBB00638CB7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "KeeWeb Connect/KeeWeb_Connect.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 3LE7JZ657W;
+				INFOPLIST_FILE = "KeeWeb Connect/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				PRODUCT_BUNDLE_IDENTIFIER = "net.antelle.keeweb-connect";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		BC864A5726277CBB00638CB7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "KeeWeb Connect/KeeWeb_Connect.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 3LE7JZ657W;
+				INFOPLIST_FILE = "KeeWeb Connect/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				PRODUCT_BUNDLE_IDENTIFIER = "net.antelle.keeweb-connect";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		BC864A2726277CB900638CB7 /* Build configuration list for PBXProject "KeeWeb Connect" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BC864A4F26277CBB00638CB7 /* Debug */,
+				BC864A5026277CBB00638CB7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BC864A5126277CBB00638CB7 /* Build configuration list for PBXNativeTarget "KeeWeb Connect Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BC864A5226277CBB00638CB7 /* Debug */,
+				BC864A5326277CBB00638CB7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BC864A5526277CBB00638CB7 /* Build configuration list for PBXNativeTarget "KeeWeb Connect" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BC864A5626277CBB00638CB7 /* Debug */,
+				BC864A5726277CBB00638CB7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BC864A2426277CB900638CB7 /* Project object */;
+}
