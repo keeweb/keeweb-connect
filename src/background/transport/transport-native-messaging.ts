@@ -42,7 +42,14 @@ class TransportNativeMessaging extends TransportBase {
     }
 
     private portMessage(msg: KeeWebConnectResponse) {
-        this.emit('message', msg);
+        if (msg) {
+            this.emit('message', msg);
+        } else {
+            this._port = undefined;
+            // eslint-disable-next-line no-console
+            console.log('Empty message received');
+            this.emit('disconnected');
+        }
     }
 }
 
