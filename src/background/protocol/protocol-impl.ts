@@ -139,10 +139,15 @@ class ProtocolImpl {
 
     private static checkResponseError(response: KeeWebConnectResponse): KeeWebConnectResponse {
         if (response.error) {
-            const locErr = chrome.i18n.getMessage('errorAppReturnedError');
-            const errCodeStr = response.errorCode ? `[code=${response.errorCode}] ` : '';
-            const resErr = `${errCodeStr}${response.error}`;
-            throw new ProtocolError(`${locErr}: ${resErr}`, response.errorCode);
+            if (response.keeWebConnectErrorMsg) {
+                const locErr = chrome.i18n.getMessage(response.keeWebConnectErrorMsg);
+                throw new Error(locErr);
+            } else {
+                const locErr = chrome.i18n.getMessage('errorAppReturnedError');
+                const errCodeStr = response.errorCode ? `[code=${response.errorCode}] ` : '';
+                const resErr = `${errCodeStr}${response.error}`;
+                throw new ProtocolError(`${locErr}: ${resErr}`, response.errorCode);
+            }
         }
         return response;
     }
