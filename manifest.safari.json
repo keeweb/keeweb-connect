@@ -1,0 +1,9 @@
+{
+  "browser_action": {
+    "default_icon": {
+      "16": "icons/toolbar16.png",
+      "32": "icons/toolbar32.png",
+      "64": "icons/toolbar64.png"
+    }
+  }
+}
