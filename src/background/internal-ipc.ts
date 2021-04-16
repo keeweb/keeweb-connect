@@ -57,6 +57,7 @@ function sendFirstMessage(port: chrome.runtime.Port) {
         backendConnectionError: backend.connectionError
     };
     port.postMessage(msg);
+    backend.checkConnection();
 }
 
 export { startInternalIpc };

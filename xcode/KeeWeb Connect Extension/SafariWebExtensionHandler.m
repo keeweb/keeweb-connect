@@ -1,137 +1,214 @@
 #import "SafariWebExtensionHandler.h"
 
+#import <OSLog/OSLog.h>
 #import <SafariServices/SafariServices.h>
 #import <sys/socket.h>
 #import <sys/un.h>
 #import <unistd.h>
 
-#if __MAC_OS_X_VERSION_MIN_REQUIRED < 110000
-NSString *const SFExtensionMessageKey = @"message";
-#endif
-
 @implementation SafariWebExtensionHandler {
-  @private
-    int _socketFD;
 }
 
-- (id)init {
-    if (self = [super init]) {
-        _socketFD = -1;
+NSString *const KWResponsePropertyError = @"error";
+NSString *const KWResponsePropertyKeeWebConnectError = @"keeWebConnectError";
+
+NSString *const KWGroupContainer = @"3LE7JZ657W.keeweb";
+NSString *const KWSocketFileName = @"browser.sock";
+
+NSString *const KWErrorDisconnected = @"errorKeeWebDisconnected";
+NSString *const KWErrorCannotConnect = @"errorConnectionErrorApp";
+
+int socketFD = -1;
+char readBbuffer[1024 * 100];
+
+- (NSMutableDictionary *)makeErrorWithMessage:(NSString *)message {
+    os_log(OS_LOG_DEFAULT, "Returning error to the extension: %@", message);
+    NSMutableDictionary *err = [[NSMutableDictionary alloc] init];
+    err[KWResponsePropertyError] = message;
+    return err;
+}
+
+- (NSMutableDictionary *)makeErrorWithMessage:(NSString *)message
+                          andKeeWebMessageStr:(NSString *)kwMessage {
+    NSMutableDictionary *err = [self makeErrorWithMessage:message];
+    err[KWResponsePropertyKeeWebConnectError] = kwMessage;
+    return err;
+}
+
+- (NSMutableDictionary *)makeSystemErrorWithMessage:(NSString *)message {
+    NSString *errnoStr = [NSString stringWithUTF8String:strerror(errno)];
+    os_log(OS_LOG_DEFAULT, "System error (%@): %d", message, errno);
+
+    message = [message stringByAppendingString:@": "];
+    message = [message stringByAppendingString:errnoStr];
+
+    if (errno == EPIPE) {
+        return [self makeErrorWithMessage:message andKeeWebMessageStr:KWErrorDisconnected];
+    } else {
+        return [self makeErrorWithMessage:message];
     }
-    return self;
+}
+
+- (NSMutableDictionary *)makeSystemErrorWithMessage:(NSString *)message
+                                andKeeWebMessageStr:(NSString *)kwMessage {
+    NSMutableDictionary *err = [self makeSystemErrorWithMessage:message];
+    err[KWResponsePropertyKeeWebConnectError] = kwMessage;
+    return err;
 }
 
 - (void)closeSocket {
-    if (_socketFD != -1) {
-        close(_socketFD);
-        _socketFD = -1;
+    if (socketFD != -1) {
+        os_log(OS_LOG_DEFAULT, "Closing socket");
+        close(socketFD);
+        socketFD = -1;
     }
 }
 
-- (void)beginRequestWithExtensionContext:(NSExtensionContext *)context {
-    _socketFD = socket(PF_LOCAL, SOCK_STREAM, 0);
-    if (_socketFD == -1) {
-        NSExtensionItem *response = [[NSExtensionItem alloc] init];
-        response.userInfo = @{SFExtensionMessageKey : @{@"error" : @"Socket error"}};
-        [context completeRequestReturningItems:@[ response ] completionHandler:nil];
-
-        return;
+- (NSDictionary *)connectSocket {
+    if (socketFD != -1) {
+        os_log(OS_LOG_DEFAULT, "Socket already exists, reusing");
+        return nil;
     }
 
-    NSString *sockPath = [NSFileManager.defaultManager
-                             containerURLForSecurityApplicationGroupIdentifier:@"3LE7JZ657W.keeweb"]
-                             .path;
-    sockPath = [sockPath stringByAppendingPathComponent:@"browser.sock"];
+    signal(SIGPIPE, SIG_IGN);
+
+    socketFD = socket(PF_LOCAL, SOCK_STREAM, 0);
+    os_log(OS_LOG_DEFAULT, "Create socket: %d", socketFD);
+    if (socketFD == -1) {
+        return [self makeSystemErrorWithMessage:@"Socket error"];
+    }
+
+    NSString *socketPath = [NSFileManager.defaultManager
+                               containerURLForSecurityApplicationGroupIdentifier:KWGroupContainer]
+                               .path;
+    socketPath = [socketPath stringByAppendingPathComponent:KWSocketFileName];
 
     struct sockaddr_un addr;
     memset(&addr, 0, sizeof(struct sockaddr_un));
     addr.sun_family = AF_LOCAL;
-    strncpy(addr.sun_path, sockPath.UTF8String, sizeof(addr.sun_path) - 1);
+
+    if (socketPath.length > sizeof(addr.sun_path) - 1) {
+        os_log(OS_LOG_DEFAULT, "Socket path is too long: %@", socketPath);
+        return [self makeErrorWithMessage:@"Socket path is too long"];
+    }
+
+    strncpy(addr.sun_path, socketPath.UTF8String, sizeof(addr.sun_path) - 1);
     addr.sun_len = SUN_LEN(&addr);
 
-    int conn = connect(_socketFD, (struct sockaddr *)&addr, addr.sun_len);
-    if (conn == -1) {
+    int connectRes = connect(socketFD, (struct sockaddr *)&addr, addr.sun_len);
+    os_log(OS_LOG_DEFAULT, "Socket connect: %d", connectRes);
+    if (connectRes == -1) {
+        NSMutableDictionary *err = [self makeSystemErrorWithMessage:@"Connect error"
+                                                andKeeWebMessageStr:KWErrorCannotConnect];
         [self closeSocket];
+        return err;
+    }
 
-        NSExtensionItem *response = [[NSExtensionItem alloc] init];
-        response.userInfo = @{
-            SFExtensionMessageKey : @{
-                @"error" : @"Connect error",
-                @"keeWebConnectErrorMsg" : @"errorConnectionErrorApp"
-            }
-        };
-        [context completeRequestReturningItems:@[ response ] completionHandler:nil];
+    return nil;
+}
 
+- (void)returnResult:(NSDictionary *)result toContext:(NSExtensionContext *)context {
+    NSExtensionItem *response = [[NSExtensionItem alloc] init];
+    response.userInfo = @{SFExtensionMessageKey : result};
+    [context completeRequestReturningItems:@[ response ] completionHandler:nil];
+}
+
+- (void)beginRequestWithExtensionContext:(NSExtensionContext *)context {
+    os_log(OS_LOG_DEFAULT, "New message");
+
+    NSDictionary *error = nil;
+
+    id messageToKeeWeb = [context.inputItems.firstObject userInfo][SFExtensionMessageKey];
+
+    NSError *jsonError;
+    NSData *requestJsonData = [NSJSONSerialization dataWithJSONObject:messageToKeeWeb
+                                                              options:0
+                                                                error:&jsonError];
+
+    if (jsonError) {
+        os_log(OS_LOG_DEFAULT, "JSON serialize error: %@", jsonError.localizedDescription);
+        error = [self makeErrorWithMessage:@"JSON serialize error"];
+        [self returnResult:error toContext:context];
         return;
     }
 
-    id message = [context.inputItems.firstObject userInfo][SFExtensionMessageKey];
+    uint32_t requestDataLength = (uint32_t)requestJsonData.length;
+    NSMutableData *requestData = [NSMutableData dataWithBytes:&requestDataLength length:4];
+    [requestData appendData:requestJsonData];
 
-    NSError *jsonSerializeError;
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:message
-                                                       options:0
-                                                         error:&jsonSerializeError];
-
-    uint32_t dataLength = (uint32_t)jsonData.length;
-    NSMutableData *requestData = [NSMutableData dataWithBytes:&dataLength length:4];
-    [requestData appendData:jsonData];
-
-    if (write(_socketFD, requestData.bytes, requestData.length) != requestData.length) {
-        [self closeSocket];
-
-        NSExtensionItem *response = [[NSExtensionItem alloc] init];
-        response.userInfo = @{SFExtensionMessageKey : @{@"error" : @"Socket write error"}};
-        [context completeRequestReturningItems:@[ response ] completionHandler:nil];
-
+    error = [self connectSocket];
+    if (error) {
+        [self returnResult:error toContext:context];
         return;
     }
 
-    const int MAX_READ_SIZE = 1024 * 10;
-    char buffer[MAX_READ_SIZE];
-    ssize_t bytesRead = read(_socketFD, buffer, MAX_READ_SIZE);
+    ssize_t bytesWritten = write(socketFD, requestData.bytes, requestData.length);
+    if (bytesWritten == -1) {
+        os_log(OS_LOG_DEFAULT, "Socket write error: %d", errno);
+        error = [self makeSystemErrorWithMessage:@"Socket write error"];
+        [self closeSocket];
+        [self returnResult:error toContext:context];
+        return;
+    }
+
+    if (bytesWritten != requestData.length) {
+        os_log(OS_LOG_DEFAULT, "Wrote %zd bytes to socket instead of %zd", bytesWritten,
+               requestData.length);
+        error = [self makeErrorWithMessage:@"Socket write error"];
+        [self closeSocket];
+        [self returnResult:error toContext:context];
+        return;
+    }
+
+    os_log(OS_LOG_DEFAULT, "Wrote %zd bytes to socket", bytesWritten);
+
+    ssize_t bytesRead = read(socketFD, readBbuffer, sizeof(readBbuffer));
+    if (bytesRead == -1) {
+        os_log(OS_LOG_DEFAULT, "Socket read error: %d", errno);
+        error = [self makeSystemErrorWithMessage:@"Socket read error"];
+        [self closeSocket];
+        [self returnResult:error toContext:context];
+        return;
+    }
+
+    os_log(OS_LOG_DEFAULT, "Read %zd bytes from socket", bytesWritten);
 
     if (bytesRead < 4) {
+        error = [self makeErrorWithMessage:@"Socket read error"];
         [self closeSocket];
-
-        NSExtensionItem *response = [[NSExtensionItem alloc] init];
-        response.userInfo = @{SFExtensionMessageKey : @{@"error" : @"Socket read error"}};
-        [context completeRequestReturningItems:@[ response ] completionHandler:nil];
-
+        [self returnResult:error toContext:context];
         return;
     }
 
-    uint32_t messageSize = *(uint32_t *)buffer;
-    if (messageSize > MAX_READ_SIZE - 4) {
+    uint32_t responseDataLength = *(uint32_t *)readBbuffer;
+    if (responseDataLength != bytesRead - 4) {
+        os_log(OS_LOG_DEFAULT, "Message size is %d bytes instead of %zd", responseDataLength,
+               bytesRead - 4);
+        error = [self makeErrorWithMessage:@"Data decoding error"];
         [self closeSocket];
-
-        NSExtensionItem *response = [[NSExtensionItem alloc] init];
-        response.userInfo = @{SFExtensionMessageKey : @{@"error" : @"Socket data read error"}};
-        [context completeRequestReturningItems:@[ response ] completionHandler:nil];
-
+        [self returnResult:error toContext:context];
         return;
     }
 
-    void *dataPtr = (char *)buffer + 4;
-    NSData *messageData = [NSData dataWithBytes:dataPtr length:messageSize];
-    NSError *jsonReadError;
-    id responseFromKeeWeb = [NSJSONSerialization JSONObjectWithData:messageData
+    os_log(OS_LOG_DEFAULT, "Message size is %d bytes", responseDataLength);
+
+    void *resposneDataPtr = (char *)readBbuffer + 4;
+    NSData *responseData = [NSData dataWithBytes:resposneDataPtr length:responseDataLength];
+    id responseFromKeeWeb = [NSJSONSerialization JSONObjectWithData:responseData
                                                             options:0
-                                                              error:&jsonReadError];
+                                                              error:&jsonError];
 
-    if (jsonReadError) {
+    if (jsonError) {
+        os_log(OS_LOG_DEFAULT, "JSON parse error: %@", jsonError.localizedDescription);
+        error = [self makeErrorWithMessage:@"JSON parse error"];
         [self closeSocket];
-
-        NSExtensionItem *response = [[NSExtensionItem alloc] init];
-        response.userInfo = @{SFExtensionMessageKey : @{@"error" : @"JSON parse error"}};
-        [context completeRequestReturningItems:@[ response ] completionHandler:nil];
-
+        [self returnResult:error toContext:context];
         return;
     }
 
-    NSExtensionItem *response = [[NSExtensionItem alloc] init];
-    response.userInfo = @{SFExtensionMessageKey : responseFromKeeWeb};
+    os_log(OS_LOG_DEFAULT, "Message processed OK");
 
-    [context completeRequestReturningItems:@[ response ] completionHandler:nil];
+    [self returnResult:responseFromKeeWeb toContext:context];
 }
 
 @end

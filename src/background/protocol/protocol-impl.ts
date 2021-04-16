@@ -9,7 +9,9 @@ import {
     KeeWebConnectGetDatabaseHashRequestPayload,
     KeeWebConnectLockDatabaseRequestPayload,
     KeeWebConnectGeneratePasswordRequest,
-    KeeWebConnectGeneratePasswordResponsePayload
+    KeeWebConnectGeneratePasswordResponsePayload,
+    KeeWebConnectPingRequest,
+    KeeWebConnectPingResponse
 } from './types';
 import { fromBase64, randomBase64, randomBytes, toBase64 } from 'background/utils';
 import { box as tweetnaclBox, BoxKeyPair } from 'tweetnacl';
@@ -139,8 +141,8 @@ class ProtocolImpl {
 
     private static checkResponseError(response: KeeWebConnectResponse): KeeWebConnectResponse {
         if (response.error) {
-            if (response.keeWebConnectErrorMsg) {
-                const locErr = chrome.i18n.getMessage(response.keeWebConnectErrorMsg);
+            if (response.keeWebConnectError) {
+                const locErr = chrome.i18n.getMessage(response.keeWebConnectError);
                 throw new Error(locErr);
             } else {
                 const locErr = chrome.i18n.getMessage('errorAppReturnedError');
@@ -154,6 +156,14 @@ class ProtocolImpl {
 
     get connectedAppName(): string {
         return this._connectedAppName;
+    }
+
+    async ping(): Promise<void> {
+        const request: KeeWebConnectPingRequest = { action: 'ping', data: randomBase64(10) };
+        const response = <KeeWebConnectPingResponse>await this.request(request);
+        if (response.data !== request.data) {
+            throw new Error('Ping data is different');
+        }
     }
 
     async changePublicKeys(): Promise<void> {

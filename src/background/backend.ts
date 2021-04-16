@@ -5,6 +5,7 @@ import { TransportNativeMessaging } from './transport/transport-native-messaging
 import { TransportBrowserTab } from './transport/transport-browser-tab';
 import { KeeWebConnectRequest, KeeWebConnectResponse } from './protocol/types';
 import { ProtocolImpl } from './protocol/protocol-impl';
+import { noop } from 'common/utils';
 
 interface RequestQueueItem {
     request: KeeWebConnectRequest;
@@ -256,6 +257,12 @@ class Backend extends EventEmitter {
 
     private focusKeeWebTab() {
         this._transport.focusKeeWeb();
+    }
+
+    checkConnection() {
+        if (this.state === BackendConnectionState.Connected) {
+            this._protocol.ping().catch(noop);
+        }
     }
 
     getFields(url: string, fields: string[]): Promise<Map<string, string>> {

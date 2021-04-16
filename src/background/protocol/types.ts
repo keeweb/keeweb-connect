@@ -18,7 +18,7 @@ export interface KeeWebConnectResponse {
     error?: string;
     errorCode?: string;
     version?: string;
-    keeWebConnectErrorMsg?: string;
+    keeWebConnectError?: string;
 }
 
 export interface KeeWebConnectEncryptedResponse extends KeeWebConnectResponse {
