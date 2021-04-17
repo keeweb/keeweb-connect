@@ -1,4 +1,5 @@
 import { runCommand } from './commands';
+import { supportsUnicodeMenus } from 'common/features';
 
 export function createUIMenus(): void {
     chrome.contextMenus.onClicked.addListener(async (e, tab) => {
@@ -11,6 +12,8 @@ export function createUIMenus(): void {
         await runCommand({ command, tab, url, frameId });
     });
 
+    const submitSuffix = supportsUnicodeMenus ? ' ⏎' : '';
+
     chrome.contextMenus.create(
         {
             id: 'keeweb-options',
@@ -21,7 +24,7 @@ export function createUIMenus(): void {
             chrome.contextMenus.create({
                 id: 'submit-username-password',
                 parentId: 'keeweb-options',
-                title: `${chrome.i18n.getMessage('cmdSubmitUsernamePassword')} ⏎`,
+                title: `${chrome.i18n.getMessage('cmdSubmitUsernamePassword')}${submitSuffix}`,
                 contexts: ['editable']
             });
             chrome.contextMenus.create({
@@ -33,7 +36,7 @@ export function createUIMenus(): void {
             chrome.contextMenus.create({
                 id: 'submit-username',
                 parentId: 'keeweb-options',
-                title: `${chrome.i18n.getMessage('cmdSubmitUsername')} ⏎`,
+                title: `${chrome.i18n.getMessage('cmdSubmitUsername')}${submitSuffix}`,
                 contexts: ['editable']
             });
             chrome.contextMenus.create({
@@ -45,7 +48,7 @@ export function createUIMenus(): void {
             chrome.contextMenus.create({
                 id: 'submit-password',
                 parentId: 'keeweb-options',
-                title: `${chrome.i18n.getMessage('cmdSubmitPassword')} ⏎`,
+                title: `${chrome.i18n.getMessage('cmdSubmitPassword')}${submitSuffix}`,
                 contexts: ['editable']
             });
             chrome.contextMenus.create({

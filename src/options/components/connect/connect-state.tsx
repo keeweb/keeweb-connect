@@ -2,6 +2,7 @@ import { FunctionComponent } from 'preact';
 import { res } from 'options/utils';
 import { model } from 'options/settings-model';
 import { BackendConnectionState } from 'common/backend-connection-state';
+import { canUseOnlyAppConnection } from 'common/features';
 
 const ConnectState: FunctionComponent = () => {
     const state = model.backendConnectionState;
@@ -12,7 +13,7 @@ const ConnectState: FunctionComponent = () => {
 
     return (
         <>
-            {model.canUseOnlyApp ? (
+            {canUseOnlyAppConnection ? (
                 <p>
                     {res('optionsConnectionModeAppOnly')}{' '}
                     <a
