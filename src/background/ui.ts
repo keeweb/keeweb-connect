@@ -8,7 +8,7 @@ export function createUIMenus(): void {
         }
         const command = e.menuItemId;
         const url = e.frameId ? e.frameUrl : e.pageUrl;
-        const frameId = e.frameId;
+        const frameId = e.frameId ?? 0;
         await runCommand({ command, tab, url, frameId });
     });
 
