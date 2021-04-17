@@ -7,8 +7,8 @@ const Footer: FunctionComponent = () => {
             <h2 id="about">{res('optionsAbout')}</h2>
             <p>
                 {res('optionsAboutContact')}{' '}
-                <a href="https://github.com/keeweb/keeweb-browser" target="_blank" rel="noreferrer">
-                    https://github.com/keeweb/keeweb-browser
+                <a href="https://github.com/keeweb/keeweb-connect" target="_blank" rel="noreferrer">
+                    https://github.com/keeweb/keeweb-connect
                 </a>
             </p>
             <p>{res('optionsAboutLicense')}</p>
