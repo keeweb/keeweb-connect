@@ -117,8 +117,6 @@ class Backend extends EventEmitter {
             console.log('Connected to KeeWeb');
 
             this.emit('connect-finished');
-
-            this.updateOpenDatabase();
         } catch (e) {
             // eslint-disable-next-line no-console
             console.error('Connect error', e);
@@ -243,18 +241,6 @@ class Backend extends EventEmitter {
             req.reject(err);
         }
         this._requestQueue.length = 0;
-    }
-
-    private updateOpenDatabase() {
-        (async () => {
-            const dbHash = await this._protocol.getDatabaseHash();
-            this._dbIsOpen = dbHash !== undefined;
-        })().catch((e) => {
-            // eslint-disable-next-line no-console
-            console.error("Can't update open databases", e);
-            this._connectionError = `Can't update open databases: ${e.message}`;
-            this.setState(BackendConnectionState.Error);
-        });
     }
 
     private focusKeeWebTab() {
