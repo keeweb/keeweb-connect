@@ -13,7 +13,7 @@ NSString *const KWResponsePropertyError = @"error";
 NSString *const KWResponsePropertyKeeWebConnectError = @"keeWebConnectError";
 
 NSString *const KWGroupContainer = @"3LE7JZ657W.keeweb";
-NSString *const KWSocketFileName = @"browser.sock";
+NSString *const KWSocketFileName = @"conn.sock";
 
 NSString *const KWErrorDisconnected = @"errorKeeWebDisconnected";
 NSString *const KWErrorCannotConnect = @"errorConnectionErrorApp";
