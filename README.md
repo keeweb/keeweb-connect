@@ -2,9 +2,9 @@
 
 This is a browser extension for [KeeWeb](https://keeweb.info).
 
-![KeeWeb Connect button](img/chrome/button.png | width=233)
+<img src="img/chrome/button.png" width="233" alt="KeeWeb Connect button" />
 
-![KeeWeb Connect menu](img/chrome/menu.png | width=646)
+<img src="img/chrome/menu.png" width="646" alt="KeeWeb Connect menu" />
 
 ## Status
 
