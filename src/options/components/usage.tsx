@@ -1,6 +1,6 @@
 import { FunctionComponent } from 'preact';
 import { res } from 'options/utils';
-import { canEditShortcuts } from 'common/features';
+import { canEditShortcuts, needRequestPermissionsPerSite } from 'common/features';
 import { model } from 'options/settings-model';
 
 const Usage: FunctionComponent = () => {
@@ -17,6 +17,12 @@ const Usage: FunctionComponent = () => {
                     ? res('optionsUsageShortcut')
                     : res('optionsUsageShortcutNoChange', defaultShortcut)}
             </p>
+            {needRequestPermissionsPerSite ? (
+                <>
+                    <p>{res('optionsUsagePermissionsPerSite')}</p>
+                    <img srcset="../img/permissions.png 2x" alt="button" />
+                </>
+            ) : null}
             <p>{res('optionsUsageMenu')}</p>
             <img srcset="../img/menu.png 2x" alt="button" />
         </>
