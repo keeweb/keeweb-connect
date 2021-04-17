@@ -133,10 +133,12 @@ class Backend extends EventEmitter {
     private resetStateByConfig() {
         this._connectionError = undefined;
 
-        this.setState(BackendConnectionState.ReadyToConnect);
+        if (this._state !== undefined) {
+            // eslint-disable-next-line no-console
+            console.log('Config changed');
+        }
 
-        // eslint-disable-next-line no-console
-        console.log('Config changed');
+        this.setState(BackendConnectionState.ReadyToConnect);
     }
 
     private initTransport() {

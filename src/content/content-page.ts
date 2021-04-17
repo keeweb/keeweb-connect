@@ -82,7 +82,7 @@ if (!window.kwExtensionInstalled) {
             }
 
             if (submit) {
-                form.requestSubmit();
+                submitForm(form);
             }
         }
 
@@ -112,6 +112,24 @@ if (!window.kwExtensionInstalled) {
                 }
             }
             return undefined;
+        }
+
+        function submitForm(form: HTMLFormElement) {
+            if (typeof form.requestSubmit === 'function') {
+                form.requestSubmit();
+            } else {
+                const submitButton = <HTMLInputElement>form.querySelector('input[type=submit]');
+                if (submitButton) {
+                    submitButton.click();
+                } else {
+                    const btn = document.createElement('input');
+                    btn.type = 'submit';
+                    btn.hidden = true;
+                    form.appendChild(btn);
+                    btn.click();
+                    form.removeChild(btn);
+                }
+            }
         }
     });
 }
