@@ -19,7 +19,7 @@ NSString *const KWErrorDisconnected = @"errorKeeWebDisconnected";
 NSString *const KWErrorCannotConnect = @"errorConnectionErrorApp";
 
 int socketFD = -1;
-char readBbuffer[1024 * 100];
+char readBuffer[1024 * 100];
 
 - (NSMutableDictionary *)makeErrorWithMessage:(NSString *)message {
     os_log(OS_LOG_DEFAULT, "Returning error to the extension: %@", message);
@@ -162,7 +162,7 @@ char readBbuffer[1024 * 100];
 
     os_log(OS_LOG_DEFAULT, "Wrote %zd bytes to socket", bytesWritten);
 
-    ssize_t bytesRead = read(socketFD, readBbuffer, sizeof(readBbuffer));
+    ssize_t bytesRead = read(socketFD, readBuffer, sizeof(readBuffer));
     if (bytesRead == -1) {
         os_log(OS_LOG_DEFAULT, "Socket read error: %d", errno);
         error = [self makeSystemErrorWithMessage:@"Socket read error"];
@@ -180,7 +180,7 @@ char readBbuffer[1024 * 100];
         return;
     }
 
-    uint32_t responseDataLength = *(uint32_t *)readBbuffer;
+    uint32_t responseDataLength = *(uint32_t *)readBuffer;
     if (responseDataLength != bytesRead - 4) {
         os_log(OS_LOG_DEFAULT, "Message size is %d bytes instead of %zd", responseDataLength,
                bytesRead - 4);
@@ -192,7 +192,7 @@ char readBbuffer[1024 * 100];
 
     os_log(OS_LOG_DEFAULT, "Message size is %d bytes", responseDataLength);
 
-    void *resposneDataPtr = (char *)readBbuffer + 4;
+    void *resposneDataPtr = (char *)readBuffer + 4;
     NSData *responseData = [NSData dataWithBytes:resposneDataPtr length:responseDataLength];
     id responseFromKeeWeb = [NSJSONSerialization JSONObjectWithData:responseData
                                                             options:0
