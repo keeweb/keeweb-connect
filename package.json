@@ -1,5 +1,5 @@
 {
-  "name": "keeweb-browser",
+  "name": "keeweb-connect",
   "version": "1.0.0",
   "description": "KeeWeb",
   "main": "index.js",
@@ -18,14 +18,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/antelle/keeweb-browser.git"
+    "url": "git+https://github.com/antelle/keeweb-connect.git"
   },
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/antelle/keeweb-browser/issues"
+    "url": "https://github.com/antelle/keeweb-connect/issues"
   },
-  "homepage": "https://github.com/antelle/keeweb-browser#readme",
+  "homepage": "https://github.com/antelle/keeweb-connect#readme",
   "devDependencies": {
     "@types/chrome": "^0.0.134",
     "@typescript-eslint/eslint-plugin": "^4.20.0",
