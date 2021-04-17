@@ -1,5 +1,7 @@
 # KeeWeb Connect: browser extension
 
+<img src="xcode/KeeWeb%20Connect/Assets.xcassets/AppIcon.appiconset/icon_128x128%402x.png" width="128" alt="KeeWeb Connect logo" />
+
 This is a browser extension for [KeeWeb](https://keeweb.info).
 Although KeeWeb supports auto-typing, browser extensions provide seamless integration
 consistent across all operating systems.
