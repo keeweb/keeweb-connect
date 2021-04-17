@@ -86,7 +86,7 @@ function isValidUrl(url: string): boolean {
 }
 
 async function getNextAutoFillCommand(args: CommandArgs): Promise<CommandArgs> {
-    const frameCount = await injectPageContentScript();
+    const frameCount = await injectPageContentScript(args.tab);
     let allFrames: Frame[];
     if (frameCount > 1) {
         allFrames = await getAllFrames(args.tab);
@@ -136,7 +136,7 @@ async function sendMessageToTab(
     frameId: number,
     message: ContentScriptMessage
 ): Promise<ContentScriptReturn> {
-    await injectPageContentScript();
+    await injectPageContentScript(tab);
     return new Promise((resolve, reject) => {
         chrome.tabs.sendMessage(tab.id, message, { frameId }, (resp) => {
             if (chrome.runtime.lastError) {
@@ -148,15 +148,18 @@ async function sendMessageToTab(
     });
 }
 
-function injectPageContentScript(): Promise<number> {
-    return new Promise((resolve, reject) => {
-        chrome.tabs.executeScript({ file: 'js/content-page.js', allFrames: true }, (results) => {
-            if (chrome.runtime.lastError) {
-                const msg = `Page script injection error: ${chrome.runtime.lastError.message}`;
-                return reject(new Error(msg));
+function injectPageContentScript(tab: chrome.tabs.Tab): Promise<number> {
+    return new Promise((resolve) => {
+        chrome.tabs.executeScript(
+            tab.id,
+            { file: 'js/content-page.js', allFrames: true },
+            (results) => {
+                if (chrome.runtime.lastError) {
+                    return resolve(undefined);
+                }
+                resolve(results.length);
             }
-            resolve(results.length);
-        });
+        );
     });
 }
 

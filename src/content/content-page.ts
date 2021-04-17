@@ -19,7 +19,9 @@ if (!window.kwExtensionInstalled) {
         }
 
         const response = run(message);
-        sendResponse(response);
+        if (response) {
+            sendResponse(response);
+        }
 
         function run(message: ContentScriptMessage): ContentScriptReturn {
             if (location.href !== message.url) {
