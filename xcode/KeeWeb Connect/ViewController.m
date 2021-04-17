@@ -26,12 +26,12 @@ static NSString *const extensionBundleIdentifier = @"net.antelle.keeweb-connect.
 
                                   if (state.isEnabled)
                                       self.appNameLabel.stringValue = [NSString
-                                          stringWithFormat:@"%@'s extension is currently on.",
+                                          stringWithFormat:@"%@ extension is currently on.",
                                                            appName];
                                   else
                                       self.appNameLabel.stringValue = [NSString
                                           stringWithFormat:
-                                              @"%@'s extension is currently off. You can turn it "
+                                              @"%@ extension is currently off. You can turn it "
                                               @"on in Safari Extensions preferences.",
                                               appName];
                                 });
