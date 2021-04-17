@@ -6,8 +6,6 @@ This is a browser extension for [KeeWeb](https://keeweb.info).
 Although KeeWeb supports auto-typing, browser extensions provide seamless integration
 consistent across all operating systems.
 
-What it looks like:
-
 <img src="img/chrome/button.png" width="233" alt="KeeWeb Connect button" />
 
 <img src="img/chrome/menu.png" width="646" alt="KeeWeb Connect menu" />
