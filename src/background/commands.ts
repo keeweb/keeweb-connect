@@ -21,7 +21,16 @@ interface Frame {
 
 function startCommandListener(): void {
     chrome.commands.onCommand.addListener(async (command, tab) => {
-        await runCommand({ command, tab });
+        if (tab) {
+            await runCommand({ command, tab });
+        } else {
+            [tab] = await new Promise<chrome.tabs.Tab[]>((resolve) =>
+                chrome.tabs.query({ active: true }, resolve)
+            );
+            if (tab) {
+                await runCommand({ command, tab });
+            }
+        }
     });
 }
 
