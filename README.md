@@ -2,6 +2,10 @@
 
 This is a browser extension for [KeeWeb](https://keeweb.info).
 
+![KeeWeb Connect button](img/chrome/button.png | width=233)
+
+![KeeWeb Connect menu](img/chrome/menu.png | width=646)
+
 ## Status
 
 WIP, not ready to use. It's not possible to install this extension now.
