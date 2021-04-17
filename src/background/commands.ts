@@ -137,11 +137,10 @@ async function sendMessageToTab(
     message: ContentScriptMessage
 ): Promise<ContentScriptReturn> {
     await injectPageContentScript(tab);
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         chrome.tabs.sendMessage(tab.id, message, { frameId }, (resp) => {
             if (chrome.runtime.lastError) {
-                const msg = `Cannot send message to a tab: ${chrome.runtime.lastError.message}`;
-                return reject(new Error(msg));
+                return resolve(undefined);
             }
             resolve(resp);
         });
