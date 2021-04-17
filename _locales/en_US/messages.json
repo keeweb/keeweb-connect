@@ -52,6 +52,7 @@
   "optionsShortcutsDescription": { "message": "You can change shortcuts in the extension shortcuts settings." },
   "optionsShortcutsDescriptionNoChange": { "message": "You can use these shortcuts to submit forms faster." },
   "optionsShortcutsLink": { "message": "Edit keyboard shortcuts" },
+  "optionsShortcutsManual": { "message": "To edit shortcuts, open add-ons in your browser, then click the settings button, and select the shortcuts item:" },
   "optionsAbout": { "message": "About" },
   "optionsAboutContact": { "message": "You can ask a question, suggest an idea, or submit an issue report here:" },
   "optionsAboutLicense": { "message": "This extension is licensed under MIT. It includes these awesome libraries:" }

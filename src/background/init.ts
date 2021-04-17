@@ -4,30 +4,30 @@ import { startInternalIpc } from './internal-ipc';
 import { startCommandListener } from './commands';
 import { noop } from 'common/utils';
 
-let started = false;
+let startPromise: Promise<void>;
 
 chrome.runtime.onStartup.addListener(startAndReportError);
 chrome.runtime.onInstalled.addListener((e) => {
-    const openOptions = e.reason === 'install';
-    startAndReportError(openOptions);
+    startAndReportError()
+        .then(() => {
+            if (e.reason === 'install') {
+                chrome.runtime.openOptionsPage();
+            }
+        })
+        .catch(noop);
 });
 
-startAndReportError();
+startAndReportError().catch(noop);
 
-function startAndReportError(openOptions?: boolean) {
-    if (started) {
-        return;
+function startAndReportError(): Promise<void> {
+    if (startPromise !== undefined) {
+        return startPromise;
     }
-    started = true;
-    try {
-        start().catch(noop);
-    } catch (e) {
+    startPromise = start().catch((e) => {
         // eslint-disable-next-line no-console
         console.error('Startup error', e);
-    }
-    if (openOptions) {
-        chrome.runtime.openOptionsPage();
-    }
+    });
+    return startPromise;
 }
 
 async function start() {

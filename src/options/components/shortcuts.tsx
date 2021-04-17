@@ -1,7 +1,7 @@
 import { FunctionComponent } from 'preact';
 import { res } from 'options/utils';
 import { model } from 'options/settings-model';
-import { canEditShortcuts } from 'common/features';
+import { canEditShortcuts, shortcutsCanBeEditedOnlyManually } from 'common/features';
 
 const Shortcuts: FunctionComponent = () => {
     const openShortcuts = (e: Event) => {
@@ -24,11 +24,18 @@ const Shortcuts: FunctionComponent = () => {
                     </li>
                 ))}
             </ul>
-            <p>
-                <a target="_blank" rel="noreferrer" onClick={openShortcuts}>
-                    {res('optionsShortcutsLink')}
-                </a>
-            </p>
+            {shortcutsCanBeEditedOnlyManually ? (
+                <>
+                    <p>{res('optionsShortcutsManual')}</p>
+                    <img srcset="../img/shortcuts.png 2x" alt="button" />
+                </>
+            ) : (
+                <p>
+                    <a target="_blank" rel="noreferrer" onClick={openShortcuts}>
+                        {res('optionsShortcutsLink')}
+                    </a>
+                </p>
+            )}
         </>
     );
 };

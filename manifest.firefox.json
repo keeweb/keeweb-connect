@@ -3,5 +3,13 @@
     "gecko": {
       "id": "keeweb-connect@keeweb.info"
     }
+  },
+  "commands": {
+    "submit-auto": {
+      "suggested_key": {
+        "default": "Ctrl+Alt+A",
+        "mac": "Command+Alt+A"
+      }
+    }
   }
 }
