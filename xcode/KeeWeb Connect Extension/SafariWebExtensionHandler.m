@@ -107,6 +107,40 @@ char readBuffer[1024 * 100];
     return nil;
 }
 
+- (NSDictionary *)writeFirstPacket {
+    NSString *firstPacketStr =
+        [NSString stringWithFormat:@"{\"pid\":%d,\"origin\":\"safari-keeweb-connect\"}", getpid()];
+
+    uint32_t dataLength = sizeof(uint32_t) + (uint32_t)firstPacketStr.length;
+    NSMutableData *requestData = [NSMutableData dataWithLength:dataLength];
+
+    *(uint8_t *)requestData.mutableBytes = firstPacketStr.length;
+    memcpy(requestData.mutableBytes + sizeof(uint32_t), firstPacketStr.UTF8String,
+           firstPacketStr.length);
+
+    NSDictionary *error;
+
+    ssize_t bytesWritten = write(socketFD, requestData.bytes, requestData.length);
+    if (bytesWritten == -1) {
+        os_log(OS_LOG_DEFAULT, "Socket write error: %d", errno);
+        error = [self makeSystemErrorWithMessage:@"Socket write error"];
+        [self closeSocket];
+        return error;
+    }
+
+    if (bytesWritten != requestData.length) {
+        os_log(OS_LOG_DEFAULT, "Wrote %zd bytes to socket instead of %zd", bytesWritten,
+               requestData.length);
+        error = [self makeErrorWithMessage:@"Socket write error"];
+        [self closeSocket];
+        return error;
+    }
+
+    os_log(OS_LOG_DEFAULT, "Wrote %zd bytes of the first packet to socket", bytesWritten);
+
+    return nil;
+}
+
 - (void)returnResult:(NSDictionary *)result toContext:(NSExtensionContext *)context {
     NSExtensionItem *response = [[NSExtensionItem alloc] init];
     response.userInfo = @{SFExtensionMessageKey : result};
@@ -133,13 +167,24 @@ char readBuffer[1024 * 100];
     }
 
     uint32_t requestDataLength = (uint32_t)requestJsonData.length;
-    NSMutableData *requestData = [NSMutableData dataWithBytes:&requestDataLength length:4];
+    NSMutableData *requestData = [NSMutableData dataWithBytes:&requestDataLength
+                                                       length:sizeof(uint32_t)];
     [requestData appendData:requestJsonData];
+
+    bool wasConnected = socketFD != -1;
 
     error = [self connectSocket];
     if (error) {
         [self returnResult:error toContext:context];
         return;
+    }
+
+    if (!wasConnected) {
+        error = [self writeFirstPacket];
+        if (error) {
+            [self returnResult:error toContext:context];
+            return;
+        }
     }
 
     ssize_t bytesWritten = write(socketFD, requestData.bytes, requestData.length);
