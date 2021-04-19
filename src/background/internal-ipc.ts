@@ -43,11 +43,13 @@ function startInternalIpc(): void {
 }
 
 async function processMessage(message: BackgroundMessageFromPage) {
-    if (message.connectToKeeWeb) {
-        await backend.connect().catch(noop);
-        await activateTab(message.connectToKeeWeb.activeTabId);
-    } else if (message.openTab) {
-        await openTab(message.openTab);
+    switch (message.action) {
+        case 'connect-to-keeweb':
+            await backend.connect().catch(noop);
+            await activateTab(message.activeTabId);
+            break;
+        case 'open-tab':
+            await openTab(message.url);
     }
 }
 

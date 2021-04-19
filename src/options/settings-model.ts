@@ -1,7 +1,10 @@
 import { EventEmitter } from 'events';
 import { OptionsPageMessage } from 'common/options-page-interface';
 import { BackendConnectionState } from 'common/backend-connection-state';
-import { BackgroundMessageFromPage } from 'common/background-interface';
+import {
+    BackgroundMessageFromPageConnectToKeeWeb,
+    BackgroundMessageFromPageOpenTab
+} from 'common/background-interface';
 import { noop } from 'common/utils';
 
 class SettingsModel extends EventEmitter {
@@ -162,8 +165,9 @@ class SettingsModel extends EventEmitter {
     connectToKeeWeb() {
         chrome.tabs.getCurrent((tab) => {
             if (tab?.id) {
-                const message: BackgroundMessageFromPage = {
-                    connectToKeeWeb: { activeTabId: tab.id }
+                const message: BackgroundMessageFromPageConnectToKeeWeb = {
+                    action: 'connect-to-keeweb',
+                    activeTabId: tab.id
                 };
                 this._backgroundPagePort?.postMessage(message);
             }
@@ -171,7 +175,10 @@ class SettingsModel extends EventEmitter {
     }
 
     openKeeWebTab() {
-        const message: BackgroundMessageFromPage = { openTab: this.keeWebUrl };
+        const message: BackgroundMessageFromPageOpenTab = {
+            action: 'open-tab',
+            url: this.keeWebUrl
+        };
         this._backgroundPagePort?.postMessage(message);
     }
 }

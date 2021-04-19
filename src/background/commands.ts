@@ -1,9 +1,5 @@
 import { backend } from './backend';
-import {
-    AutoFillArg,
-    ContentScriptMessage,
-    ContentScriptReturn
-} from 'common/content-script-interface';
+import { ContentScriptMessage, ContentScriptReturn } from 'common/content-script-interface';
 import { BackendConnectionState } from 'common/backend-connection-state';
 import { activateTab } from './utils';
 
@@ -105,8 +101,8 @@ async function getNextAutoFillCommand(args: CommandArgs): Promise<CommandArgs | 
             continue;
         }
         const resp = await sendMessageToTab(args.tab, frame.id, {
-            url: frame.url,
-            getNextAutoFillCommand: true
+            action: 'get-next-auto-fill-command',
+            url: frame.url
         });
         if (resp?.nextCommand) {
             args.command = resp.nextCommand;
@@ -139,9 +135,13 @@ async function autoFill(
     url: string,
     tab: chrome.tabs.Tab,
     frameId: number,
-    options: AutoFillArg
+    options: { text?: string; password?: string; submit: boolean }
 ): Promise<ContentScriptReturn | undefined> {
-    return await sendMessageToTab(tab, frameId, { url, autoFill: options });
+    return await sendMessageToTab(tab, frameId, {
+        action: 'auto-fill',
+        url,
+        ...options
+    });
 }
 
 async function sendMessageToTab(

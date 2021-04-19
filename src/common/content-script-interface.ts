@@ -1,14 +1,19 @@
-export interface AutoFillArg {
+export interface ContentScriptMessageAutoFill {
+    action: 'auto-fill';
+    url: string;
     text?: string;
     password?: string;
     submit: boolean;
 }
 
-export interface ContentScriptMessage {
+export interface ContentScriptMessageGetNextAutoFillCommand {
+    action: 'get-next-auto-fill-command';
     url: string;
-    autoFill?: AutoFillArg;
-    getNextAutoFillCommand?: boolean;
 }
+
+export type ContentScriptMessage =
+    | ContentScriptMessageAutoFill
+    | ContentScriptMessageGetNextAutoFillCommand;
 
 export interface ContentScriptReturn {
     nextCommand?: string;

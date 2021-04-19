@@ -1,6 +1,6 @@
 import {
     ContentScriptMessage,
-    AutoFillArg,
+    ContentScriptMessageAutoFill,
     ContentScriptReturn
 } from 'common/content-script-interface';
 
@@ -27,10 +27,12 @@ if (!window.kwExtensionInstalled) {
             if (location.href !== message.url) {
                 return;
             }
-            if (message.autoFill) {
-                autoFill(message.autoFill);
-            } else if (message.getNextAutoFillCommand) {
-                return getNextAutoFillCommand();
+            switch (message.action) {
+                case 'auto-fill':
+                    autoFill(message);
+                    break;
+                case 'get-next-auto-fill-command':
+                    return getNextAutoFillCommand();
             }
         }
 
@@ -54,7 +56,7 @@ if (!window.kwExtensionInstalled) {
             return { nextCommand };
         }
 
-        function autoFill(arg: AutoFillArg) {
+        function autoFill(arg: ContentScriptMessageAutoFill) {
             const { text, password, submit } = arg;
 
             let input = <HTMLInputElement | undefined>document.activeElement;
