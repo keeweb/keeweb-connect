@@ -218,7 +218,7 @@ char readBuffer[1024 * 100];
 
     os_log(OS_LOG_DEFAULT, "Read %zd bytes from socket", bytesWritten);
 
-    if (bytesRead < 4) {
+    if (bytesRead < sizeof(uint32_t)) {
         error = [self makeErrorWithMessage:@"Socket read error"];
         [self closeSocket];
         [self returnResult:error toContext:context];
@@ -226,9 +226,9 @@ char readBuffer[1024 * 100];
     }
 
     uint32_t responseDataLength = *(uint32_t *)readBuffer;
-    if (responseDataLength != bytesRead - 4) {
+    if (responseDataLength != bytesRead - sizeof(uint32_t)) {
         os_log(OS_LOG_DEFAULT, "Message size is %d bytes instead of %zd", responseDataLength,
-               bytesRead - 4);
+               bytesRead - sizeof(uint32_t));
         error = [self makeErrorWithMessage:@"Data decoding error"];
         [self closeSocket];
         [self returnResult:error toContext:context];
@@ -237,7 +237,7 @@ char readBuffer[1024 * 100];
 
     os_log(OS_LOG_DEFAULT, "Message size is %d bytes", responseDataLength);
 
-    void *resposneDataPtr = (char *)readBuffer + 4;
+    void *resposneDataPtr = (char *)readBuffer + sizeof(uint32_t);
     NSData *responseData = [NSData dataWithBytes:resposneDataPtr length:responseDataLength];
     id responseFromKeeWeb = [NSJSONSerialization JSONObjectWithData:responseData
                                                             options:0
