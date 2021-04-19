@@ -67,8 +67,10 @@ export interface KeeWebConnectGetDatabaseHashResponsePayload extends KeeWebConne
 
 // generate-password
 
-export interface KeeWebConnectGeneratePasswordRequest extends KeeWebConnectEncryptedRequest {
+export interface KeeWebConnectGeneratePasswordRequest extends KeeWebConnectRequest {
     action: 'generate-password';
+    nonce: string;
+    clientID: string;
 }
 
 export interface KeeWebConnectGeneratedPassword {

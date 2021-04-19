@@ -3,7 +3,7 @@ import { supportsUnicodeMenus } from 'common/features';
 
 export function createUIMenus(): void {
     chrome.contextMenus.onClicked.addListener(async (e, tab) => {
-        if (!e.editable) {
+        if (!e.editable || !tab) {
             return;
         }
         const command = e.menuItemId;

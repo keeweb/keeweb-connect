@@ -15,7 +15,7 @@ const Usage: FunctionComponent = () => {
             <p>
                 {canEditShortcuts
                     ? res('optionsUsageShortcut')
-                    : res('optionsUsageShortcutNoChange', defaultShortcut)}
+                    : res('optionsUsageShortcutNoChange', defaultShortcut || '')}
             </p>
             {needRequestPermissionsPerSite ? (
                 <>

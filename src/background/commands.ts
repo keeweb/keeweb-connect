@@ -41,7 +41,9 @@ async function runCommand(args: CommandArgs): Promise<void> {
         return;
     }
 
-    await activateTab(args.tab.id);
+    if (args.tab?.id) {
+        await activateTab(args.tab.id);
+    }
 
     if (args.command.includes('auto')) {
         const nextCommand = await getNextAutoFillCommand(args);
@@ -51,7 +53,10 @@ async function runCommand(args: CommandArgs): Promise<void> {
         return;
     }
 
-    if (!isValidUrl(args.url) || typeof args.frameId !== 'number') {
+    if (!args.url || !isValidUrl(args.url)) {
+        return;
+    }
+    if (typeof args.frameId !== 'number') {
         return;
     }
 
@@ -74,7 +79,7 @@ async function runCommand(args: CommandArgs): Promise<void> {
     const user = fieldValues.get('UserName');
     const pass = fieldValues.get('Password');
 
-    await autoFill(args, {
+    await autoFill(args.url, args.tab, args.frameId, {
         text: options.username ? user : options.password ? pass : undefined,
         password: options.username ? (options.password ? pass : undefined) : undefined,
         submit: options.submit
@@ -82,16 +87,18 @@ async function runCommand(args: CommandArgs): Promise<void> {
 }
 
 function isValidUrl(url: string): boolean {
-    return url && /^https?:/i.test(url) && !url.startsWith(backend.keeWebUrl);
+    return /^https?:/i.test(url) && !url.startsWith(backend.keeWebUrl);
 }
 
-async function getNextAutoFillCommand(args: CommandArgs): Promise<CommandArgs> {
+async function getNextAutoFillCommand(args: CommandArgs): Promise<CommandArgs | undefined> {
     const frameCount = await injectPageContentScript(args.tab);
     let allFrames: Frame[];
     if (frameCount > 1) {
         allFrames = await getAllFrames(args.tab);
-    } else {
+    } else if (args.tab.url) {
         allFrames = [{ id: 0, url: args.tab.url }];
+    } else {
+        allFrames = [];
     }
     for (const frame of allFrames) {
         if (!isValidUrl(frame.url)) {
@@ -117,9 +124,10 @@ async function getNextAutoFillCommand(args: CommandArgs): Promise<CommandArgs> {
 
 async function getAllFrames(tab: chrome.tabs.Tab): Promise<Frame[]> {
     return new Promise((resolve, reject) => {
-        chrome.webNavigation.getAllFrames({ tabId: tab.id }, (frames) => {
-            if (chrome.runtime.lastError) {
-                const msg = `Cannot get tab frames: ${chrome.runtime.lastError.message}`;
+        chrome.webNavigation.getAllFrames({ tabId: tab.id || 0 }, (frames) => {
+            if (chrome.runtime.lastError || !frames) {
+                const err = chrome.runtime.lastError?.message || 'empty frames';
+                const msg = `Cannot get tab frames: ${err}`;
                 return reject(new Error(msg));
             }
             resolve(frames.map((f) => ({ id: f.frameId, url: f.url })));
@@ -127,18 +135,23 @@ async function getAllFrames(tab: chrome.tabs.Tab): Promise<Frame[]> {
     });
 }
 
-async function autoFill(args: CommandArgs, options: AutoFillArg): Promise<ContentScriptReturn> {
-    return await sendMessageToTab(args.tab, args.frameId, { url: args.url, autoFill: options });
+async function autoFill(
+    url: string,
+    tab: chrome.tabs.Tab,
+    frameId: number,
+    options: AutoFillArg
+): Promise<ContentScriptReturn | undefined> {
+    return await sendMessageToTab(tab, frameId, { url, autoFill: options });
 }
 
 async function sendMessageToTab(
     tab: chrome.tabs.Tab,
     frameId: number,
     message: ContentScriptMessage
-): Promise<ContentScriptReturn> {
+): Promise<ContentScriptReturn | undefined> {
     await injectPageContentScript(tab);
     return new Promise((resolve) => {
-        chrome.tabs.sendMessage(tab.id, message, { frameId }, (resp) => {
+        chrome.tabs.sendMessage(tab.id || 0, message, { frameId }, (resp) => {
             if (chrome.runtime.lastError) {
                 return resolve(undefined);
             }
@@ -150,11 +163,11 @@ async function sendMessageToTab(
 function injectPageContentScript(tab: chrome.tabs.Tab): Promise<number> {
     return new Promise((resolve) => {
         chrome.tabs.executeScript(
-            tab.id,
+            tab.id || 0,
             { file: 'js/content-page.js', allFrames: true },
             (results) => {
                 if (chrome.runtime.lastError) {
-                    return resolve(undefined);
+                    return resolve(0);
                 }
                 resolve(results.length);
             }

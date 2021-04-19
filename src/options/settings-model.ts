@@ -8,13 +8,13 @@ class SettingsModel extends EventEmitter {
     readonly defaultKeeWebUrl = 'https://app.keeweb.info/';
 
     private _loaded = false;
-    private _canAccessKeeWebTab: boolean;
-    private _keeWebUrl: string;
-    private _useNativeApp: boolean;
-    private _backgroundPagePort: chrome.runtime.Port;
-    private _chromeCommands: chrome.commands.Command[];
-    private _backendConnectionState: BackendConnectionState;
-    private _backendConnectionError: string;
+    private _canAccessKeeWebTab: boolean | undefined;
+    private _keeWebUrl: string | undefined;
+    private _useNativeApp: boolean | undefined;
+    private _backgroundPagePort: chrome.runtime.Port | undefined;
+    private _chromeCommands: chrome.commands.Command[] | undefined;
+    private _backendConnectionState = BackendConnectionState.Initializing;
+    private _backendConnectionError: string | undefined;
 
     async init() {
         await this.loadStorageConfig();
@@ -42,7 +42,7 @@ class SettingsModel extends EventEmitter {
                     origins: [this.keeWebUrl]
                 },
                 (canAccessKeeWebTab) => {
-                    this._canAccessKeeWebTab = !!canAccessKeeWebTab;
+                    this._canAccessKeeWebTab = canAccessKeeWebTab;
                     resolve();
                 }
             );
@@ -77,10 +77,11 @@ class SettingsModel extends EventEmitter {
         return this._loaded;
     }
 
-    get useNativeApp(): boolean {
+    get useNativeApp(): boolean | undefined {
         return this._useNativeApp;
     }
-    set useNativeApp(useNativeApp: boolean) {
+
+    setUseNativeApp(useNativeApp: boolean) {
         this._useNativeApp = useNativeApp;
         chrome.storage.local.set({ useNativeApp }, () => this.emit('change'));
     }
@@ -92,7 +93,8 @@ class SettingsModel extends EventEmitter {
     get keeWebUrl(): string {
         return this._keeWebUrl || this.defaultKeeWebUrl;
     }
-    set keeWebUrl(keeWebUrl: string) {
+
+    setKeeWebUrl(keeWebUrl: string | undefined) {
         if (keeWebUrl === this.defaultKeeWebUrl) {
             keeWebUrl = undefined;
         }
@@ -116,7 +118,7 @@ class SettingsModel extends EventEmitter {
         return !!this._keeWebUrl;
     }
 
-    get canAccessKeeWebTab(): boolean {
+    get canAccessKeeWebTab(): boolean | undefined {
         return this._canAccessKeeWebTab;
     }
     askKeeWebTabPermission(): Promise<boolean> {
@@ -138,7 +140,7 @@ class SettingsModel extends EventEmitter {
     }
 
     get shortcuts(): chrome.commands.Command[] {
-        return this._chromeCommands.filter((cmd) => cmd.shortcut);
+        return (this._chromeCommands || []).filter((cmd) => cmd.shortcut);
     }
 
     private handleMessageFromBackgroundPage(message: OptionsPageMessage) {
@@ -153,20 +155,24 @@ class SettingsModel extends EventEmitter {
         return this._backendConnectionState;
     }
 
-    get backendConnectionError(): string {
+    get backendConnectionError(): string | undefined {
         return this._backendConnectionError;
     }
 
     connectToKeeWeb() {
         chrome.tabs.getCurrent((tab) => {
-            const message: BackgroundMessageFromPage = { connectToKeeWeb: { activeTabId: tab.id } };
-            this._backgroundPagePort.postMessage(message);
+            if (tab?.id) {
+                const message: BackgroundMessageFromPage = {
+                    connectToKeeWeb: { activeTabId: tab.id }
+                };
+                this._backgroundPagePort?.postMessage(message);
+            }
         });
     }
 
     openKeeWebTab() {
         const message: BackgroundMessageFromPage = { openTab: this.keeWebUrl };
-        this._backgroundPagePort.postMessage(message);
+        this._backgroundPagePort?.postMessage(message);
     }
 }
 

@@ -30,18 +30,14 @@ declare global {
 class ProtocolImpl {
     private readonly _keySize = 24;
 
+    private readonly _clientId: string;
     private _transport: ProtocolTransportAdapter;
-    private _clientId: string;
     private _keys: BoxKeyPair;
-    private _keewebPublicKey: Uint8Array;
-    private _connectedAppName: string;
+    private _keewebPublicKey: Uint8Array | undefined;
+    private _connectedAppName: string | undefined;
 
     constructor(transport: ProtocolTransportAdapter) {
         this._transport = transport;
-        this.generateKeys();
-    }
-
-    private generateKeys() {
         this._clientId = randomBase64(this._keySize);
         this._keys = tweetnaclBox.keyPair();
     }
@@ -60,6 +56,10 @@ class ProtocolImpl {
         const data = new TextEncoder().encode(json);
 
         const nonce = this.generateNonce();
+
+        if (!this._keewebPublicKey) {
+            throw new Error('KeeWeb public key is not set');
+        }
 
         const encrypted = tweetnaclBox(data, nonce, this._keewebPublicKey, this._keys.secretKey);
 
@@ -83,9 +83,9 @@ class ProtocolImpl {
     }
 
     private decryptResponsePayload(
-        request: KeeWebConnectEncryptedRequest,
+        request: { nonce: string },
         response: KeeWebConnectEncryptedResponse
-    ): KeeWebConnectResponse {
+    ): KeeWebConnectResponse | undefined {
         if (!response.message) {
             return undefined;
         }
@@ -95,7 +95,15 @@ class ProtocolImpl {
         const message = ProtocolImpl.fieldFromBase64(response.message, 'message');
         const nonce = ProtocolImpl.fieldFromBase64(response.nonce, 'nonce');
 
+        if (!this._keewebPublicKey) {
+            throw new Error('KeeWeb public key is not set');
+        }
+
         const data = tweetnaclBox.open(message, nonce, this._keewebPublicKey, this._keys.secretKey);
+
+        if (!data) {
+            throw new Error('Error decrypting data');
+        }
 
         const json = new TextDecoder().decode(data);
         const payload = JSON.parse(json);
@@ -146,15 +154,19 @@ class ProtocolImpl {
                 throw new Error(locErr);
             } else {
                 const locErr = chrome.i18n.getMessage('errorAppReturnedError');
-                const errCodeStr = response.errorCode ? `[code=${response.errorCode}] ` : '';
-                const resErr = `${errCodeStr}${response.error}`;
-                throw new ProtocolError(`${locErr}: ${resErr}`, response.errorCode);
+                if (response.errorCode) {
+                    const errCodeStr = `[code=${response.errorCode}] `;
+                    const resErr = `${errCodeStr}${response.error}`;
+                    throw new ProtocolError(`${locErr}: ${resErr}`, response.errorCode);
+                } else {
+                    throw new Error(`${locErr}: ${response.error}`);
+                }
             }
         }
         return response;
     }
 
-    get connectedAppName(): string {
+    get connectedAppName(): string | undefined {
         return this._connectedAppName;
     }
 
@@ -180,7 +192,7 @@ class ProtocolImpl {
         this._connectedAppName = response.appName;
     }
 
-    async getDatabaseHash(): Promise<string> {
+    async getDatabaseHash(): Promise<string | undefined> {
         const request = this.makeEncryptedRequest(<KeeWebConnectGetDatabaseHashRequestPayload>{
             action: 'get-databasehash'
         });
@@ -205,7 +217,6 @@ class ProtocolImpl {
         const request: KeeWebConnectGeneratePasswordRequest = {
             action: 'generate-password',
             nonce: toBase64(this.generateNonce()),
-            message: undefined,
             clientID: this._clientId
         };
         const response = await this.request(request);

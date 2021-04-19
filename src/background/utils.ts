@@ -10,7 +10,7 @@ export function activateTab(tabId: number): Promise<boolean> {
 export function openTab(url: string): Promise<chrome.tabs.Tab> {
     return new Promise((resolve) => {
         chrome.tabs.query({ url }, async ([tab]) => {
-            if (tab) {
+            if (tab?.id) {
                 await activateTab(tab.id);
                 resolve(tab);
             } else {

@@ -23,15 +23,14 @@ class Backend extends EventEmitter {
     private readonly _consoleLogStyleOut = this._consoleLogStyle.replace('{}', '#15be5c');
 
     private _useNativeApp = true;
-    private _keeWebUrl: string;
+    private _keeWebUrl = this._defaultKeeWebUrl;
 
-    private _state: BackendConnectionState;
-    private _connectionError: string;
-    private _transport: TransportBase;
+    private _state = BackendConnectionState.Initializing;
+    private _connectionError: string | undefined;
+    private _transport: TransportBase | undefined;
     private _requestQueue: RequestQueueItem[] = [];
-    private _currentRequest: RequestQueueItem;
-    private _protocol: ProtocolImpl;
-    private _dbIsOpen = false;
+    private _currentRequest: RequestQueueItem | undefined;
+    private _protocol: ProtocolImpl | undefined;
 
     get state(): BackendConnectionState {
         return this._state;
@@ -39,14 +38,11 @@ class Backend extends EventEmitter {
     private setState(state: BackendConnectionState) {
         if (this._state !== state) {
             this._state = state;
-            if (this._state !== BackendConnectionState.Connected) {
-                this._dbIsOpen = undefined;
-            }
             this.emit('state-changed');
         }
     }
 
-    get connectionError(): string {
+    get connectionError(): string | undefined {
         return this._connectionError;
     }
 
@@ -107,6 +103,13 @@ class Backend extends EventEmitter {
 
         try {
             this.initTransport();
+
+            if (!this._transport) {
+                throw new Error('Transport not initialized');
+            }
+            if (!this._protocol) {
+                throw new Error('Protocol not initialized');
+            }
 
             await this._transport.connect();
             await this._protocol.changePublicKeys();
@@ -172,7 +175,7 @@ class Backend extends EventEmitter {
     private request(request: KeeWebConnectRequest): Promise<KeeWebConnectResponse> {
         return new Promise((resolve, reject) => {
             const timeout = window.setTimeout(() => {
-                this._currentRequest = null;
+                this._currentRequest = undefined;
                 const errStr = chrome.i18n.getMessage('errorRequestTimeout');
                 reject(new Error(errStr));
             }, this._requestTimeoutMillis);
@@ -196,13 +199,15 @@ class Backend extends EventEmitter {
             return;
         }
         this._currentRequest = this._requestQueue.shift();
-        this.sendTransportRequest(this._currentRequest.request);
+        if (this._currentRequest) {
+            this.sendTransportRequest(this._currentRequest.request);
+        }
     }
 
     private sendTransportRequest(request: KeeWebConnectRequest) {
         // eslint-disable-next-line no-console
-        console.log('%c-> KW', this._consoleLogStyleOut, this._currentRequest.request);
-        this._transport.request(request);
+        console.log('%c-> KW', this._consoleLogStyleOut, request);
+        this._transport?.request(request);
     }
 
     private transportMessage(msg: KeeWebConnectResponse) {
@@ -211,10 +216,8 @@ class Backend extends EventEmitter {
 
         switch (msg.action) {
             case 'database-locked':
-                this._dbIsOpen = false;
                 return;
             case 'database-unlocked':
-                this._dbIsOpen = true;
                 return;
             case 'attention-required':
                 this.focusKeeWebTab();
@@ -224,7 +227,7 @@ class Backend extends EventEmitter {
         if (this._currentRequest) {
             clearTimeout(this._currentRequest.timeout);
             this._currentRequest.resolve(msg);
-            this._currentRequest = null;
+            this._currentRequest = undefined;
         }
 
         this.processRequestQueue();
@@ -244,12 +247,12 @@ class Backend extends EventEmitter {
     }
 
     private focusKeeWebTab() {
-        this._transport.focusKeeWeb();
+        this._transport?.focusKeeWeb();
     }
 
     checkConnection() {
         if (this.state === BackendConnectionState.Connected) {
-            this._protocol.ping().catch(noop);
+            this._protocol?.ping().catch(noop);
         }
     }
 

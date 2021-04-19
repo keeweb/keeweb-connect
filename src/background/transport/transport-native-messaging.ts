@@ -3,7 +3,7 @@ import { KeeWebConnectRequest, KeeWebConnectResponse } from 'background/protocol
 
 class TransportNativeMessaging extends TransportBase {
     private readonly _appName = 'net.antelle.keeweb.keeweb_connect';
-    private _port: chrome.runtime.Port;
+    private _port: chrome.runtime.Port | undefined;
 
     connect(): Promise<void> {
         this._port = chrome.runtime.connectNative(this._appName);

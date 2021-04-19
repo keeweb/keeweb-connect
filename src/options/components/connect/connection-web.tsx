@@ -25,7 +25,7 @@ const ConnectionWeb: FunctionComponent = () => {
                 return setInputKeeWebUrlError(res('optionsWebConnectionKeeWebUrlNotHttps'));
             }
             setInputKeeWebUrl('');
-            model.keeWebUrl = url.toString();
+            model.setKeeWebUrl(url.toString());
         } catch (e) {
             setInputKeeWebUrlError(`${res('optionsWebConnectionKeeWebUrlInvalid')}: ${e.message}`);
         }
@@ -39,7 +39,7 @@ const ConnectionWeb: FunctionComponent = () => {
     const resetKeeWebUrl = (e: Event) => {
         e.preventDefault();
         setInputKeeWebUrl('');
-        model.keeWebUrl = undefined;
+        model.setKeeWebUrl(undefined);
     };
 
     return (

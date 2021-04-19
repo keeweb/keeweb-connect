@@ -13,8 +13,8 @@ class TransportBrowserTab extends TransportBase {
     private readonly _maxTabConnectionRetries = 10;
     private readonly _tabConnectionRetryMillis = 500;
     private readonly _tabConnectionTimeoutMillis = 500;
-    private _tab: chrome.tabs.Tab;
-    private _port: chrome.runtime.Port;
+    private _tab: chrome.tabs.Tab | undefined;
+    private _port: chrome.runtime.Port | undefined;
 
     constructor(keeWebUrl: string) {
         super();
@@ -59,7 +59,7 @@ class TransportBrowserTab extends TransportBase {
     }
 
     focusKeeWeb(): void {
-        if (this._tab) {
+        if (this._tab?.id) {
             activateTab(this._tab.id).catch(noop);
         }
     }
@@ -106,7 +106,7 @@ class TransportBrowserTab extends TransportBase {
 
     private injectContentScript(): Promise<void> {
         return new Promise((resolve, reject) => {
-            chrome.tabs.executeScript(this._tab.id, { file: 'js/content-keeweb.js' }, () => {
+            chrome.tabs.executeScript(this._tab!.id!, { file: 'js/content-keeweb.js' }, () => {
                 if (chrome.runtime.lastError) {
                     const msg = `Content script injection error: ${chrome.runtime.lastError.message}`;
                     reject(new Error(msg));
@@ -117,9 +117,9 @@ class TransportBrowserTab extends TransportBase {
         });
     }
 
-    private connectToTab(retriesLeft: number): Promise<chrome.runtime.Port> {
+    private connectToTab(retriesLeft: number): Promise<chrome.runtime.Port | undefined> {
         return new Promise((resolve) => {
-            if (retriesLeft <= 0) {
+            if (retriesLeft <= 0 || !this._tab?.id) {
                 return resolve(undefined);
             }
 

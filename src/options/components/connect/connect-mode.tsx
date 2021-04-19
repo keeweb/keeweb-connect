@@ -4,7 +4,7 @@ import { model } from 'options/settings-model';
 
 const ConnectMode: FunctionComponent = () => {
     const setUseNativeApp = (useNativeApp: boolean) => {
-        model.useNativeApp = useNativeApp;
+        model.setUseNativeApp(useNativeApp);
     };
 
     const openKeeWebTab = (e: Event) => {

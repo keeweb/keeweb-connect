@@ -23,7 +23,7 @@ if (!window.kwExtensionInstalled) {
             sendResponse(response);
         }
 
-        function run(message: ContentScriptMessage): ContentScriptReturn {
+        function run(message: ContentScriptMessage): ContentScriptReturn | undefined {
             if (location.href !== message.url) {
                 return;
             }
@@ -57,7 +57,7 @@ if (!window.kwExtensionInstalled) {
         function autoFill(arg: AutoFillArg) {
             const { text, password, submit } = arg;
 
-            let input = <HTMLInputElement>document.activeElement;
+            let input = <HTMLInputElement | undefined>document.activeElement;
             if (!input) {
                 return;
             }
@@ -95,7 +95,7 @@ if (!window.kwExtensionInstalled) {
             );
         }
 
-        function getNextFormPasswordInput(input: HTMLInputElement): HTMLInputElement {
+        function getNextFormPasswordInput(input: HTMLInputElement): HTMLInputElement | undefined {
             if (!input.form) {
                 return undefined;
             }

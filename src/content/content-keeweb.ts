@@ -8,7 +8,7 @@ if (!window.kwExtensionInstalled) {
     window.kwExtensionInstalled = true;
 
     chrome.runtime.onConnect.addListener((port) => {
-        if (port.sender.id !== chrome.runtime.id) {
+        if (port.sender?.id !== chrome.runtime.id) {
             return;
         }
         if (!port.name) {
