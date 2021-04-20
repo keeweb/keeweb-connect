@@ -1,0 +1,16 @@
+{
+  "name": "@keeweb/keeweb-native-messaging-host",
+  "version": "0.0.0",
+  "description": "",
+  "main": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": {
+    "name": "Antelle",
+    "email": "antelle.net@gmail.com",
+    "url": "http://antelle.net"
+  },
+  "license": "MIT",
+  "publishConfig": { "registry": "https://npm.pkg.github.com/" }
+}
