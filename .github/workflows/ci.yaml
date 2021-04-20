@@ -5,7 +5,7 @@ on:
       - master
   pull_request:
 jobs:
-  Build extensions:
+  build-extensions:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
