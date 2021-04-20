@@ -35,7 +35,7 @@ jobs:
           name: extensions
           path: dist/*.zip
 
-  build-safari-extension:
+  build-safari-app:
     needs: [build-extensions]
     runs-on: macos-latest
     steps:
@@ -49,7 +49,7 @@ jobs:
           name: extensions
           path: dist
       - name: Unzip the extension
-        run: unzip safari.zip safari
+        run: unzip safari.zip -d safari
         working-directory: dist
       - name: Build
         run: make
