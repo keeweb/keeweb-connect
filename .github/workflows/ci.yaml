@@ -134,6 +134,7 @@ jobs:
 #          path: native-messaging-host/build/Release/keeweb-native-messaging-host.exe
 
   publish-host-package:
+    needs: [build-host-ubuntu]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
