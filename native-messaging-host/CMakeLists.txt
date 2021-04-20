@@ -5,6 +5,8 @@ project(keeweb-native-messaging-host)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+set(CMAKE_XCODE_ATTRIBUTE_ONLY_ACTIVE_ARCH YES)
+
 include(FetchContent)
 
 FetchContent_Declare(
@@ -27,8 +29,6 @@ if(WIN32)
 else()
     target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wextra -pedantic -Werror)
 endif()
-
-set_target_properties(${PROJECT_NAME} PROPERTIES XCODE_ATTRIBUTE_ONLY_ACTIVE_ARCH YES)
 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     target_compile_options(${PROJECT_NAME} PRIVATE -fsanitize=address,undefined)
