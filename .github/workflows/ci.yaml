@@ -94,7 +94,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: CMake configure x64
-        run: cmake -B build .
+        run: cmake -B build -A x64 .
         working-directory: native-messaging-host
       - name: CMake build x64
         run: cmake --build build --config MinSizeRel
@@ -102,5 +102,33 @@ jobs:
       - name: Upload artifact x64
         uses: actions/upload-artifact@v2
         with:
-          name: native-messaging-host-windows-x64
+          name: native-messaging-host-win32-x64
+          path: native-messaging-host/build/keeweb-native-messaging-host.exe
+      - name: Clean
+        run: rm -rf build
+        working-directory: native-messaging-host
+      - name: CMake configure ia32
+        run: cmake -B build -A win32 .
+        working-directory: native-messaging-host
+      - name: CMake build ia32
+        run: cmake --build build --config MinSizeRel
+        working-directory: native-messaging-host
+      - name: Upload artifact ia32
+        uses: actions/upload-artifact@v2
+        with:
+          name: native-messaging-host-win32-ia32
+          path: native-messaging-host/build/keeweb-native-messaging-host.exe
+      - name: Clean
+        run: rm -rf build
+        working-directory: native-messaging-host
+      - name: CMake configure arm64
+        run: cmake -B build -A arm64 .
+        working-directory: native-messaging-host
+      - name: CMake build arm64
+        run: cmake --build build --config MinSizeRel
+        working-directory: native-messaging-host
+      - name: Upload artifact arm64
+        uses: actions/upload-artifact@v2
+        with:
+          name: native-messaging-host-win32-arm64
           path: native-messaging-host/build/keeweb-native-messaging-host.exe
