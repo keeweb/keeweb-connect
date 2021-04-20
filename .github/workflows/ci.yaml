@@ -28,5 +28,23 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: Extensions
+          name: extensions
           path: dist/*.zip
+  build-host-ubuntu:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: CMake configure
+        run: cmake -B build .
+        working-directory: native-messaging-host
+      - name: CMake build
+        run: cmake --build build --config MinSizeRel
+        working-directory: native-messaging-host
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: native-messaging-host-ubuntu-x64
+          path: native-messaging-host/build/keeweb-native-messaging-host
