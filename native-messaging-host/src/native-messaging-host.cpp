@@ -1,6 +1,7 @@
 #include <uv.h>
 
 #include <algorithm>
+#include <cstring>
 #include <filesystem>
 #include <iostream>
 #include <queue>
