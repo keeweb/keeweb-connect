@@ -152,12 +152,12 @@ jobs:
 
   publish-host-package:
     needs:
-      - build-host-linux-x64
-      - build-host-darwin-x64
-      - build-host-darwin-arm64
+#      - build-host-linux-x64
+#      - build-host-darwin-x64
+#      - build-host-darwin-arm64
       - build-host-win32-x64
-      - build-host-win32-ia32
-      - build-host-win32-arm64
+#      - build-host-win32-ia32
+#      - build-host-win32-arm64
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
