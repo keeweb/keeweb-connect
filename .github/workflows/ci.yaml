@@ -50,7 +50,7 @@ jobs:
       - name: Upload artifact x64
         uses: actions/upload-artifact@v2
         with:
-          name: native-messaging-host-ubuntu-x64
+          name: native-messaging-host-linux-x64
           path: native-messaging-host/build/keeweb-native-messaging-host
 
   build-host-macos:
@@ -85,3 +85,22 @@ jobs:
         with:
           name: native-messaging-host-darwin-arm64
           path: native-messaging-host/build/keeweb-native-messaging-host
+
+  build-host-windows:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: CMake configure x64
+        run: cmake -B build .
+        working-directory: native-messaging-host
+      - name: CMake build x64
+        run: cmake --build build --config MinSizeRel
+        working-directory: native-messaging-host
+      - name: Upload artifact x64
+        uses: actions/upload-artifact@v2
+        with:
+          name: native-messaging-host-windows-x64
+          path: native-messaging-host/build/keeweb-native-messaging-host.exe
