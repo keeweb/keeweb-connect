@@ -7,31 +7,31 @@ on:
 
 jobs:
 
-#  build-extensions:
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: Checkout
-#        uses: actions/checkout@v2
-#        with:
-#          fetch-depth: 0
-#      - name: NPM install
-#        run: npm ci
-#      - name: Build content
-#        run: npm start
-#      - name: Zip archives
-#        run: |
-#          for dir in *
-#          do
-#            pushd $dir
-#              zip -r ../$dir.zip .
-#            popd
-#          done
-#        working-directory: dist
-#      - name: Upload artifacts
-#        uses: actions/upload-artifact@v2
-#        with:
-#          name: extensions
-#          path: dist/*.zip
+  build-extensions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: NPM install
+        run: npm ci
+      - name: Build content
+        run: npm start
+      - name: Zip archives
+        run: |
+          for dir in *
+          do
+            pushd $dir
+              zip -r ../$dir.zip .
+            popd
+          done
+        working-directory: dist
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: extensions
+          path: dist/*.zip
 
   build-host-linux-x64:
     runs-on: ubuntu-latest
@@ -149,6 +149,7 @@ jobs:
 
   publish-host-package:
     needs:
+      - build-extensions
       - build-host-linux-x64
 #      - build-host-darwin-x64
 #      - build-host-darwin-arm64
@@ -161,6 +162,11 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
+      - name: Download extensions artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: extensions
+          path: extensions
       - name: Download linux-x64 artifact
         uses: actions/download-artifact@v2
         with:
@@ -193,7 +199,7 @@ jobs:
 #          path: packages/native-messaging-host/win32-arm64
       - name: Set version
         run: sed -i "s/0.0.0/${GITHUB_REF/refs\/tags\//}/g" packages/native-messaging-host/package.json
-      - name: Make the package
+      - name: Npm pack
         run: |
           npm pack ./packages/native-messaging-host
           mv keeweb-keeweb-native-messaging-host-*.tgz keeweb-native-messaging-host.tgz
@@ -204,5 +210,6 @@ jobs:
           body: Extensions built from ${{ github.sha }}
           files: |
             keeweb-native-messaging-host.tgz
+            extensions/*.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
