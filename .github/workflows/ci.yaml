@@ -5,7 +5,7 @@ on:
       - master
   pull_request:
 jobs:
-  lint:
+  Build extensions:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -14,7 +14,7 @@ jobs:
           fetch-depth: 0
       - name: NPM install
         run: npm ci
-      - name: Build extensions
+      - name: Build content
         run: npm start
       - name: Make archives
         run: |
