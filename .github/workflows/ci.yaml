@@ -104,8 +104,6 @@ jobs:
       - name: CMake build
         run: cmake --build build --config MinSizeRel
         working-directory: native-messaging-host
-      - name: List
-        run: tree native-messaging-host/build
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
