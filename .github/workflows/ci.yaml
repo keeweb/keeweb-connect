@@ -51,6 +51,11 @@ jobs:
       - name: Unzip the extension
         run: unzip safari.zip -d safari
         working-directory: dist
+      - name: Import certificates
+        uses: keeweb/import-codesign-certs@v1
+        with:
+          p12-file-base64: ${{ secrets.APPLE_CERTIFICATE }}
+          p12-password: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
       - name: Build
         run: make
         working-directory: xcode
