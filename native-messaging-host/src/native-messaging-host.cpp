@@ -217,7 +217,7 @@ void push_first_message_to_keeweb() {
     auto data = new char[message_length];
     auto size_ptr = reinterpret_cast<uint32_t *>(data);
 
-    *size_ptr = message.length();
+    *size_ptr = static_cast<uint32_t>(message.length());
     memcpy(data + sizeof(uint32_t), message.c_str(), message.length());
 
     state.pending_to_keeweb.emplace(
