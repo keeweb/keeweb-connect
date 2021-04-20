@@ -83,5 +83,5 @@ jobs:
       - name: Upload artifact arm64
         uses: actions/upload-artifact@v2
         with:
-          name: native-messaging-host-darwin-x64
+          name: native-messaging-host-darwin-arm64
           path: native-messaging-host/build/keeweb-native-messaging-host
