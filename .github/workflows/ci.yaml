@@ -14,7 +14,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - name: NPM install
+      - name: Install npm modules
         run: npm ci
       - name: Build content
         run: npm start
@@ -52,110 +52,110 @@ jobs:
           name: native-messaging-host-linux-x64
           path: native-messaging-host/build/keeweb-native-messaging-host
 
-#  build-host-darwin-x64:
-#    runs-on: macos-latest
-#    steps:
-#      - name: Checkout
-#        uses: actions/checkout@v2
-#        with:
-#          fetch-depth: 0
-#      - name: CMake configure
-#        run: cmake -DCMAKE_OSX_ARCHITECTURES=x86_64 -B build .
-#        working-directory: native-messaging-host
-#      - name: CMake build
-#        run: cmake --build build --config MinSizeRel
-#        working-directory: native-messaging-host
-#      - name: Upload artifact
-#        uses: actions/upload-artifact@v2
-#        with:
-#          name: native-messaging-host-darwin-x64
-#          path: native-messaging-host/build/keeweb-native-messaging-host
-#
-#  build-host-darwin-arm64:
-#    runs-on: macos-latest
-#    steps:
-#      - name: Checkout
-#        uses: actions/checkout@v2
-#        with:
-#          fetch-depth: 0
-#      - name: CMake configure
-#        run: cmake -DCMAKE_OSX_ARCHITECTURES=arm64 -B build .
-#        working-directory: native-messaging-host
-#      - name: CMake build
-#        run: cmake --build build --config MinSizeRel
-#        working-directory: native-messaging-host
-#      - name: Upload artifact
-#        uses: actions/upload-artifact@v2
-#        with:
-#          name: native-messaging-host-darwin-arm64
-#          path: native-messaging-host/build/keeweb-native-messaging-host
-#
-#  build-host-win32-x64:
-#    runs-on: windows-latest
-#    steps:
-#      - name: Checkout
-#        uses: actions/checkout@v2
-#        with:
-#          fetch-depth: 0
-#      - name: CMake configure
-#        run: cmake -B build -A x64 .
-#        working-directory: native-messaging-host
-#      - name: CMake build
-#        run: cmake --build build --config MinSizeRel
-#        working-directory: native-messaging-host
-#      - name: Upload artifact
-#        uses: actions/upload-artifact@v2
-#        with:
-#          name: native-messaging-host-win32-x64
-#          path: native-messaging-host/build/MinSizeRel/keeweb-native-messaging-host.exe
-#
-#  build-host-win32-ia32:
-#    runs-on: windows-latest
-#    steps:
-#      - name: Checkout
-#        uses: actions/checkout@v2
-#        with:
-#          fetch-depth: 0
-#      - name: CMake configure
-#        run: cmake -B build -A win32 .
-#        working-directory: native-messaging-host
-#      - name: CMake build
-#        run: cmake --build build --config MinSizeRel
-#        working-directory: native-messaging-host
-#      - name: Upload artifact
-#        uses: actions/upload-artifact@v2
-#        with:
-#          name: native-messaging-host-win32-ia32
-#          path: native-messaging-host/build/MinSizeRel/keeweb-native-messaging-host.exe
-#
-#  build-host-win32-arm64:
-#    runs-on: windows-latest
-#    steps:
-#      - name: Checkout
-#        uses: actions/checkout@v2
-#        with:
-#          fetch-depth: 0
-#      - name: CMake configure
-#        run: cmake -B build -A arm64 .
-#        working-directory: native-messaging-host
-#      - name: CMake build
-#        run: cmake --build build --config MinSizeRel
-#        working-directory: native-messaging-host
-#      - name: Upload artifact
-#        uses: actions/upload-artifact@v2
-#        with:
-#          name: native-messaging-host-win32-arm64
-#          path: native-messaging-host/build/MinSizeRel/keeweb-native-messaging-host.exe
+  build-host-darwin-x64:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: CMake configure
+        run: cmake -DCMAKE_OSX_ARCHITECTURES=x86_64 -B build .
+        working-directory: native-messaging-host
+      - name: CMake build
+        run: cmake --build build --config MinSizeRel
+        working-directory: native-messaging-host
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: native-messaging-host-darwin-x64
+          path: native-messaging-host/build/keeweb-native-messaging-host
 
-  publish-host-package:
+  build-host-darwin-arm64:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: CMake configure
+        run: cmake -DCMAKE_OSX_ARCHITECTURES=arm64 -B build .
+        working-directory: native-messaging-host
+      - name: CMake build
+        run: cmake --build build --config MinSizeRel
+        working-directory: native-messaging-host
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: native-messaging-host-darwin-arm64
+          path: native-messaging-host/build/keeweb-native-messaging-host
+
+  build-host-win32-x64:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: CMake configure
+        run: cmake -B build -A x64 .
+        working-directory: native-messaging-host
+      - name: CMake build
+        run: cmake --build build --config MinSizeRel
+        working-directory: native-messaging-host
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: native-messaging-host-win32-x64
+          path: native-messaging-host/build/MinSizeRel/keeweb-native-messaging-host.exe
+
+  build-host-win32-ia32:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: CMake configure
+        run: cmake -B build -A win32 .
+        working-directory: native-messaging-host
+      - name: CMake build
+        run: cmake --build build --config MinSizeRel
+        working-directory: native-messaging-host
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: native-messaging-host-win32-ia32
+          path: native-messaging-host/build/MinSizeRel/keeweb-native-messaging-host.exe
+
+  build-host-win32-arm64:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: CMake configure
+        run: cmake -B build -A arm64 .
+        working-directory: native-messaging-host
+      - name: CMake build
+        run: cmake --build build --config MinSizeRel
+        working-directory: native-messaging-host
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: native-messaging-host-win32-arm64
+          path: native-messaging-host/build/MinSizeRel/keeweb-native-messaging-host.exe
+
+  publish:
     needs:
       - build-extensions
       - build-host-linux-x64
-#      - build-host-darwin-x64
-#      - build-host-darwin-arm64
-#      - build-host-win32-x64
-#      - build-host-win32-ia32
-#      - build-host-win32-arm64
+      - build-host-darwin-x64
+      - build-host-darwin-arm64
+      - build-host-win32-x64
+      - build-host-win32-ia32
+      - build-host-win32-arm64
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -172,34 +172,34 @@ jobs:
         with:
           name: native-messaging-host-linux-x64
           path: packages/native-messaging-host/linux-x64
-#      - name: Download darwin-x64 artifact
-#        uses: actions/download-artifact@v2
-#        with:
-#          name: native-messaging-host-darwin-x64
-#          path: packages/native-messaging-host/darwin-x64
-#      - name: Download darwin-arm64 artifact
-#        uses: actions/download-artifact@v2
-#        with:
-#          name: native-messaging-host-darwin-arm64
-#          path: packages/native-messaging-host/darwin-arm64
-#      - name: Download win32-x64 artifact
-#        uses: actions/download-artifact@v2
-#        with:
-#          name: native-messaging-host-win32-x64
-#          path: packages/native-messaging-host/win32-x64
-#      - name: Download win32-ia32 artifact
-#        uses: actions/download-artifact@v2
-#        with:
-#          name: native-messaging-host-win32-ia32
-#          path: packages/native-messaging-host/win32-ia32
-#      - name: Download windows-arm64 artifact
-#        uses: actions/download-artifact@v2
-#        with:
-#          name: native-messaging-host-win32-arm64
-#          path: packages/native-messaging-host/win32-arm64
+      - name: Download darwin-x64 artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: native-messaging-host-darwin-x64
+          path: packages/native-messaging-host/darwin-x64
+      - name: Download darwin-arm64 artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: native-messaging-host-darwin-arm64
+          path: packages/native-messaging-host/darwin-arm64
+      - name: Download win32-x64 artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: native-messaging-host-win32-x64
+          path: packages/native-messaging-host/win32-x64
+      - name: Download win32-ia32 artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: native-messaging-host-win32-ia32
+          path: packages/native-messaging-host/win32-ia32
+      - name: Download windows-arm64 artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: native-messaging-host-win32-arm64
+          path: packages/native-messaging-host/win32-arm64
       - name: Set version
         run: sed -i "s/0.0.0/${GITHUB_REF/refs\/tags\//}/g" packages/native-messaging-host/package.json
-      - name: Npm pack
+      - name: Make the package
         run: |
           npm pack ./packages/native-messaging-host
           mv keeweb-keeweb-native-messaging-host-*.tgz keeweb-native-messaging-host.tgz
