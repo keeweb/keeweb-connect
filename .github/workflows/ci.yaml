@@ -103,7 +103,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: native-messaging-host-win32-x64
-          path: native-messaging-host/build/keeweb-native-messaging-host.exe
+          path: native-messaging-host/build/Release/keeweb-native-messaging-host.exe
       - name: Clean
         run: rd -r -force build
         working-directory: native-messaging-host
@@ -117,7 +117,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: native-messaging-host-win32-ia32
-          path: native-messaging-host/build/keeweb-native-messaging-host.exe
+          path: native-messaging-host/build/Release/keeweb-native-messaging-host.exe
       - name: Clean
         run: rd -r -force build
         working-directory: native-messaging-host
@@ -131,4 +131,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: native-messaging-host-win32-arm64
-          path: native-messaging-host/build/keeweb-native-messaging-host.exe
+          path: native-messaging-host/build/Release/keeweb-native-messaging-host.exe
