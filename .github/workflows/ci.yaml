@@ -170,8 +170,8 @@ jobs:
 #        with:
 #          name: native-messaging-host-windows-arm64
 #          path: packages/native-messaging-host
-       - name: List contents
-         run: ls -la packages/native-messaging-host
+      - name: List contents
+        run: ls -la packages/native-messaging-host
 #      - name: Publish npm package
 #        run: |
 #          rm -f ~/.npmrc
