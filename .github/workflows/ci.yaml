@@ -16,7 +16,7 @@ jobs:
         run: npm ci
       - name: Build content
         run: npm start
-      - name: Make archives
+      - name: Zip archives
         run: |
           for dir in *
           do
@@ -24,5 +24,9 @@ jobs:
               zip -r ../$dir.zip .
             popd
           done
-          ls -la
         working-directory: dist
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Extensions
+          path: dist/*.zip
