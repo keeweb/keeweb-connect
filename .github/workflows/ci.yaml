@@ -145,32 +145,32 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: native-messaging-host-linux-x64
-          path: packages/linux-x64/native-messaging-host
+          path: packages/native-messaging-host/linux-x64
 #      - name: Download darwin-x64 artifact
 #        uses: actions/download-artifact@v2
 #        with:
 #          name: native-messaging-host-darwin-x64
-#          path: packages/darwin-x64/native-messaging-host
+#          path: packages/native-messaging-host/darwin-x64
 #      - name: Download darwin-arm64 artifact
 #        uses: actions/download-artifact@v2
 #        with:
 #          name: native-messaging-host-darwin-arm64
-#          path: packages/darwin-arm64/native-messaging-host
+#          path: packages/native-messaging-host/darwin-arm64
 #      - name: Download win32-x64 artifact
 #        uses: actions/download-artifact@v2
 #        with:
 #          name: native-messaging-host-win32-x64
-#          path: packages/win32-x64/native-messaging-host
+#          path: packages/native-messaging-host/win32-x64
 #      - name: Download win32-ia32 artifact
 #        uses: actions/download-artifact@v2
 #        with:
 #          name: native-messaging-host-win32-ia32
-#          path: packages/win32-ia32/native-messaging-host
+#          path: packages/native-messaging-host/win32-ia32
 #      - name: Download windows-arm64 artifact
 #        uses: actions/download-artifact@v2
 #        with:
 #          name: native-messaging-host-win32-arm64
-#          path: packages/win32-arm64/native-messaging-host
+#          path: packages/native-messaging-host/win32-arm64
       - name: List contents
         run: ls -la packages/native-messaging-host
 #      - name: Publish npm package
