@@ -193,6 +193,7 @@ jobs:
   publish:
     needs:
       - build-extensions
+      - build-safari-app
       - build-host-linux-x64
       - build-host-darwin-x64
       - build-host-darwin-arm64
