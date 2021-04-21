@@ -59,6 +59,8 @@ jobs:
       - name: Build
         run: make
         working-directory: xcode
+        env:
+          CODE_SIGNING_IDENTITY: Developer ID Application
       - name: Compress
         run: zip -r ../../../KeeWeb\ Connect.app.zip KeeWeb\ Connect.app
         working-directory: xcode/dist/Build/Products/Release
@@ -202,6 +204,11 @@ jobs:
 #        with:
 #          name: extensions
 #          path: extensions
+#      - name: Download Safari app artifact
+#        uses: actions/download-artifact@v2
+#        with:
+#          name: KeeWeb Connect.app
+#          path: xcode/dist
 #      - name: Download linux-x64 artifact
 #        uses: actions/download-artifact@v2
 #        with:
@@ -246,5 +253,6 @@ jobs:
 #          files: |
 #            keeweb-native-messaging-host.tgz
 #            extensions/*.zip
+#            xcode/dist/KeeWeb Connect.app.zip
 #        env:
 #          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
