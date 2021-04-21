@@ -248,6 +248,12 @@ jobs:
           path: packages/native-messaging-host/win32-arm64
       - name: Set version
         run: sed -i "s/0.0.0/${GITHUB_REF/refs\/tags\//}/g" packages/native-messaging-host/package.json
+      - name: Change file mode
+        run: |
+          chmod u+x linux-x64/keeweb-native-messaging-host
+          chmod u+x darwin-arm64/keeweb-native-messaging-host
+          chmod u+x darwin-x64/keeweb-native-messaging-host
+        working-directory: packages/native-messaging-host
       - name: Make the package
         run: |
           npm pack ./packages/native-messaging-host
