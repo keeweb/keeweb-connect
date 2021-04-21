@@ -57,7 +57,7 @@ jobs:
           p12-file-base64: ${{ secrets.APPLE_CERTIFICATE }}
           p12-password: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
       - name: Build
-        run: make
+        run: xcodebuild -scheme "KeeWeb Connect" -configuration Release -derivedDataPath dist build
         working-directory: xcode
         env:
           CODE_SIGNING_IDENTITY: Developer ID Application
