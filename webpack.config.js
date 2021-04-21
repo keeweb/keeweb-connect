@@ -47,6 +47,9 @@ export default {
         },
         extensions: ['.tsx', '.ts', '.js']
     },
+    optimization: {
+        minimize: false
+    },
     plugins: [
         new CopyPlugin({
             patterns: [
