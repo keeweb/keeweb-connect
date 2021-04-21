@@ -1,12 +1,12 @@
-import { EventEmitter } from 'events';
+import { TypedEmitter } from 'tiny-typed-emitter';
 import { KeeWebConnectRequest, KeeWebConnectResponse } from 'background/protocol/types';
 
-declare interface TransportBase {
-    on(event: 'disconnected', listener: () => void): this;
-    on(event: 'message', listener: (msg: KeeWebConnectResponse) => void): this;
+interface TransportBaseEvents {
+    disconnected: () => void;
+    message: (msg: KeeWebConnectResponse) => void;
 }
 
-abstract class TransportBase extends EventEmitter {
+abstract class TransportBase extends TypedEmitter<TransportBaseEvents> {
     abstract connect(): Promise<void>;
     abstract disconnect(): Promise<void>;
     abstract request(message: KeeWebConnectRequest): void;

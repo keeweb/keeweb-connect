@@ -1,4 +1,4 @@
-import { EventEmitter } from 'events';
+import { TypedEmitter } from 'tiny-typed-emitter';
 import { OptionsPageMessage } from 'common/options-page-interface';
 import { BackendConnectionState } from 'common/backend-connection-state';
 import {
@@ -7,7 +7,11 @@ import {
 } from 'common/background-interface';
 import { noop } from 'common/utils';
 
-class SettingsModel extends EventEmitter {
+interface SettingsModelEvents {
+    change: () => void;
+}
+
+class SettingsModel extends TypedEmitter<SettingsModelEvents> {
     readonly defaultKeeWebUrl = 'https://app.keeweb.info/';
 
     private _loaded = false;

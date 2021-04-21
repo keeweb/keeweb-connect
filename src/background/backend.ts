@@ -1,4 +1,4 @@
-import { EventEmitter } from 'events';
+import { TypedEmitter } from 'tiny-typed-emitter';
 import { BackendConnectionState } from 'common/backend-connection-state';
 import { TransportBase } from './transport/transport-base';
 import { TransportNativeMessaging } from './transport/transport-native-messaging';
@@ -14,7 +14,12 @@ interface RequestQueueItem {
     timeout: number;
 }
 
-class Backend extends EventEmitter {
+interface BackendEvents {
+    'state-changed': () => void;
+    'connect-finished': (error?: Error) => void;
+}
+
+class Backend extends TypedEmitter<BackendEvents> {
     private readonly _defaultKeeWebUrl = 'https://app.keeweb.info/';
     private readonly _requestTimeoutMillis = 30000;
     private readonly _consoleLogStyle =
