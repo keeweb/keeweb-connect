@@ -57,23 +57,21 @@ jobs:
           p12-file-base64: ${{ secrets.APPLE_CERTIFICATE }}
           p12-password: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
       - name: Build
-        run: xcodebuild -scheme "KeeWeb Connect" -configuration Release -derivedDataPath dist build
+        run: make
         working-directory: xcode
-        env:
-          CODE_SIGNING_IDENTITY: Developer ID Application
       - name: Notarize
         uses: devbotsxyz/xcode-notarize@v1
         with:
-          product-path: xcode/dist/Build/Products/Release/KeeWeb Connect.app
+          product-path: xcode/dist/archive.xcarchive/Products/Applications/KeeWeb Connect.app
           appstore-connect-username: ${{ secrets.APPLE_NOTARIZATION_USERNAME }}
           appstore-connect-password: ${{ secrets.APPLE_NOTARIZATION_PASSWORD }}
       - name: Staple
         uses: devbotsxyz/xcode-staple@v1
         with:
-          product-path: xcode/dist/Build/Products/Release/KeeWeb Connect.app
+          product-path: xcode/dist/archive.xcarchive/Products/Applications/KeeWeb Connect.app
       - name: Compress
         run: zip -r ../../../KeeWeb\ Connect.app.zip KeeWeb\ Connect.app
-        working-directory: xcode/dist/Build/Products/Release
+        working-directory: xcode/dist/archive.xcarchive/Products/Applications
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
