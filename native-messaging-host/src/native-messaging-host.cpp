@@ -234,12 +234,25 @@ void init_tty() {
     state.tty_out = reinterpret_cast<uv_stream_t *>(stdout_tty);
 }
 
+std::string get_origin_by_args(int argc, char *argv[]) {
+    for (int i = 1; i < argc; i++) {
+        std::string arg{argv[i]};
+        if (arg.starts_with("chrome-extension://")) {
+            return arg;
+        }
+        if (arg.find("@kee") != arg.npos && !arg.ends_with(".json")) {
+            return arg;
+        }
+    }
+    return {};
+}
+
 int main(int argc, char *argv[]) {
-    if (argc < 2) {
-        std::cerr << "Expected origin argument" << std::endl;
+    state.origin = get_origin_by_args(argc, argv);
+    if (state.origin.empty()) {
+        std::cerr << "Expected origin" << std::endl;
         return 1;
     }
-    state.origin = argv[1];
 
     push_first_message_to_keeweb();
 
