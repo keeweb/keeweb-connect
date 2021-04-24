@@ -224,14 +224,22 @@ void push_first_message_to_keeweb() {
         uv_buf_init(data, static_cast<decltype(uv_buf_t::len)>(message_length)));
 }
 
-void init_tty() {
-    auto stdin_tty = new uv_tty_t{};
-    uv_tty_init(uv_default_loop(), stdin_tty, 0, 0);
-    state.tty_in = reinterpret_cast<uv_stream_t *>(stdin_tty);
+uv_stream_t *open_tty_or_pipe(uv_file fd) {
+    if (uv_guess_handle(fd) == UV_NAMED_PIPE) {
+        auto pipe = new uv_pipe_t{};
+        uv_pipe_init(uv_default_loop(), pipe, 0);
+        uv_pipe_open(pipe, fd);
+        return reinterpret_cast<uv_stream_t *>(pipe);
+    } else {
+        auto tty = new uv_tty_t{};
+        uv_tty_init(uv_default_loop(), tty, fd, 0);
+        return reinterpret_cast<uv_stream_t *>(tty);
+    }
+}
 
-    auto stdout_tty = new uv_tty_t{};
-    uv_tty_init(uv_default_loop(), stdout_tty, 1, 0);
-    state.tty_out = reinterpret_cast<uv_stream_t *>(stdout_tty);
+void init_tty() {
+    state.tty_in = open_tty_or_pipe(0);
+    state.tty_out = open_tty_or_pipe(1);
 }
 
 std::string get_origin_by_args(int argc, char *argv[]) {
