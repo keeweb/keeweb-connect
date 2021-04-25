@@ -181,7 +181,7 @@ class ProtocolImpl {
     async changePublicKeys(): Promise<void> {
         const request: KeeWebConnectChangePublicKeysRequest = {
             action: 'change-public-keys',
-            extensionName: 'keeweb-connect',
+            extensionName: 'KeeWeb Connect',
             version: chrome.runtime.getManifest().version,
             publicKey: toBase64(this._keys.publicKey),
             nonce: toBase64(this.generateNonce()),

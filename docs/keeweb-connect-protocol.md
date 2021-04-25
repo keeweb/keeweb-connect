@@ -47,7 +47,7 @@ Request:
 ```diff
 {
     "action": "change-public-keys",
-+    "extensionName": "keeweb-connect",
++    "extensionName": "KeeWeb Connect",
 +    "version": "1.0",
     "publicKey": "<client public key>",
     "nonce": "34e5d6t7gy8jok",
