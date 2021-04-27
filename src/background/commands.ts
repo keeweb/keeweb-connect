@@ -62,18 +62,13 @@ async function runCommand(args: CommandArgs): Promise<void> {
         submit: args.command.includes('submit')
     };
 
-    const fieldsToGet: string[] = [];
-    if (options.username) {
-        fieldsToGet.push('UserName');
-    }
-    if (options.password) {
-        fieldsToGet.push('Password');
+    const [entry] = await backend.getLogins(args.url);
+    if (!entry) {
+        return;
     }
 
-    const fieldValues = await backend.getFields(args.url, fieldsToGet);
-
-    const user = fieldValues.get('UserName');
-    const pass = fieldValues.get('Password');
+    const user = entry.login;
+    const pass = entry.password;
 
     await autoFill(args.url, args.tab, args.frameId, {
         text: options.username ? user : options.password ? pass : undefined,

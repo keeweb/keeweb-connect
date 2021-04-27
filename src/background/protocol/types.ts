@@ -10,6 +10,11 @@ export interface KeeWebConnectEncryptedRequest extends KeeWebConnectRequest {
     clientID: string;
 }
 
+export interface KeeWebConnectRequestKey {
+    id: string;
+    key: string;
+}
+
 // generic response types
 
 export interface KeeWebConnectResponse {
@@ -87,4 +92,34 @@ export interface KeeWebConnectGeneratePasswordResponsePayload extends KeeWebConn
 
 export interface KeeWebConnectLockDatabaseRequestPayload extends KeeWebConnectRequest {
     action: 'lock-database';
+}
+
+// get-logins
+
+export interface KeeWebConnectGetLoginsRequest extends KeeWebConnectRequest {
+    action: 'get-logins';
+    nonce: string;
+    clientID: string;
+}
+
+export interface KeeWebConnectGetLoginsRequestPayload extends KeeWebConnectRequest {
+    action: 'get-logins';
+    url: string;
+    submitUrl?: string;
+    httpAuth?: string;
+    keys?: KeeWebConnectRequestKey[];
+}
+
+export interface KeeWebConnectGetLoginsResponseEntry {
+    group: string;
+    login: string;
+    name: string;
+    password: string;
+    uuid: string;
+}
+
+export interface KeeWebConnectGetLoginsResponsePayload extends KeeWebConnectResponse {
+    count: number;
+    entries: KeeWebConnectGetLoginsResponseEntry[];
+    hash: string;
 }

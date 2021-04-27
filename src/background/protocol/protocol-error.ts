@@ -8,5 +8,7 @@ export class ProtocolError extends Error {
 }
 
 export enum ProtocolErrorCode {
-    DatabaseNotOpened = '1'
+    DatabaseNotOpened = '1',
+    UserRejected = '6',
+    NoMatches = '15'
 }

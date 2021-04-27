@@ -3,7 +3,11 @@ import { BackendConnectionState } from 'common/backend-connection-state';
 import { TransportBase } from './transport/transport-base';
 import { TransportNativeMessaging } from './transport/transport-native-messaging';
 import { TransportBrowserTab } from './transport/transport-browser-tab';
-import { KeeWebConnectRequest, KeeWebConnectResponse } from './protocol/types';
+import {
+    KeeWebConnectGetLoginsResponseEntry,
+    KeeWebConnectRequest,
+    KeeWebConnectResponse
+} from './protocol/types';
 import { ProtocolImpl } from './protocol/protocol-impl';
 import { noop } from 'common/utils';
 
@@ -261,15 +265,12 @@ class Backend extends TypedEmitter<BackendEvents> {
         }
     }
 
-    getFields(url: string, fields: string[]): Promise<Map<string, string>> {
-        const result = new Map<string, string>();
-        if (fields.includes('Password')) {
-            result.set('Password', 'p@ssw0rd');
+    async getLogins(url: string): Promise<KeeWebConnectGetLoginsResponseEntry[]> {
+        if (this._protocol) {
+            return this._protocol.getLogins(url);
+        } else {
+            throw new Error('Not connected');
         }
-        if (fields.includes('UserName')) {
-            result.set('UserName', 'user');
-        }
-        return Promise.resolve(result);
     }
 }
 

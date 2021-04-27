@@ -11,7 +11,10 @@ import {
     KeeWebConnectGeneratePasswordRequest,
     KeeWebConnectGeneratePasswordResponsePayload,
     KeeWebConnectPingRequest,
-    KeeWebConnectPingResponse
+    KeeWebConnectPingResponse,
+    KeeWebConnectGetLoginsResponseEntry,
+    KeeWebConnectGetLoginsRequestPayload,
+    KeeWebConnectGetLoginsResponsePayload
 } from './types';
 import { fromBase64, randomBase64, randomBytes, toBase64 } from 'background/utils';
 import { box as tweetnaclBox, BoxKeyPair } from 'tweetnacl';
@@ -193,9 +196,10 @@ class ProtocolImpl {
     }
 
     async getDatabaseHash(): Promise<string | undefined> {
-        const request = this.makeEncryptedRequest(<KeeWebConnectGetDatabaseHashRequestPayload>{
+        const requestPayload: KeeWebConnectGetDatabaseHashRequestPayload = {
             action: 'get-databasehash'
-        });
+        };
+        const request = this.makeEncryptedRequest(requestPayload);
 
         let response: KeeWebConnectResponse;
         try {
@@ -231,9 +235,10 @@ class ProtocolImpl {
     }
 
     async lockDatabase(): Promise<void> {
-        const request = this.makeEncryptedRequest(<KeeWebConnectLockDatabaseRequestPayload>{
+        const requestPayload: KeeWebConnectLockDatabaseRequestPayload = {
             action: 'lock-database'
-        });
+        };
+        const request = this.makeEncryptedRequest(requestPayload);
 
         try {
             const response = await this.request(request);
@@ -244,6 +249,30 @@ class ProtocolImpl {
             }
             throw e;
         }
+    }
+
+    async getLogins(url: string): Promise<KeeWebConnectGetLoginsResponseEntry[]> {
+        const requestPayload: KeeWebConnectGetLoginsRequestPayload = {
+            action: 'get-logins',
+            url
+        };
+        const request = this.makeEncryptedRequest(requestPayload);
+
+        let response: KeeWebConnectEncryptedResponse;
+        try {
+            response = <KeeWebConnectEncryptedResponse>await this.request(request);
+        } catch (e) {
+            if (e instanceof ProtocolError && e.code === ProtocolErrorCode.NoMatches) {
+                return [];
+            }
+            throw e;
+        }
+
+        const payload = <KeeWebConnectGetLoginsResponsePayload>(
+            this.decryptResponsePayload(request, response)
+        );
+
+        return payload.entries;
     }
 }
 
