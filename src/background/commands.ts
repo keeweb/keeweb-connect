@@ -2,6 +2,7 @@ import { backend } from './backend';
 import { ContentScriptMessage, ContentScriptReturn } from 'common/content-script-interface';
 import { BackendConnectionState } from 'common/backend-connection-state';
 import { activateTab } from './utils';
+import { KeeWebConnectGetLoginsResponseEntry } from './protocol/types';
 
 interface CommandArgs {
     command: string;
@@ -31,16 +32,6 @@ function startCommandListener(): void {
 }
 
 async function runCommand(args: CommandArgs): Promise<void> {
-    await backend.connect();
-    if (backend.state !== BackendConnectionState.Connected) {
-        chrome.runtime.openOptionsPage();
-        return;
-    }
-
-    if (args.tab?.id) {
-        await activateTab(args.tab.id);
-    }
-
     if (args.command.includes('auto')) {
         const nextCommand = await getNextAutoFillCommand(args);
         if (nextCommand) {
@@ -62,7 +53,21 @@ async function runCommand(args: CommandArgs): Promise<void> {
         submit: args.command.includes('submit')
     };
 
-    const [entry] = await backend.getLogins(args.url);
+    await backend.connect();
+    if (backend.state !== BackendConnectionState.Connected) {
+        chrome.runtime.openOptionsPage();
+        return;
+    }
+
+    let entry: KeeWebConnectGetLoginsResponseEntry;
+    try {
+        [entry] = await backend.getLogins(args.url);
+    } finally {
+        if (args.tab.id) {
+            await activateTab(args.tab.id);
+        }
+    }
+
     if (!entry) {
         return;
     }
