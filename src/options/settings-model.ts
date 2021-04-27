@@ -72,7 +72,7 @@ class SettingsModel extends TypedEmitter<SettingsModelEvents> {
                 if (Array.isArray(commands)) {
                     this._chromeCommands = commands;
                 } else if (chrome.runtime.id.startsWith('net.antelle.keeweb-connect.extension')) {
-                    // Safari, WHAT'S THE FUCK?
+                    // Safari returns an empty object {} instead of commands. Why?..
                     const manifestCommands = chrome.runtime.getManifest().commands || {};
 
                     this._chromeCommands = Object.entries(manifestCommands).map(([name, cmd]) => {
