@@ -36,7 +36,7 @@
     "submit-auto": {
       "description": "__MSG_cmdSubmitAuto__",
       "suggested_key": {
-        "default": "Ctrl+Shift+A"
+        "default": "Ctrl+Shift+U"
       }
     },
     "submit-username-password": {

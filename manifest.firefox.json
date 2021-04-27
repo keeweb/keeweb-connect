@@ -7,8 +7,8 @@
   "commands": {
     "submit-auto": {
       "suggested_key": {
-        "default": "Ctrl+Alt+A",
-        "mac": "Command+Alt+A"
+        "default": "Ctrl+Shift+U",
+        "mac": "Command+Shift+U"
       }
     }
   }
