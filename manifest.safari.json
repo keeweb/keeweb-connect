@@ -5,5 +5,12 @@
       "32": "icons/toolbar32.png",
       "64": "icons/toolbar64.png"
     }
+  },
+  "commands": {
+    "submit-auto": {
+      "suggested_key": {
+        "default": "Shift+Command+A"
+      }
+    }
   }
 }

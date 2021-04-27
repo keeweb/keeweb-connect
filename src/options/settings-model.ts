@@ -69,7 +69,31 @@ class SettingsModel extends TypedEmitter<SettingsModelEvents> {
     private getShortcuts(): Promise<void> {
         return new Promise((resolve) => {
             chrome.commands.getAll((commands) => {
-                this._chromeCommands = commands;
+                if (Array.isArray(commands)) {
+                    this._chromeCommands = commands;
+                } else if (
+                    typeof commands === 'object' &&
+                    chrome.runtime.id.startsWith('net.antelle.keeweb-connect.extension')
+                ) {
+                    // Safari, WHAT'S THE FUCK?
+                    const manifestCommands = chrome.runtime.getManifest().commands || {};
+
+                    this._chromeCommands = Object.entries(manifestCommands).map(([name, cmd]) => {
+                        let shortcut = cmd.suggested_key?.mac ?? cmd.suggested_key?.default;
+                        if (shortcut) {
+                            shortcut = shortcut
+                                .replace(/Ctrl|Command/g, '⌘')
+                                .replace(/Alt/g, '⌥')
+                                .replace(/Shift/g, '⇧')
+                                .replace(/\+/g, '');
+                        }
+                        return {
+                            name,
+                            shortcut,
+                            description: cmd.description
+                        };
+                    });
+                }
                 resolve();
             });
         });
