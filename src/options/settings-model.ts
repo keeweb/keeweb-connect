@@ -71,10 +71,7 @@ class SettingsModel extends TypedEmitter<SettingsModelEvents> {
             chrome.commands.getAll((commands) => {
                 if (Array.isArray(commands)) {
                     this._chromeCommands = commands;
-                } else if (
-                    typeof commands === 'object' &&
-                    chrome.runtime.id.startsWith('net.antelle.keeweb-connect.extension')
-                ) {
+                } else if (chrome.runtime.id.startsWith('net.antelle.keeweb-connect.extension')) {
                     // Safari, WHAT'S THE FUCK?
                     const manifestCommands = chrome.runtime.getManifest().commands || {};
 
