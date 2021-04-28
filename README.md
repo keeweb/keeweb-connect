@@ -12,7 +12,9 @@ consistent across all operating systems.
 
 ## Status
 
-WIP, not ready to use. It's not possible to install this extension now.
+WIP, not ready to use. For now, you can install the extension only manually:
+
+https://github.com/keeweb/keeweb-connect/releases/latest
 
 ## Building
 
