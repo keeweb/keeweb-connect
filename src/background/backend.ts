@@ -266,10 +266,10 @@ class Backend extends TypedEmitter<BackendEvents> {
     }
 
     async getLogins(url: string): Promise<KeeWebConnectGetLoginsResponseEntry[]> {
-        if (this._protocol) {
-            return this._protocol.getLogins(url);
+        if (!this._protocol) {
+            throw new Error('Not connected');
         }
-        throw new Error('Not connected');
+        return this._protocol.getLogins(url);
     }
 }
 
