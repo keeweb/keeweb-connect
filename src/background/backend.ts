@@ -25,7 +25,7 @@ interface BackendEvents {
 
 class Backend extends TypedEmitter<BackendEvents> {
     private readonly _defaultKeeWebUrl = 'https://app.keeweb.info/';
-    private readonly _requestTimeoutMillis = 30000;
+    private readonly _requestTimeoutMillis = 60000;
     private readonly _consoleLogStyle =
         'background: {}; color: #000; padding: 2px 4px 0; border-radius: 2px;';
     private readonly _consoleLogStyleIn = this._consoleLogStyle.replace('{}', '#825fe3');
