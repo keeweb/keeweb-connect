@@ -9,6 +9,7 @@
   "cmdOtherOptions": { "message": "Show KeeWeb to choose a field" },
 
   "menuOtherOptions": { "message": "Other options" },
+  "menuSettings": { "message": "Settings" },
 
   "errorConnectionErrorApp": { "message": "Cannot connect to KeeWeb, please check if KeeWeb is open and browser integration is enabled in settings." },
   "errorConnectionErrorWeb": { "message": "Cannot connect to KeeWeb, refreshing a tab with KeeWeb may help. Inspect the extension background page to get more details." },

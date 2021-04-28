@@ -6,9 +6,16 @@ export function createUIMenus(): void {
         if (!e.editable || !tab) {
             return;
         }
+
         const command = e.menuItemId;
+        if (command === 'settings') {
+            chrome.runtime.openOptionsPage();
+            return;
+        }
+
         const url = e.frameId ? e.frameUrl : e.pageUrl;
         const frameId = e.frameId ?? 0;
+
         await runCommand({ command, tab, url, frameId });
     });
 
@@ -58,19 +65,25 @@ export function createUIMenus(): void {
                 contexts: ['editable']
             });
 
-            // chrome.contextMenus.create({
-            //     id: 'sep-bottom',
-            //     type: 'separator',
-            //     parentId: 'keeweb-options',
-            //     contexts: ['editable']
-            // });
-            //
+            chrome.contextMenus.create({
+                id: 'sep-bottom',
+                type: 'separator',
+                parentId: 'keeweb-options',
+                contexts: ['editable']
+            });
+
             // chrome.contextMenus.create({
             //     id: 'other',
             //     parentId: 'keeweb-options',
             //     title: chrome.i18n.getMessage('menuOtherOptions') + '…',
             //     contexts: ['editable']
             // });
+            chrome.contextMenus.create({
+                id: 'settings',
+                parentId: 'keeweb-options',
+                title: chrome.i18n.getMessage('menuSettings'),
+                contexts: ['editable']
+            });
         }
     );
 }
