@@ -183,7 +183,7 @@ std::string keeweb_pipe_name() {
         if (err < 0) {
             std::cerr << "Cannot get tmp dir" << uv_err_name(err) << std::endl;
         } else {
-            pipe_name = tmpdir + ("keeweb-connect-" + std::to_string(user_info.uid) + ".sock");
+            pipe_name = tmpdir + ("/keeweb-connect-" + std::to_string(user_info.uid) + ".sock");
         }
 #endif
         uv_os_free_passwd(&user_info);
