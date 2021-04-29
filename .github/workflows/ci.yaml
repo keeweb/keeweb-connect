@@ -77,7 +77,7 @@ jobs:
           path: xcode/dist/KeeWeb Connect.app.zip
 
   build-host-linux-x64:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     steps:
       - name: Checkout
         uses: actions/checkout@v2

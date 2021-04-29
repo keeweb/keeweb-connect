@@ -2,7 +2,6 @@
 
 #include <algorithm>
 #include <cstring>
-#include <filesystem>
 #include <iostream>
 #include <queue>
 #include <string>
@@ -178,8 +177,14 @@ std::string keeweb_pipe_name() {
         pipe_name = "/Users/" + std::string{user_info.username} +
                     "/Library/Group Containers/3LE7JZ657W.keeweb/conn.sock";
 #else
-        pipe_name = std::filesystem::temp_directory_path() /
-                    ("keeweb-connect-" + std::to_string(user_info.uid) + ".sock");
+        size_t buf_size = MAXPATHLEN + 1;
+        char tmpdir[MAXPATHLEN + 1];
+        err = uv_os_tmpdir(tmpdir, &buf_size);
+        if (err < 0) {
+            std::cerr << "Cannot get tmp dir" << uv_err_name(err) << std::endl;
+        } else {
+            pipe_name = tmpdir + ("keeweb-connect-" + std::to_string(user_info.uid) + ".sock");
+        }
 #endif
         uv_os_free_passwd(&user_info);
     }
@@ -245,10 +250,10 @@ void init_tty() {
 std::string get_origin_by_args(int argc, char *argv[]) {
     for (int i = 1; i < argc; i++) {
         std::string arg{argv[i]};
-        if (arg.starts_with("chrome-extension://")) {
+        if (arg.rfind("chrome-extension://", 0) == 0) {
             return arg;
         }
-        if (arg.find("@kee") != arg.npos && !arg.ends_with(".json")) {
+        if (arg.find("@kee") != arg.npos && arg.find(".json") == arg.npos) {
             return arg;
         }
     }
