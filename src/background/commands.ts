@@ -50,7 +50,9 @@ async function runCommand(args: CommandArgs): Promise<void> {
     const options = {
         username: args.command.includes('username'),
         password: args.command.includes('password'),
-        submit: args.command.includes('submit')
+        submit: args.command.includes('submit'),
+        otp: args.command.includes('otp'),
+        other: args.command.includes('other')
     };
 
     await backend.connect();
@@ -59,25 +61,38 @@ async function runCommand(args: CommandArgs): Promise<void> {
         return;
     }
 
-    let entry: KeeWebConnectGetLoginsResponseEntry;
-    try {
-        [entry] = await backend.getLogins(args.url);
-    } finally {
-        if (args.tab.id) {
-            await activateTab(args.tab.id);
+    let text: string | undefined;
+    let password: string | undefined;
+
+    if (options.username || options.password) {
+        let entry: KeeWebConnectGetLoginsResponseEntry;
+        try {
+            [entry] = await backend.getLogins(args.url);
+        } finally {
+            if (args.tab.id) {
+                await activateTab(args.tab.id);
+            }
         }
-    }
 
-    if (!entry) {
-        return;
-    }
+        if (!entry) {
+            return;
+        }
 
-    const user = entry.login;
-    const pass = entry.password;
+        const user = entry.login;
+        const pass = entry.password;
+
+        text = options.username ? user : options.password ? pass : undefined;
+        password = options.username ? (options.password ? pass : undefined) : undefined;
+    } else if (options.otp) {
+        try {
+            text = await backend.getTotp(args.url, args.tab.title || '');
+        } catch {}
+    } else {
+    }
 
     await autoFill(args.url, args.tab, args.frameId, {
-        text: options.username ? user : options.password ? pass : undefined,
-        password: options.username ? (options.password ? pass : undefined) : undefined,
+        text,
+        password,
         submit: options.submit
     });
 }

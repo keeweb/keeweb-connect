@@ -96,12 +96,6 @@ export interface KeeWebConnectLockDatabaseRequestPayload extends KeeWebConnectRe
 
 // get-logins
 
-export interface KeeWebConnectGetLoginsRequest extends KeeWebConnectRequest {
-    action: 'get-logins';
-    nonce: string;
-    clientID: string;
-}
-
 export interface KeeWebConnectGetLoginsRequestPayload extends KeeWebConnectRequest {
     action: 'get-logins';
     url: string;
@@ -122,4 +116,16 @@ export interface KeeWebConnectGetLoginsResponsePayload extends KeeWebConnectResp
     count: number;
     entries: KeeWebConnectGetLoginsResponseEntry[];
     hash: string;
+}
+
+// get-totp-by-url
+
+export interface KeeWebConnectGetTotpByUrlRequestPayload extends KeeWebConnectRequest {
+    action: 'get-totp-by-url';
+    url: string;
+    title: string;
+}
+
+export interface KeeWebConnectGetTotpByUrlResponsePayload extends KeeWebConnectResponse {
+    totp: string;
 }

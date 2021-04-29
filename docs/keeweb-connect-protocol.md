@@ -83,6 +83,28 @@ Always returns success assuming the client is authenticated and there's an open 
 
 Same contract, but passwords will be generated even if there's no open database.
 
+### `get-totp-by-url`
+
+Returns TOTP by url, similar to `get-logins`.
+
+Unencrypted message:
+```json
+{
+    "action": "get-totp-by-url",
+    "url": "<url>",
+    "title": "<page-title>"
+}
+```
+
+Decrypted response:
+```json
+{
+    "totp": "<TOTP>",
+    "version": "1.2.3",
+    "success": "true"
+}
+```
+
 ### `attention-required`
 
 Event emitted by KeeWeb when its own tab needs user attention, for example, to approve a connection request.

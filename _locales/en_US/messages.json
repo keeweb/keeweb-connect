@@ -6,7 +6,8 @@
   "cmdSubmitPassword": { "message": "Submit password" },
   "cmdInsertUsernamePassword": { "message": "Insert username+password" },
   "cmdSubmitUsernamePassword": { "message": "Submit username+password" },
-  "cmdOtherOptions": { "message": "Show KeeWeb to choose a field" },
+  "cmdInsertOtp": { "message": "One-time codes" },
+  "cmdInsertOther": { "message": "Choose another field in KeeWeb" },
 
   "menuOtherOptions": { "message": "Other options" },
   "menuSettings": { "message": "Settings" },

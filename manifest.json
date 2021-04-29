@@ -57,8 +57,11 @@
     "insert-password": {
       "description": "__MSG_cmdInsertPassword__"
     },
-    "other": {
-      "description": "__MSG_cmdOtherOptions__"
+    "insert-otp": {
+      "description": "__MSG_cmdInsertOtp__"
+    },
+    "insert-other": {
+      "description": "__MSG_cmdInsertOther__"
     }
   }
 }

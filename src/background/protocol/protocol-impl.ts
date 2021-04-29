@@ -14,7 +14,9 @@ import {
     KeeWebConnectPingResponse,
     KeeWebConnectGetLoginsResponseEntry,
     KeeWebConnectGetLoginsRequestPayload,
-    KeeWebConnectGetLoginsResponsePayload
+    KeeWebConnectGetLoginsResponsePayload,
+    KeeWebConnectGetTotpByUrlRequestPayload,
+    KeeWebConnectGetTotpByUrlResponsePayload
 } from './types';
 import { fromBase64, randomBase64, randomBytes, toBase64 } from 'background/utils';
 import { box as tweetnaclBox, BoxKeyPair } from 'tweetnacl';
@@ -273,6 +275,23 @@ class ProtocolImpl {
         );
 
         return payload.entries;
+    }
+
+    async getTotp(url: string, title: string): Promise<string> {
+        const requestPayload: KeeWebConnectGetTotpByUrlRequestPayload = {
+            action: 'get-totp-by-url',
+            url,
+            title
+        };
+        const request = this.makeEncryptedRequest(requestPayload);
+
+        const response = <KeeWebConnectEncryptedResponse>await this.request(request);
+
+        const payload = <KeeWebConnectGetTotpByUrlResponsePayload>(
+            this.decryptResponsePayload(request, response)
+        );
+
+        return payload.totp;
     }
 }
 

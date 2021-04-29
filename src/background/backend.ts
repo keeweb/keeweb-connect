@@ -266,10 +266,18 @@ class Backend extends TypedEmitter<BackendEvents> {
     }
 
     async getLogins(url: string): Promise<KeeWebConnectGetLoginsResponseEntry[]> {
+        this.checkConnection();
         if (!this._protocol) {
             throw new Error('Not connected');
         }
         return this._protocol.getLogins(url);
+    }
+
+    async getTotp(url: string, title: string): Promise<string> {
+        if (!this._protocol) {
+            throw new Error('Not connected');
+        }
+        return this._protocol.getTotp(url, title);
     }
 }
 
