@@ -88,6 +88,9 @@ async function runCommand(args: CommandArgs): Promise<void> {
             text = await backend.getTotp(args.url, args.tab.title || '');
         } catch {}
     } else {
+        try {
+            text = await backend.getAnyField(args.url, args.tab.title || '');
+        } catch {}
     }
 
     await autoFill(args.url, args.tab, args.frameId, {

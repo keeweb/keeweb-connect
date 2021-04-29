@@ -105,6 +105,29 @@ Decrypted response:
 }
 ```
 
+### `get-any-field`
+
+Allows user to select a field, similar to `get-logins`.
+
+Unencrypted message:
+```json
+{
+    "action": "get-any-field",
+    "url": "<url>",
+    "title": "<page-title>"
+}
+```
+
+Decrypted response:
+```json
+{
+    "field": "<field-name>",
+    "value": "<field-value>",
+    "version": "1.2.3",
+    "success": "true"
+}
+```
+
 ### `attention-required`
 
 Event emitted by KeeWeb when its own tab needs user attention, for example, to approve a connection request.

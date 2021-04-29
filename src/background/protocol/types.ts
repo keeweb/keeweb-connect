@@ -129,3 +129,16 @@ export interface KeeWebConnectGetTotpByUrlRequestPayload extends KeeWebConnectRe
 export interface KeeWebConnectGetTotpByUrlResponsePayload extends KeeWebConnectResponse {
     totp: string;
 }
+
+// get-any-field
+
+export interface KeeWebConnectGetAnyFieldRequestPayload extends KeeWebConnectRequest {
+    action: 'get-any-field';
+    url: string;
+    title: string;
+}
+
+export interface KeeWebConnectGetAnyFieldResponsePayload extends KeeWebConnectResponse {
+    field: string;
+    value: string;
+}

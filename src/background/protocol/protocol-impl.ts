@@ -16,7 +16,9 @@ import {
     KeeWebConnectGetLoginsRequestPayload,
     KeeWebConnectGetLoginsResponsePayload,
     KeeWebConnectGetTotpByUrlRequestPayload,
-    KeeWebConnectGetTotpByUrlResponsePayload
+    KeeWebConnectGetTotpByUrlResponsePayload,
+    KeeWebConnectGetAnyFieldRequestPayload,
+    KeeWebConnectGetAnyFieldResponsePayload
 } from './types';
 import { fromBase64, randomBase64, randomBytes, toBase64 } from 'background/utils';
 import { box as tweetnaclBox, BoxKeyPair } from 'tweetnacl';
@@ -292,6 +294,23 @@ class ProtocolImpl {
         );
 
         return payload.totp;
+    }
+
+    async getAnyField(url: string, title: string): Promise<string> {
+        const requestPayload: KeeWebConnectGetAnyFieldRequestPayload = {
+            action: 'get-any-field',
+            url,
+            title
+        };
+        const request = this.makeEncryptedRequest(requestPayload);
+
+        const response = <KeeWebConnectEncryptedResponse>await this.request(request);
+
+        const payload = <KeeWebConnectGetAnyFieldResponsePayload>(
+            this.decryptResponsePayload(request, response)
+        );
+
+        return payload.value;
     }
 }
 

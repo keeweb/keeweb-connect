@@ -78,12 +78,12 @@ export function createUIMenus(): void {
                 title: chrome.i18n.getMessage('cmdInsertOtp'),
                 contexts: ['editable']
             });
-            // chrome.contextMenus.create({
-            //     id: 'insert-other',
-            //     parentId: 'keeweb-options',
-            //     title: chrome.i18n.getMessage('menuOtherOptions') + '…',
-            //     contexts: ['editable']
-            // });
+            chrome.contextMenus.create({
+                id: 'insert-other',
+                parentId: 'keeweb-options',
+                title: chrome.i18n.getMessage('menuOtherOptions') + '…',
+                contexts: ['editable']
+            });
             chrome.contextMenus.create({
                 id: 'settings',
                 parentId: 'keeweb-options',

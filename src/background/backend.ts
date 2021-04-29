@@ -279,6 +279,13 @@ class Backend extends TypedEmitter<BackendEvents> {
         }
         return this._protocol.getTotp(url, title);
     }
+
+    async getAnyField(url: string, title: string): Promise<string> {
+        if (!this._protocol) {
+            throw new Error('Not connected');
+        }
+        return this._protocol.getAnyField(url, title);
+    }
 }
 
 const backend = new Backend();
