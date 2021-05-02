@@ -21,7 +21,7 @@ that it's an outdated development version, they will be updated before the final
 - [Chrome](https://chrome.google.com/webstore/detail/keeweb-connect/pikpfmjfkekaeinceagbebpfkmkdlcjk)
 - [Firefox](https://addons.mozilla.org/firefox/addon/keeweb-connect/)
 - [Edge](https://microsoftedge.microsoft.com/addons/detail/keewebconnect/nmggpehkjmeaeocmaijenpejbepckinm)
-- Safari: (in progress)
+- Safari: (in progress, install [from GitHub releases](https://github.com/keeweb/keeweb-connect/releases/latest))
 
 ## Translations
 
