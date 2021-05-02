@@ -81,7 +81,7 @@ export function createUIMenus(): void {
             chrome.contextMenus.create({
                 id: 'insert-other',
                 parentId: 'keeweb-options',
-                title: chrome.i18n.getMessage('menuOtherOptions') + '…',
+                title: `${chrome.i18n.getMessage('menuOtherOptions')}…`,
                 contexts: ['editable']
             });
             chrome.contextMenus.create({
