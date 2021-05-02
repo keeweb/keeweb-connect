@@ -23,6 +23,10 @@ that it's an outdated development version, they will be updated before the final
 - [Edge](https://microsoftedge.microsoft.com/addons/detail/keewebconnect/nmggpehkjmeaeocmaijenpejbepckinm)
 - Safari: (in progress)
 
+## Translations
+
+If you would like to translate the extension, it's already waiting for you on OneSky: http://keeweb.oneskyapp.com/collaboration/project?id=382232
+
 ## Building
 
 The project is built with `npm`:
