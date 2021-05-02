@@ -24,18 +24,20 @@ const Shortcuts: FunctionComponent = () => {
                     </li>
                 ))}
             </ul>
-            {shortcutsCanBeEditedOnlyManually ? (
-                <>
-                    <p>{res('optionsShortcutsManual')}</p>
-                    <img srcset="../img/shortcuts.png 2x" alt="button" />
-                </>
-            ) : (
-                <p>
-                    <a target="_blank" rel="noreferrer" onClick={openShortcuts}>
-                        {res('optionsShortcutsLink')}
-                    </a>
-                </p>
-            )}
+            {canEditShortcuts ? (
+                shortcutsCanBeEditedOnlyManually ? (
+                    <>
+                        <p>{res('optionsShortcutsManual')}</p>
+                        <img srcset="../img/shortcuts.png 2x" alt="button" />
+                    </>
+                ) : (
+                    <p>
+                        <a target="_blank" rel="noreferrer" onClick={openShortcuts}>
+                            {res('optionsShortcutsLink')}
+                        </a>
+                    </p>
+                )
+            ) : null}
         </>
     );
 };
