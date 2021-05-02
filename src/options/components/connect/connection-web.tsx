@@ -64,7 +64,7 @@ const ConnectionWeb: FunctionComponent = () => {
                         </>
                     ) : model.keeWebUrlIsSet ? (
                         <button onClick={resetKeeWebUrl} class="secondary">
-                            {res('optionsWebConnectionResetKeeWebUrl')}
+                            {res('optionsWebConnectionResetKeeWebUrl', 'app.keeweb.info')}
                         </button>
                     ) : null}
                 </form>

@@ -34,7 +34,7 @@
   "optionsWebConnectionKeeWebUrl": { "message": "KeeWeb URL (change it if you're using your own self-hosted version):" },
   "optionsWebConnectionChangeKeeWebUrl": { "message": "Change KeeWeb URL" },
   "optionsCancel": { "message": "Cancel" },
-  "optionsWebConnectionResetKeeWebUrl": { "message": "Reset to default KeeWeb (app.keeweb.info)" },
+  "optionsWebConnectionResetKeeWebUrl": { "message": "Reset to default KeeWeb ($1)" },
   "optionsWebConnectionKeeWebUrlInvalid": { "message": "The URL is not valid" },
   "optionsWebConnectionKeeWebUrlNotHttps": { "message": "The URL must start with https://" },
   "optionsConnectionState": { "message": "Connection state:" },
