@@ -12,9 +12,16 @@ consistent across all operating systems.
 
 ## Status
 
-WIP, not ready to use. For now, you can install the extension only manually:
-
+WIP, not ready to use yet. For now, while the extension is in active development,
+it's recommended to install it manually from GitHub releases:
 https://github.com/keeweb/keeweb-connect/releases/latest
+
+If you would like to give it a test, you can also install it from stores (but please keep in mind 
+that it's an outdated development version, they will be updated before the final release):
+- [Chrome](https://chrome.google.com/webstore/detail/keeweb-connect/pikpfmjfkekaeinceagbebpfkmkdlcjk)
+- [Firefox](https://addons.mozilla.org/firefox/addon/keeweb-connect/)
+- [Edge](https://microsoftedge.microsoft.com/addons/detail/keewebconnect/nmggpehkjmeaeocmaijenpejbepckinm)
+- Safari: (in progress)
 
 ## Building
 
