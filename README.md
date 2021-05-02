@@ -25,7 +25,7 @@ that it's an outdated development version, they will be updated before the final
 
 ## Translations
 
-If you would like to translate the extension, it's already waiting for you on OneSky: http://keeweb.oneskyapp.com/collaboration/project?id=382232
+If you would like to translate the extension, it's already waiting for you on OneSky: https://keeweb.oneskyapp.com/collaboration/project?id=382232
 
 ## Building
 
