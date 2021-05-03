@@ -20,6 +20,7 @@ export function createUIMenus(): void {
     });
 
     const submitSuffix = supportsUnicodeMenus ? ' ⏎' : '';
+    const ellipsis = supportsUnicodeMenus ? '…' : '...';
 
     chrome.contextMenus.create(
         {
@@ -81,7 +82,7 @@ export function createUIMenus(): void {
             chrome.contextMenus.create({
                 id: 'insert-other',
                 parentId: 'keeweb-options',
-                title: `${chrome.i18n.getMessage('menuOtherOptions')}…`,
+                title: `${chrome.i18n.getMessage('menuOtherOptions')}${ellipsis}`,
                 contexts: ['editable']
             });
             chrome.contextMenus.create({
