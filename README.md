@@ -20,8 +20,8 @@ If you would like to give it a test, you can also install it from stores (but pl
 that it's an outdated development version, they will be updated before the final release):
 - [Chrome](https://chrome.google.com/webstore/detail/keeweb-connect/pikpfmjfkekaeinceagbebpfkmkdlcjk)
 - [Firefox](https://addons.mozilla.org/firefox/addon/keeweb-connect/)
-- [Edge](https://microsoftedge.microsoft.com/addons/detail/keewebconnect/nmggpehkjmeaeocmaijenpejbepckinm)
-- Safari: (in progress, install [from GitHub releases](https://github.com/keeweb/keeweb-connect/releases/latest))
+- Edge: in progress, install [from GitHub releases](https://github.com/keeweb/keeweb-connect/releases/latest)
+- Safari: in progress, install [from GitHub releases](https://github.com/keeweb/keeweb-connect/releases/latest)
 - Other browsers: [how to set up](https://github.com/keeweb/keeweb/wiki/Browser-AutoFill#other-browsers)
 
 ## Translations
