@@ -1,0 +1,170 @@
+{
+  "cmdSubmitAuto": {
+    "message": "フォームに自動で送信"
+  },
+  "cmdInsertUsername": {
+    "message": "ユーザー名を挿入"
+  },
+  "cmdSubmitUsername": {
+    "message": "ユーザ名を送信"
+  },
+  "cmdInsertPassword": {
+    "message": "パスワードを挿入"
+  },
+  "cmdSubmitPassword": {
+    "message": "パスワードを送信"
+  },
+  "cmdInsertUsernamePassword": {
+    "message": "ユーザ名とパスワードを挿入"
+  },
+  "cmdSubmitUsernamePassword": {
+    "message": "ユーザ名とパスワードを送信"
+  },
+  "cmdInsertOtp": {
+    "message": "ワンタイムパスワード"
+  },
+  "cmdInsertOther": {
+    "message": "KeeWeb内の別のフィールドを選択"
+  },
+  "menuOtherOptions": {
+    "message": "他のオプション"
+  },
+  "menuSettings": {
+    "message": "設定"
+  },
+  "errorConnectionErrorApp": {
+    "message": "KeeWebに接続できません、KeeWebの設定にあるブラウザ統合を有効にしてください"
+  },
+  "errorConnectionErrorWeb": {
+    "message": "KeeWebに接続できません、KeeWebを再読込すると良いかもしれません。さらなる詳細は拡張機能のバックグラウンドページを確認してください"
+  },
+  "errorKeeWebDisconnected": {
+    "message": "KeeWebから拡張機能への接続が切断されました"
+  },
+  "errorBrowserTabNoPermissions": {
+    "message": "$1 権限が付与されていません"
+  },
+  "errorBrowserCannotCreateTab": {
+    "message": "新たなタブを作成できません"
+  },
+  "errorAppReturnedError": {
+    "message": "KeeWebからエラーが返ってきました"
+  },
+  "errorRequestTimeout": {
+    "message": "KeeWebが時間内に要求へのレスポンスが返ってきませんでした"
+  },
+  "optionsTitle": {
+    "message": "オプション"
+  },
+  "optionsIntro": {
+    "message": "KeeWebの拡張機能、フリーでクロスプラットフォームでKeePassと互換性があります"
+  },
+  "optionsConnection": {
+    "message": "接続方法"
+  },
+  "optionsConnectionModeApp": {
+    "message": "ネイティブアプリを利用。最も便利な統合: KeeWebはバックグラウンドで動作し、拡張機能が接続を行い資格情報をアプリから取得します。もしあなたがアプリをインストールしていないならばこちらからインストールできます:"
+  },
+  "optionsConnectionModeAppOnly": {
+    "message": "拡張機能を利用するにはKeeWebアプリをインストールする必要があります。このアプリはバックグラウンドで動作し拡張機能が接続を行い資格情報を取得します。もしあなたがアプリをインストールしていないならばこちらからインストールできます:"
+  },
+  "optionsConnectionModeAppDownloadLink": {
+    "message": "KeeWebダウンロード"
+  },
+  "optionsConnectionModeWeb": {
+    "message": "Webのみ: KeeWebのサイトを開いている必要があり、拡張機能はそこに接続します。少し便利、だけれどももっと便利にしたくてデスクトップアプリをインストールしたいならば:"
+  },
+  "optionsConnectionModeWebLink": {
+    "message": "KeeWebを開く"
+  },
+  "optionsConnectionMode": {
+    "message": "優先する接続方法:"
+  },
+  "optionsWebConnectionTabPermission": {
+    "message": "KeeWebに接続するには、特別な権限が必要、その他にKeeWebと接続できていないといけません。こちらのボタンをクリックして拡張機能に権限を与えてください:"
+  },
+  "optionsWebConnectionTabPermissionButton": {
+    "message": "権限付与"
+  },
+  "optionsWebConnectionKeeWebUrl": {
+    "message": "KeeWeb URL ( セルフホストしている場合は変更 ) :"
+  },
+  "optionsWebConnectionChangeKeeWebUrl": {
+    "message": "KeeWeb URL変更"
+  },
+  "optionsCancel": {
+    "message": "キャンセル"
+  },
+  "optionsWebConnectionResetKeeWebUrl": {
+    "message": "規定のKeeWeb( $1 )に戻す"
+  },
+  "optionsWebConnectionKeeWebUrlInvalid": {
+    "message": "このURLは無効"
+  },
+  "optionsWebConnectionKeeWebUrlNotHttps": {
+    "message": "URLはhttps://から始めなければならない"
+  },
+  "optionsConnectionState": {
+    "message": "接続状況:"
+  },
+  "optionsConnectionStateError": {
+    "message": "エラー"
+  },
+  "optionsConnectionStateConnecting": {
+    "message": "接続中"
+  },
+  "optionsConnectionStateReadyToConnect": {
+    "message": "接続できる"
+  },
+  "optionsConnectionStateConnected": {
+    "message": "接続済み"
+  },
+  "optionsConnectButton": {
+    "message": "KeeWebへ接続"
+  },
+  "optionsUsage": {
+    "message": "使い方"
+  },
+  "optionsUsageIntro": {
+    "message": "KeeWebの接続が成功したら、いよいよ拡張機能が利用できます！"
+  },
+  "optionsUsageButton": {
+    "message": "任意のページでフィールドにカーソルをおいて、拡張機能ボタンをクリックしてフォームの自動入力:"
+  },
+  "optionsUsageShortcut": {
+    "message": "ボタンをクリックする代わりに、以下のようにキーボードのショートカットからも利用できます。"
+  },
+  "optionsUsageShortcutNoChange": {
+    "message": "ボタンをクリックする代わりに、キーボードショートカット $1 を利用できます。"
+  },
+  "optionsUsagePermissionsPerSite": {
+    "message": "パスワード自動入力にはいくつかの権限が必要になります。もし権限について警告があったら、拡張機能から必要な権限を付与してください:"
+  },
+  "optionsUsageMenu": {
+    "message": "もしくは、KeeWebメニューから望ましいオプションを選択できます:"
+  },
+  "optionsShortcuts": {
+    "message": "キーボードショートカット"
+  },
+  "optionsShortcutsDescription": {
+    "message": "拡張機能の設定からキーボードショートカットを変更できます。"
+  },
+  "optionsShortcutsDescriptionNoChange": {
+    "message": "ショートカットを変更することでフォームへの送信を素早くできます。"
+  },
+  "optionsShortcutsLink": {
+    "message": "キーボードショートカットの編集"
+  },
+  "optionsShortcutsManual": {
+    "message": "ショートカットを編集するには、ブラウザで拡張機能の設定を開き、設定ボタンをクリック、ショートカットを選択:"
+  },
+  "optionsAbout": {
+    "message": "KeeWeb Connectionについて"
+  },
+  "optionsAboutContact": {
+    "message": "質問したいことや、伝えたいアイデア、問題のレポートを送信するにはこちら:"
+  },
+  "optionsAboutLicense": {
+    "message": "この拡張機能はMITライセンスが適応されています。それと、以下の素晴らしいライブラリを含んでいます:"
+  }
+}
