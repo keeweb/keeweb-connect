@@ -5,7 +5,7 @@ import * as path from 'path';
 
 const keys: { public: string; secret: string } = require('../../keys/onesky.json');
 
-const USE_FILES = true;
+const USE_FILES = false;
 const PROJECT_ID = '382232';
 const API_URL_TRANSLATIONS =
     'https://platform.api.onesky.io/1/projects/:project_id/translations/multilingual';
