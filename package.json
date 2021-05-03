@@ -14,7 +14,8 @@
     "watch-edge": "cross-env KW_BROWSER=edge webpack --mode=development --watch",
     "watch-safari": "cross-env KW_BROWSER=safari webpack --mode=development --watch",
     "lint": "eslint webpack.config.js src",
-    "prettier": "prettier --write src/**/*.ts src/**/*.tsx *.js pages/*.html styles/*.css"
+    "prettier": "prettier --write src/**/*.ts src/**/*.tsx *.js pages/*.html styles/*.css",
+    "download-translations": "ts-node scripts/download-translations"
   },
   "repository": {
     "type": "git",
@@ -41,11 +42,11 @@
     "prettier": "^2.2.1",
     "tiny-typed-emitter": "^2.0.3",
     "ts-loader": "^8.1.0",
+    "ts-node": "^9.1.1",
     "typescript": "^4.2.4",
     "webpack": "^5.30.0",
     "webpack-cli": "^4.6.0"
   },
-  "type": "module",
   "dependencies": {
     "preact": "^10.5.13",
     "tweetnacl": "^1.0.3"

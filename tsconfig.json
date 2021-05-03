@@ -16,5 +16,5 @@
     "content/*": ["content/*"],
     "options/*": ["options/*"]
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*", "scripts/**/*"]
 }
