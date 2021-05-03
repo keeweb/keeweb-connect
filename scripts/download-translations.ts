@@ -14,6 +14,7 @@ const PHRASE_COUNT_THRESHOLD_PERCENT = 75;
 const CACHE_DIR = path.resolve(__dirname, '..', '.cache');
 const CACHE_FILE_LANGUAGES = path.join(CACHE_DIR, 'languages.json');
 const CACHE_FILE_TRANSLATIONS = path.join(CACHE_DIR, 'translations.json');
+const LANGUAGES_WITH_LOCALES = new Set('pt');
 
 const ts = Math.floor(Date.now() / 1000).toString();
 
@@ -61,8 +62,6 @@ interface Translations {
     console.log(`Loaded ${Object.keys(translations).length - 1} translated languages`);
 
     saveTranslations(languages, translations);
-
-    console.log('Done');
 })().catch((e) => console.error(e));
 
 async function loadLanguages(): Promise<Languages> {
@@ -141,9 +140,10 @@ function saveTranslations(languages: Languages, translations: Translations) {
     let errorCount = 0;
     const enUs = translations['en-US'].translation;
     const totalPhraseCount = Object.keys(enUs).length;
-    for (const lang of Object.keys(translations)) {
+    for (const language of languages.data) {
+        const lang = language.code;
         let langErrors = 0;
-        const languageTranslations = translations[lang].translation;
+        const languageTranslations = translations[lang]?.translation;
         if (lang === 'en-US' || !languageTranslations) {
             continue;
         }
@@ -151,7 +151,8 @@ function saveTranslations(languages: Languages, translations: Translations) {
         const percentage = Math.round((langPhraseCount / totalPhraseCount) * 100);
         let skip = percentage >= PHRASE_COUNT_THRESHOLD_PERCENT ? null : 'SKIP';
 
-        const languageFileName = path.resolve(__dirname, `../_locales/${lang}/messages.json`);
+        const fileLang = LANGUAGES_WITH_LOCALES.has(lang) ? lang : language.locale;
+        const languageFileName = path.resolve(__dirname, `../_locales/${fileLang}/messages.json`);
         let languageJson = JSON.stringify(languageTranslations, null, 2);
         if (!skip && fs.existsSync(languageFileName)) {
             const oldJson = fs.readFileSync(languageFileName, { encoding: 'utf8' });

@@ -1,19 +1,15 @@
-import path from 'path';
-import fs from 'fs';
+/* eslint-disable import/no-namespace */
+import * as path from 'path';
+import * as fs from 'fs';
 import merge from 'merge';
-import CopyPlugin from 'copy-webpack-plugin';
+import * as CopyPlugin from 'copy-webpack-plugin';
 
 const dev = process.argv.includes('--mode=development');
 
-const knownBrowsers = {
-    chrome: true,
-    firefox: true,
-    safari: true,
-    edge: true
-};
+const knownBrowsers = new Set(['chrome', 'firefox', 'safari', 'edge']);
 
 const browser = process.env.KW_BROWSER || 'chrome';
-if (!knownBrowsers[browser]) {
+if (!knownBrowsers.has(browser)) {
     throw new Error(`Unknown browser: ${browser}`);
 }
 

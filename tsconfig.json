@@ -16,5 +16,5 @@
     "content/*": ["content/*"],
     "options/*": ["options/*"]
   },
-  "include": ["src/**/*", "scripts/**/*"]
+  "include": ["src/**/*", "scripts/**/*", "webpack.config.ts"]
 }

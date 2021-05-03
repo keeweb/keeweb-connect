@@ -13,7 +13,7 @@
     "watch-firefox": "cross-env KW_BROWSER=firefox webpack --mode=development --watch",
     "watch-edge": "cross-env KW_BROWSER=edge webpack --mode=development --watch",
     "watch-safari": "cross-env KW_BROWSER=safari webpack --mode=development --watch",
-    "lint": "eslint webpack.config.js src",
+    "lint": "eslint webpack.config.ts src",
     "prettier": "prettier --write src/**/*.ts src/**/*.tsx *.js pages/*.html styles/*.css",
     "download-translations": "ts-node scripts/download-translations"
   },
@@ -29,6 +29,9 @@
   "homepage": "https://github.com/antelle/keeweb-connect#readme",
   "devDependencies": {
     "@types/chrome": "^0.0.134",
+    "@types/copy-webpack-plugin": "^8.0.0",
+    "@types/node": "^15.0.1",
+    "@types/webpack": "^5.28.0",
     "@typescript-eslint/eslint-plugin": "^4.20.0",
     "@typescript-eslint/parser": "^4.20.0",
     "copy-webpack-plugin": "^8.1.0",
