@@ -26,11 +26,7 @@ const ConnectMode: FunctionComponent = () => {
                             onChange={() => setUseNativeApp(true)}
                         />{' '}
                         {res('optionsConnectionModeApp')}{' '}
-                        <a
-                            href="https://github.com/keeweb/keeweb/releases/latest"
-                            target="_blank"
-                            rel="noreferrer"
-                        >
+                        <a href="https://keeweb.info/" target="_blank" rel="noreferrer">
                             {res('optionsConnectionModeAppDownloadLink')}
                         </a>
                         .
