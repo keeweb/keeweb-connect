@@ -29,7 +29,7 @@
   "optionsConnectionModeWeb": { "message": "Web-only: you need to have a tab with KeeWeb open, the extension connects to this tab. It's less convenient, however you don't have to install a desktop app:" },
   "optionsConnectionModeWebLink": { "message": "open KeeWeb" },
   "optionsConnectionMode": { "message": "Preferred connection mode:" },
-  "optionsWebConnectionTabPermission": { "message": "To connect to the keeweb tab, we need a special permission, otherwise it won't be possible to communicate with this tab. Click this button to grant this permission to the extension:" },
+  "optionsWebConnectionTabPermission": { "message": "To connect to the KeeWeb tab, we need a special permission, otherwise it won't be possible to communicate with this tab. Click this button to grant the necessary permission to the extension:" },
   "optionsWebConnectionTabPermissionButton": { "message": "Grant the permission" },
   "optionsWebConnectionKeeWebUrl": { "message": "KeeWeb URL (change it if you're using your own self-hosted version):" },
   "optionsWebConnectionChangeKeeWebUrl": { "message": "Change KeeWeb URL" },
