@@ -14,7 +14,7 @@ const PHRASE_COUNT_THRESHOLD_PERCENT = 75;
 const CACHE_DIR = path.resolve(__dirname, '..', '.cache');
 const CACHE_FILE_LANGUAGES = path.join(CACHE_DIR, 'languages.json');
 const CACHE_FILE_TRANSLATIONS = path.join(CACHE_DIR, 'translations.json');
-const LANGUAGES_WITH_LOCALES = new Set('pt');
+const LANGUAGES_WITH_LOCALES = new Set(['pt-PT', 'pt-BR', 'zh-CN', 'zh-TW', 'en-GB']);
 
 const ts = Math.floor(Date.now() / 1000).toString();
 
