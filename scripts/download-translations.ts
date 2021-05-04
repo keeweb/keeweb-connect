@@ -93,7 +93,9 @@ async function loadLanguages(): Promise<Languages> {
                 try {
                     const json = Buffer.concat(data).toString('utf8');
                     const parsed = JSON.parse(json);
-                    fs.writeFileSync(CACHE_FILE_LANGUAGES, JSON.stringify(parsed, null, 2));
+                    if (USE_FILES) {
+                        fs.writeFileSync(CACHE_FILE_LANGUAGES, JSON.stringify(parsed, null, 2));
+                    }
                     resolve(parsed);
                 } catch (e) {
                     reject(e);
@@ -124,7 +126,9 @@ async function loadTranslations(): Promise<Translations> {
                 try {
                     const json = Buffer.concat(data).toString('utf8');
                     const parsed = JSON.parse(json);
-                    fs.writeFileSync(CACHE_FILE_TRANSLATIONS, JSON.stringify(parsed, null, 2));
+                    if (USE_FILES) {
+                        fs.writeFileSync(CACHE_FILE_TRANSLATIONS, JSON.stringify(parsed, null, 2));
+                    }
                     resolve(parsed);
                 } catch (e) {
                     reject(e);
