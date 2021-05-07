@@ -21,7 +21,7 @@ that it's an outdated development version, they will be updated before the final
 - [Chrome](https://chrome.google.com/webstore/detail/keeweb-connect/pikpfmjfkekaeinceagbebpfkmkdlcjk)
 - [Firefox](https://addons.mozilla.org/firefox/addon/keeweb-connect/)
 - [Edge](https://microsoftedge.microsoft.com/addons/detail/keeweb-connect/nmggpehkjmeaeocmaijenpejbepckinm)
-- Safari: in progress, install [from GitHub releases](https://github.com/keeweb/keeweb-connect/releases/latest)
+- [Safari](https://apps.apple.com/app/keeweb-connect/id1565748094): in progress, install [from GitHub releases](https://github.com/keeweb/keeweb-connect/releases/latest)
 - Other browsers: [how to set up](https://github.com/keeweb/keeweb/wiki/Browser-AutoFill#other-browsers)
 
 ## Translations
