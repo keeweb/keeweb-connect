@@ -42,32 +42,6 @@ Build a development version and watch:
 npm run watch
 ```
 
-## Versioning
-
-This repository has tags consisting of three numbers, for example,
-`0.1.0`, `0.1.1`, `0.1.2`, and so on. However, browser add-ons are versioned with
-two digits like `0.1`. The convention used here is that the "minor" (middle number)
-digit is incremented when there's a new add-on version, and otherwise it's 
-some other update: native messaging host, documentation, etc...
-
-Example:
-
-- git tag: `0.1.0`
-  - browser extension: `0.1`
-  - native messaging host: `0.1.0`
-- git tag: `0.1.1`
-  - browser extension: `-`
-  - native messaging host: `0.1.1`
-- git tag: `0.1.2`
-  - browser extension: `-`
-  - native messaging host: `0.1.2`
-- git tag: `0.2.0`
-  - browser extension: `0.2`
-  - native messaging host: `0.2.0`
-
-If you have a browser extension with version `0.1`, its exact source code
-can be found under `0.1.0` git tag.
-
 ## Protocol
 
 KeeWeb implements [keepassxc-protocol](https://github.com/keepassxreboot/keepassxc-browser/blob/develop/keepassxc-protocol.md)

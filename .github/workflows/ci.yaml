@@ -49,32 +49,42 @@ jobs:
       - name: Unzip the extension
         run: unzip safari.zip -d safari
         working-directory: dist
-      - name: Import certificates
+      - name: Import certificate
         uses: keeweb/import-codesign-certs@v1
         with:
           p12-file-base64: ${{ secrets.APPLE_CERTIFICATE }}
           p12-password: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
       - name: Build
-        run: make
+        run: xcodebuild -scheme "KeeWeb Connect" -configuration Release -derivedDataPath dist -archivePath dist/archive archive
         working-directory: xcode
-      - name: Notarize
-        uses: devbotsxyz/xcode-notarize@v1
-        with:
-          product-path: xcode/dist/archive.xcarchive/Products/Applications/KeeWeb Connect.app
-          appstore-connect-username: ${{ secrets.APPLE_NOTARIZATION_USERNAME }}
-          appstore-connect-password: ${{ secrets.APPLE_NOTARIZATION_PASSWORD }}
-      - name: Staple
-        uses: devbotsxyz/xcode-staple@v1
-        with:
-          product-path: xcode/dist/archive.xcarchive/Products/Applications/KeeWeb Connect.app
+      - name: Package
+        run: productbuild "--sign" "$APPLE_INSTALLER_IDENTITY" --component "dist/archive.xcarchive/Products/Applications/KeeWeb Connect.app" "/Applications" "dist/KeeWeb Connect.pkg"
+        working-directory: xcode
+        env:
+          APPLE_INSTALLER_IDENTITY: ${{ secrets.APPLE_INSTALLER_IDENTITY }}
+#      - name: Notarize
+#        uses: devbotsxyz/xcode-notarize@v1
+#        with:
+#          product-path: xcode/dist/archive.xcarchive/Products/Applications/KeeWeb Connect.app
+#          appstore-connect-username: ${{ secrets.APPLE_NOTARIZATION_USERNAME }}
+#          appstore-connect-password: ${{ secrets.APPLE_NOTARIZATION_PASSWORD }}
+#      - name: Staple
+#        uses: devbotsxyz/xcode-staple@v1
+#        with:
+#          product-path: xcode/dist/archive.xcarchive/Products/Applications/KeeWeb Connect.app
       - name: Compress
         run: zip -r ../../../KeeWeb\ Connect.app.zip KeeWeb\ Connect.app
         working-directory: xcode/dist/archive.xcarchive/Products/Applications
-      - name: Upload artifact
+      - name: Upload app artifact
         uses: actions/upload-artifact@v2
         with:
           name: KeeWeb Connect.app
           path: xcode/dist/KeeWeb Connect.app.zip
+      - name: Upload pkg artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: KeeWeb Connect.pkg
+          path: xcode/dist/KeeWeb Connect.pkg
 
   build-host-linux-x64:
     runs-on: ubuntu-18.04
@@ -216,6 +226,11 @@ jobs:
         with:
           name: KeeWeb Connect.app
           path: xcode/dist
+      - name: Download Safari pkg artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: KeeWeb Connect.pkg
+          path: xcode/dist
       - name: Download linux-x64 artifact
         uses: actions/download-artifact@v2
         with:
@@ -267,5 +282,6 @@ jobs:
             keeweb-native-messaging-host.tgz
             extensions/*.zip
             xcode/dist/KeeWeb Connect.app.zip
+            xcode/dist/KeeWeb Connect.pkg
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
