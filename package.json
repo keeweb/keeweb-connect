@@ -1,6 +1,6 @@
 {
   "name": "keeweb-connect",
-  "version": "1.0.0",
+  "version": "0.3.2",
   "description": "KeeWeb",
   "main": "index.js",
   "scripts": {
@@ -15,7 +15,8 @@
     "watch-safari": "cross-env KW_BROWSER=safari webpack --mode=development --watch",
     "lint": "eslint webpack.config.ts src",
     "prettier": "prettier --write src/**/*.ts src/**/*.tsx *.js pages/*.html styles/*.css",
-    "download-translations": "ts-node scripts/download-translations"
+    "download-translations": "ts-node scripts/download-translations",
+    "bump-version": "ts-node scripts/bump-version"
   },
   "repository": {
     "type": "git",
