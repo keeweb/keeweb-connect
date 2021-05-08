@@ -17,7 +17,7 @@ The extension can be installed from the official stores, depending on your brows
 - [Chrome](https://chrome.google.com/webstore/detail/keeweb-connect/pikpfmjfkekaeinceagbebpfkmkdlcjk)
 - [Firefox](https://addons.mozilla.org/firefox/addon/keeweb-connect/)
 - [Edge](https://microsoftedge.microsoft.com/addons/detail/keeweb-connect/nmggpehkjmeaeocmaijenpejbepckinm)
-- [Safari](https://apps.apple.com/app/keeweb-connect/id1565748094): in progress, install [from GitHub releases](https://github.com/keeweb/keeweb-connect/releases/latest)
+- [Safari](https://apps.apple.com/app/keeweb-connect/id1565748094)
 - Other browsers: [how to set up](https://github.com/keeweb/keeweb/wiki/Browser-AutoFill#other-browsers)
 
 ## Translations
