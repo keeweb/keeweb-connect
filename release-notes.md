@@ -1,7 +1,8 @@
 Release notes
 -------------
-##### v0.3.3 (TBD)
+##### v0.3.3 (2021-05-08)
 `+` new languages: zh-CN  
+`-` fixed native messaging host file mode  
 
 ##### v0.3.2 (2021-05-07)
 `+` first build ready for the macOS App Store  
