@@ -10,14 +10,10 @@ consistent across all operating systems.
 
 <img src="img/chrome/menu.png" width="646" alt="KeeWeb Connect menu" />
 
-## Status
+## Installation
 
-WIP, not ready to use yet. For now, while the extension is in active development,
-it's recommended to install it manually from GitHub releases:
-https://github.com/keeweb/keeweb-connect/releases/latest
+The extension can be installed from the official stores, depending on your browser:
 
-If you would like to give it a test, you can also install it from stores (but please keep in mind 
-that it's an outdated development version, they will be updated before the final release):
 - [Chrome](https://chrome.google.com/webstore/detail/keeweb-connect/pikpfmjfkekaeinceagbebpfkmkdlcjk)
 - [Firefox](https://addons.mozilla.org/firefox/addon/keeweb-connect/)
 - [Edge](https://microsoftedge.microsoft.com/addons/detail/keeweb-connect/nmggpehkjmeaeocmaijenpejbepckinm)
