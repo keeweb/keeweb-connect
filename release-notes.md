@@ -1,5 +1,8 @@
 Release notes
 -------------
+##### v0.3.3 (TBD)
+`+` new languages: zh-CN  
+
 ##### v0.3.2 (2021-05-07)
 `+` first build ready for the macOS App Store  
 `*` versioning change  
