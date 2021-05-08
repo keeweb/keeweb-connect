@@ -155,7 +155,10 @@ function saveTranslations(languages: Languages, translations: Translations) {
         const percentage = Math.round((langPhraseCount / totalPhraseCount) * 100);
         let skip = percentage >= PHRASE_COUNT_THRESHOLD_PERCENT ? null : 'SKIP';
 
-        const fileLang = LANGUAGES_WITH_LOCALES.has(lang) ? lang : language.locale;
+        const fileLang = (LANGUAGES_WITH_LOCALES.has(lang) ? lang : language.locale).replace(
+            '-',
+            '_'
+        );
         const languageFileName = path.resolve(__dirname, `../_locales/${fileLang}/messages.json`);
         let languageJson = JSON.stringify(languageTranslations, null, 2);
         if (!skip && fs.existsSync(languageFileName)) {
