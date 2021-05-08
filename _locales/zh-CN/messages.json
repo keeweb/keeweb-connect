@@ -1,0 +1,170 @@
+{
+  "cmdSubmitAuto": {
+    "message": "自动填充表单"
+  },
+  "cmdInsertUsername": {
+    "message": "填充用户名"
+  },
+  "cmdSubmitUsername": {
+    "message": "提交用户名"
+  },
+  "cmdInsertPassword": {
+    "message": "填充密码"
+  },
+  "cmdSubmitPassword": {
+    "message": "提交密码"
+  },
+  "cmdInsertUsernamePassword": {
+    "message": "填充用户名+密码"
+  },
+  "cmdSubmitUsernamePassword": {
+    "message": "提交用户名+密码"
+  },
+  "cmdInsertOtp": {
+    "message": "一次性密码"
+  },
+  "cmdInsertOther": {
+    "message": "在 KeeWeb 中选择另一个字段"
+  },
+  "menuOtherOptions": {
+    "message": "其他选项"
+  },
+  "menuSettings": {
+    "message": "设置"
+  },
+  "errorConnectionErrorApp": {
+    "message": "无法连接到KeeWeb，请检查KeeWeb是否已打开，并且确保在“设置”中启用浏览器集成。"
+  },
+  "errorConnectionErrorWeb": {
+    "message": "无法连接到KeeWeb，使用KeeWeb刷新选项卡可能会有所帮助。查看扩展背景页以获取更多详细信息。"
+  },
+  "errorKeeWebDisconnected": {
+    "message": "KeeWeb已断开与扩展的连接。"
+  },
+  "errorBrowserTabNoPermissions": {
+    "message": "访问 $1的许可没有被批准。"
+  },
+  "errorBrowserCannotCreateTab": {
+    "message": "无法创建新标签页。"
+  },
+  "errorAppReturnedError": {
+    "message": "KeeWeb返回了一个错误。"
+  },
+  "errorRequestTimeout": {
+    "message": "KeeWeb没有及时回应我们的请求。"
+  },
+  "optionsTitle": {
+    "message": "选项"
+  },
+  "optionsIntro": {
+    "message": "这是KeeWeb的浏览器扩展，一个与KeePass兼容的免费跨平台管理器。"
+  },
+  "optionsConnection": {
+    "message": "连接"
+  },
+  "optionsConnectionModeApp": {
+    "message": "使用本地应用程序。这是最方便的集成模式: KeeWeb 在后台运行，扩展连接到应用程序获取凭证。如果你没有安装应用程序:"
+  },
+  "optionsConnectionModeAppOnly": {
+    "message": "要使用扩展，您需要安装KeeWeb应用程序。应用程序正在后台运行，扩展连接到它以获取密码。如果未安装应用程序："
+  },
+  "optionsConnectionModeAppDownloadLink": {
+    "message": "下载KeeWeb"
+  },
+  "optionsConnectionModeWeb": {
+    "message": "仅Web：您需要有一个保持Web打开的选项卡，扩展连接到此选项卡。虽然不太方便，但您不必安装桌面应用程序："
+  },
+  "optionsConnectionModeWebLink": {
+    "message": "打开KeeWeb"
+  },
+  "optionsConnectionMode": {
+    "message": "首选的连接模式："
+  },
+  "optionsWebConnectionTabPermission": {
+    "message": "要连接到KeeWeb标签页，我们需要特殊权限，否则无法与此标签页通信。单击此按钮可授予扩展的必要权限："
+  },
+  "optionsWebConnectionTabPermissionButton": {
+    "message": "授予权限"
+  },
+  "optionsWebConnectionKeeWebUrl": {
+    "message": "KeeWeb URL (如果你使用自己的托管版本，请修改它) :"
+  },
+  "optionsWebConnectionChangeKeeWebUrl": {
+    "message": "修改KeeWeb URL"
+  },
+  "optionsCancel": {
+    "message": "取消"
+  },
+  "optionsWebConnectionResetKeeWebUrl": {
+    "message": "重置为默认Web（$1）"
+  },
+  "optionsWebConnectionKeeWebUrlInvalid": {
+    "message": "网址无效"
+  },
+  "optionsWebConnectionKeeWebUrlNotHttps": {
+    "message": "网址必须以https://开头"
+  },
+  "optionsConnectionState": {
+    "message": "连接状态："
+  },
+  "optionsConnectionStateError": {
+    "message": "错误"
+  },
+  "optionsConnectionStateConnecting": {
+    "message": "连接中"
+  },
+  "optionsConnectionStateReadyToConnect": {
+    "message": "准备连接"
+  },
+  "optionsConnectionStateConnected": {
+    "message": "已连接"
+  },
+  "optionsConnectButton": {
+    "message": "连接到KeeWeb"
+  },
+  "optionsUsage": {
+    "message": "使用方法"
+  },
+  "optionsUsageIntro": {
+    "message": "现在您已成功连接到KeeWeb，是时候使用扩展了！"
+  },
+  "optionsUsageButton": {
+    "message": "将光标放在任何页面的某个字段上，然后单击扩展按钮以自动填充表单："
+  },
+  "optionsUsageShortcut": {
+    "message": "您也可以使用您可以在下面更改的键盘快捷键，而不是单击按钮。"
+  },
+  "optionsUsageShortcutNoChange": {
+    "message": "除了单击按钮外，您还可以使用键盘快捷键$1。"
+  },
+  "optionsUsagePermissionsPerSite": {
+    "message": "有时需要额外的权限来自动填充密码。如果看到此警告标志，请单击扩展按钮以授予必要的权限："
+  },
+  "optionsUsageMenu": {
+    "message": "或者，从 KeeWeb 菜单中选择一个想要的选项："
+  },
+  "optionsShortcuts": {
+    "message": "键盘快捷键"
+  },
+  "optionsShortcutsDescription": {
+    "message": "您可以在扩展快捷键设置中更改快捷键。"
+  },
+  "optionsShortcutsDescriptionNoChange": {
+    "message": "您可以使用这些快捷键更快地提交表单。"
+  },
+  "optionsShortcutsLink": {
+    "message": "编辑键盘快捷键"
+  },
+  "optionsShortcutsManual": {
+    "message": "要编辑快捷键，请在浏览器中打开“加载项”，然后单击“设置”按钮，然后选择“快捷键”项目："
+  },
+  "optionsAbout": {
+    "message": "关于"
+  },
+  "optionsAboutContact": {
+    "message": "您可以在此处提出问题、提出想法或提交问题报告："
+  },
+  "optionsAboutLicense": {
+    "message": "该扩展获得MIT许可。它包括这些很棒的库:"
+  }
+}
