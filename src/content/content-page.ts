@@ -95,6 +95,7 @@ if (!window.kwExtensionInstalled) {
             input.dispatchEvent(
                 new InputEvent('input', { inputType: 'insertFromPaste', data: text })
             );
+            input.dispatchEvent(new Event('change', { bubbles: true }));
         }
 
         function getNextFormPasswordInput(input: HTMLInputElement): HTMLInputElement | undefined {
