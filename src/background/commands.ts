@@ -2,7 +2,6 @@ import { backend } from './backend';
 import { ContentScriptMessage, ContentScriptReturn } from 'common/content-script-interface';
 import { BackendConnectionState } from 'common/backend-connection-state';
 import { activateTab } from './utils';
-import { KeeWebConnectGetLoginsResponseEntry } from './protocol/types';
 
 interface CommandArgs {
     command: string;
