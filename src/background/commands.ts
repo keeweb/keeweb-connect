@@ -64,33 +64,28 @@ async function runCommand(args: CommandArgs): Promise<void> {
     let text: string | undefined;
     let password: string | undefined;
 
-    if (options.username || options.password) {
-        let entry: KeeWebConnectGetLoginsResponseEntry;
-        try {
-            [entry] = await backend.getLogins(args.url);
-        } finally {
-            if (args.tab.id) {
-                await activateTab(args.tab.id);
+    try {
+        if (options.username || options.password) {
+            const [entry] = await backend.getLogins(args.url);
+
+            if (!entry) {
+                return;
             }
-        }
 
-        if (!entry) {
-            return;
-        }
+            const user = entry.login;
+            const pass = entry.password;
 
-        const user = entry.login;
-        const pass = entry.password;
-
-        text = options.username ? user : options.password ? pass : undefined;
-        password = options.username ? (options.password ? pass : undefined) : undefined;
-    } else if (options.otp) {
-        try {
+            text = options.username ? user : options.password ? pass : undefined;
+            password = options.username ? (options.password ? pass : undefined) : undefined;
+        } else if (options.otp) {
             text = await backend.getTotp(args.url, args.tab.title || '');
-        } catch {}
-    } else {
-        try {
+        } else {
             text = await backend.getAnyField(args.url, args.tab.title || '');
-        } catch {}
+        }
+    } finally {
+        if (args.tab.id) {
+            await activateTab(args.tab.id);
+        }
     }
 
     await autoFill(args.url, args.tab, args.frameId, {
