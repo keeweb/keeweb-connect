@@ -1,5 +1,8 @@
 Release notes
 -------------
+##### v0.3.5 (TBD)
+`+` new language: PL
+
 ##### v0.3.4 (2021-05-09)
 `-` returning to the webpage after auto-filling OTP and other fields  
 `-` generating `change` event for websites not accepting credentials  

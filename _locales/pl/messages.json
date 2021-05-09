@@ -1,0 +1,170 @@
+{
+  "cmdSubmitAuto": {
+    "message": "Prześlij formularz automatycznie"
+  },
+  "cmdInsertUsername": {
+    "message": "Wstaw nazwę użytkownika"
+  },
+  "cmdSubmitUsername": {
+    "message": "Prześlij nazwę użytkownika"
+  },
+  "cmdInsertPassword": {
+    "message": "Wstaw hasło"
+  },
+  "cmdSubmitPassword": {
+    "message": "Prześlij hasło"
+  },
+  "cmdInsertUsernamePassword": {
+    "message": "Wstaw nazwę użytkownika i hasło"
+  },
+  "cmdSubmitUsernamePassword": {
+    "message": "Prześlij nazwę użytkownika i hasło"
+  },
+  "cmdInsertOtp": {
+    "message": "Kody jednorazowe"
+  },
+  "cmdInsertOther": {
+    "message": "Wybierz inne pole w KeeWeb"
+  },
+  "menuOtherOptions": {
+    "message": "Inne opcje"
+  },
+  "menuSettings": {
+    "message": "Ustawienia"
+  },
+  "errorConnectionErrorApp": {
+    "message": "Nie można połączyć się z KeeWeb, sprawdź, czy KeeWeb jest otwarty i integracja przeglądarki jest włączona w ustawieniach."
+  },
+  "errorConnectionErrorWeb": {
+    "message": "Nie można połączyć się z KeeWeb, może pomóc odświeżenie karty KeeWeb. Sprawdź stronę tła rozszerzenia, aby uzyskać więcej informacji."
+  },
+  "errorKeeWebDisconnected": {
+    "message": "KeeWeb rozłączył się z rozszerzeniem."
+  },
+  "errorBrowserTabNoPermissions": {
+    "message": "Nie przyznano uprawnienia na dostęp do $1."
+  },
+  "errorBrowserCannotCreateTab": {
+    "message": "Nie można utworzyć nowej karty."
+  },
+  "errorAppReturnedError": {
+    "message": "KeeWeb zwrócił błąd"
+  },
+  "errorRequestTimeout": {
+    "message": "KeeWeb nie odpowiedział na naszą prośbę na czas."
+  },
+  "optionsTitle": {
+    "message": "Opcje"
+  },
+  "optionsIntro": {
+    "message": "To jest rozszerzenie przeglądarki dla KeeWeb, darmowego menedżera międzyplatformowego kompatybilnego z KeePass."
+  },
+  "optionsConnection": {
+    "message": "Połączenie"
+  },
+  "optionsConnectionModeApp": {
+    "message": "Korzystanie z aplikacji natywnej. Jest to najwygodniejszy sposób integracji: KeeWeb działa w tle, rozszerzenie łączy się z aplikacją w celu pobrania danych uwierzytelniających. Jeśli nie masz zainstalowanej aplikacji:"
+  },
+  "optionsConnectionModeAppOnly": {
+    "message": "Aby korzystać z rozszerzenia, musisz zainstalować aplikację KeeWeb. Aplikacja działa w tle, a rozszerzenie łączy się z nią w celu pobrania haseł. Jeśli nie masz zainstalowanej aplikacji:"
+  },
+  "optionsConnectionModeAppDownloadLink": {
+    "message": "pobierz KeeWeb"
+  },
+  "optionsConnectionModeWeb": {
+    "message": "Tylko sieć: musisz mieć otwartą kartę z KeeWeb, rozszerzenie łączy się z tą kartą. Jest to mniej wygodne, ale nie musisz instalować aplikacji komputerowej:"
+  },
+  "optionsConnectionModeWebLink": {
+    "message": "otwórz KeeWeb"
+  },
+  "optionsConnectionMode": {
+    "message": "Preferowany tryb połączenia:"
+  },
+  "optionsWebConnectionTabPermission": {
+    "message": "Aby połączyć się z kartą KeeWeb, potrzebujemy specjalnego uprawnienia, w przeciwnym razie komunikacja z tą kartą nie będzie możliwa. Kliknij ten przycisk, aby udzielić niezbędnych uprawnień rozszerzeniu:"
+  },
+  "optionsWebConnectionTabPermissionButton": {
+    "message": "Udziel uprawnienia"
+  },
+  "optionsWebConnectionKeeWebUrl": {
+    "message": "Adres URL KeeWeb (zmień go, jeśli używasz własnej wersji hostowanej):"
+  },
+  "optionsWebConnectionChangeKeeWebUrl": {
+    "message": "Zmień adres URL KeeWeb"
+  },
+  "optionsCancel": {
+    "message": "Anuluj"
+  },
+  "optionsWebConnectionResetKeeWebUrl": {
+    "message": "Zresetuj do domyślnego KeeWeb ($1)"
+  },
+  "optionsWebConnectionKeeWebUrlInvalid": {
+    "message": "Adres URL jest nieprawidłowy"
+  },
+  "optionsWebConnectionKeeWebUrlNotHttps": {
+    "message": "Adres URL musi zaczynać się od https://"
+  },
+  "optionsConnectionState": {
+    "message": "Stan połączenia:"
+  },
+  "optionsConnectionStateError": {
+    "message": "Błąd"
+  },
+  "optionsConnectionStateConnecting": {
+    "message": "Łączenie"
+  },
+  "optionsConnectionStateReadyToConnect": {
+    "message": "Gotowe do połączenia"
+  },
+  "optionsConnectionStateConnected": {
+    "message": "Połączone"
+  },
+  "optionsConnectButton": {
+    "message": "Połącz z KeeWeb"
+  },
+  "optionsUsage": {
+    "message": "Użycie"
+  },
+  "optionsUsageIntro": {
+    "message": "Teraz, gdy udało Ci się połączyć z KeeWeb, czas użyć rozszerzenia!"
+  },
+  "optionsUsageButton": {
+    "message": "Umieść kursor w polu na dowolnej stronie, a następnie kliknij przycisk rozszerzenia, aby automatycznie wypełnić formularz:"
+  },
+  "optionsUsageShortcut": {
+    "message": "Zamiast klikać przycisk, możesz również użyć skrótu klawiszowego, który możesz zmienić poniżej."
+  },
+  "optionsUsageShortcutNoChange": {
+    "message": "Zamiast klikać przycisk, możesz też użyć skrótu klawiszowego $1."
+  },
+  "optionsUsagePermissionsPerSite": {
+    "message": "Czasami do automatycznego uzupełniania haseł wymagane są dodatkowe uprawnienia. Jeśli zobaczysz ten znak ostrzegawczy, kliknij przycisk rozszerzenia, aby przyznać niezbędne uprawnienia:"
+  },
+  "optionsUsageMenu": {
+    "message": "Alternatywnie wybierz żądaną opcję z menu KeeWeb:"
+  },
+  "optionsShortcuts": {
+    "message": "Skróty klawiszowe"
+  },
+  "optionsShortcutsDescription": {
+    "message": "Możesz zmienić skróty w ustawieniach skrótów rozszerzeń."
+  },
+  "optionsShortcutsDescriptionNoChange": {
+    "message": "Możesz użyć tych skrótów, aby szybciej przesyłać formularze."
+  },
+  "optionsShortcutsLink": {
+    "message": "Edytuj skróty klawiszowe"
+  },
+  "optionsShortcutsManual": {
+    "message": "Aby edytować skróty, otwórz dodatki w przeglądarce, a następnie kliknij przycisk ustawień i wybierz element skrótów:"
+  },
+  "optionsAbout": {
+    "message": "Informacje"
+  },
+  "optionsAboutContact": {
+    "message": "Tutaj możesz zadać pytanie, zasugerować pomysł lub zgłosić problem:"
+  },
+  "optionsAboutLicense": {
+    "message": "To rozszerzenie jest licencjonowane w ramach MIT. Obejmuje te niesamowite biblioteki:"
+  }
+}
