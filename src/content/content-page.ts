@@ -71,9 +71,6 @@ if (!window.kwExtensionInstalled) {
             setInputText(input, text);
 
             const form = input.form;
-            if (!form) {
-                return;
-            }
 
             if (password) {
                 input = getNextFormPasswordInput(input);
@@ -85,7 +82,7 @@ if (!window.kwExtensionInstalled) {
                 setInputText(input, password);
             }
 
-            if (submit) {
+            if (form && submit) {
                 submitForm(form);
             }
         }
@@ -100,6 +97,25 @@ if (!window.kwExtensionInstalled) {
 
         function getNextFormPasswordInput(input: HTMLInputElement): HTMLInputElement | undefined {
             if (!input.form) {
+                const inputs = [...document.querySelectorAll('input')];
+                if (!inputs.includes(input)) {
+                    return undefined;
+                }
+                for (let ix = inputs.indexOf(input) + 1; ix < inputs.length; ix++) {
+                    const nextInput = inputs[ix] as HTMLInputElement;
+                    if (nextInput.form) {
+                        return undefined;
+                    }
+                    switch (nextInput.type) {
+                        case 'password':
+                            return nextInput;
+                        case 'checkbox':
+                        case 'hidden':
+                            continue;
+                        default:
+                            return undefined;
+                    }
+                }
                 return undefined;
             }
             let found = false;

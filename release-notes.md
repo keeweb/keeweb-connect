@@ -1,7 +1,8 @@
 Release notes
 -------------
 ##### v0.3.5 (TBD)
-`+` new language: PL
+`+` new language: PL  
+`-` auto-fill on sites without forms, such as aliexpress  
 
 ##### v0.3.4 (2021-05-09)
 `-` returning to the webpage after auto-filling OTP and other fields  
