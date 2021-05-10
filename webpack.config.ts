@@ -57,7 +57,7 @@ export default {
                 {
                     from: 'manifest.json',
                     transform: (content) => {
-                        const manifest = JSON.parse(content.toString());
+                        const manifest = <chrome.runtime.Manifest>JSON.parse(content.toString());
                         const patchFiles = [`manifest.${browser}.json`];
                         if (dev) {
                             patchFiles.push('manifest.dev.json');
@@ -66,7 +66,9 @@ export default {
                             if (!fs.existsSync(patchFile)) {
                                 continue;
                             }
-                            const patchData = JSON.parse(fs.readFileSync(patchFile, 'utf8'));
+                            const patchData = <chrome.runtime.Manifest>(
+                                JSON.parse(fs.readFileSync(patchFile, 'utf8'))
+                            );
                             merge.recursive(manifest, patchData);
                         }
                         const str = JSON.stringify(manifest, null, 2);

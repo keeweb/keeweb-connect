@@ -27,7 +27,8 @@ const ConnectionWeb: FunctionComponent = () => {
             setInputKeeWebUrl('');
             model.setKeeWebUrl(url.toString());
         } catch (e) {
-            setInputKeeWebUrlError(`${res('optionsWebConnectionKeeWebUrlInvalid')}: ${e.message}`);
+            const msg = (e as Error).message;
+            setInputKeeWebUrlError(`${res('optionsWebConnectionKeeWebUrlInvalid')}: ${msg}`);
         }
     };
 

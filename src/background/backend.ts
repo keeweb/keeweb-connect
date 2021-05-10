@@ -63,8 +63,8 @@ class Backend extends TypedEmitter<BackendEvents> {
         return new Promise((resolve) => {
             chrome.storage.onChanged.addListener((changes) => this.storageChanged(changes));
             chrome.storage.local.get(['useNativeApp', 'keeWebUrl'], (storageData) => {
-                this._useNativeApp = storageData.useNativeApp ?? true;
-                this._keeWebUrl = storageData.keeWebUrl;
+                this._useNativeApp = <boolean>(storageData.useNativeApp ?? true);
+                this._keeWebUrl = <string>storageData.keeWebUrl;
                 this.resetStateByConfig();
                 resolve();
             });
@@ -73,9 +73,9 @@ class Backend extends TypedEmitter<BackendEvents> {
 
     private async storageChanged(changes: { [prop: string]: chrome.storage.StorageChange }) {
         if (changes.useNativeApp) {
-            this._useNativeApp = changes.useNativeApp.newValue;
+            this._useNativeApp = <boolean>changes.useNativeApp.newValue;
         } else if (changes.keeWebUrl) {
-            this._keeWebUrl = changes.keeWebUrl.newValue;
+            this._keeWebUrl = <string>changes.keeWebUrl.newValue;
         } else {
             return;
         }
@@ -133,7 +133,7 @@ class Backend extends TypedEmitter<BackendEvents> {
             // eslint-disable-next-line no-console
             console.error('Connect error', e);
 
-            this._connectionError = e.message;
+            this._connectionError = (<Error>e).message;
             this.setState(BackendConnectionState.Error);
 
             this.emit('connect-finished', e);

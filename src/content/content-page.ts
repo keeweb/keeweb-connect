@@ -137,6 +137,7 @@ if (!window.kwExtensionInstalled) {
 
         function submitForm(form: HTMLFormElement) {
             if (typeof form.requestSubmit === 'function') {
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-call
                 form.requestSubmit();
             } else {
                 const submitButton = <HTMLInputElement>form.querySelector('input[type=submit]');

@@ -3,11 +3,11 @@ import { supportsUnicodeMenus } from 'common/features';
 
 export function createUIMenus(): void {
     chrome.contextMenus.onClicked.addListener(async (e, tab) => {
-        if (!e.editable || !tab) {
+        if (!e.editable || !tab || !e.menuItemId) {
             return;
         }
 
-        const command = e.menuItemId;
+        const command = e.menuItemId as string;
         if (command === 'settings') {
             chrome.runtime.openOptionsPage();
             return;

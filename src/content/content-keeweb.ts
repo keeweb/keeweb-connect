@@ -4,6 +4,10 @@ declare global {
     }
 }
 
+interface KeeWebConnectTabMessage {
+    kwConnect?: string;
+}
+
 if (!window.kwExtensionInstalled) {
     window.kwExtensionInstalled = true;
 
@@ -22,8 +26,9 @@ if (!window.kwExtensionInstalled) {
             if (e.source !== window) {
                 return;
             }
-            if (e?.data?.kwConnect === 'response') {
-                delete e.data.kwConnect;
+            const data = e?.data as KeeWebConnectTabMessage;
+            if (data?.kwConnect === 'response') {
+                delete data.kwConnect;
                 port.postMessage(e.data);
             }
         };
@@ -32,7 +37,7 @@ if (!window.kwExtensionInstalled) {
         port.onDisconnect.addListener(() => {
             window.removeEventListener('message', onWindowMessage);
         });
-        port.onMessage.addListener((msg) => {
+        port.onMessage.addListener((msg: KeeWebConnectTabMessage) => {
             msg.kwConnect = 'request';
             window.postMessage(msg, window.location.origin);
         });

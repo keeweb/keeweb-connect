@@ -113,7 +113,7 @@ class ProtocolImpl {
         }
 
         const json = new TextDecoder().decode(data);
-        const payload = JSON.parse(json);
+        const payload = <KeeWebConnectEncryptedResponse>JSON.parse(json);
 
         if (window.logDecryptedPayload) {
             // eslint-disable-next-line no-console

@@ -34,8 +34,8 @@ class SettingsModel extends TypedEmitter<SettingsModelEvents> {
     private loadStorageConfig(): Promise<void> {
         return new Promise((resolve) => {
             chrome.storage.local.get(['useNativeApp', 'keeWebUrl'], (result) => {
-                this._useNativeApp = result.useNativeApp ?? true;
-                this._keeWebUrl = result.keeWebUrl;
+                this._useNativeApp = <boolean>(result.useNativeApp ?? true);
+                this._keeWebUrl = <string>result.keeWebUrl;
                 resolve();
             });
         });
