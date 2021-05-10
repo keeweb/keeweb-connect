@@ -1,7 +1,7 @@
 Release notes
 -------------
 ##### v0.3.5 (TBD)
-`+` new language: PL  
+`+` new languages: FR, PL  
 `-` auto-fill on sites without forms, such as aliexpress  
 `-` native messaging host: support for old macOS starting 10.11  
 

@@ -1,0 +1,170 @@
+{
+  "cmdSubmitAuto": {
+    "message": "Envoyer le formulaire automatiquement"
+  },
+  "cmdInsertUsername": {
+    "message": "Insérer l'identifiant"
+  },
+  "cmdSubmitUsername": {
+    "message": "Envoyer l'identifiant"
+  },
+  "cmdInsertPassword": {
+    "message": "Insérer le mot de passe"
+  },
+  "cmdSubmitPassword": {
+    "message": "Envoyer le mot de passe"
+  },
+  "cmdInsertUsernamePassword": {
+    "message": "Insérer identifiant + mot de passe"
+  },
+  "cmdSubmitUsernamePassword": {
+    "message": "Envoyer identifiant + mot de passe"
+  },
+  "cmdInsertOtp": {
+    "message": "Insérer un code unique"
+  },
+  "cmdInsertOther": {
+    "message": "Choisir un autre champ dans KeeWeb"
+  },
+  "menuOtherOptions": {
+    "message": "Autres options"
+  },
+  "menuSettings": {
+    "message": "Options"
+  },
+  "errorConnectionErrorApp": {
+    "message": "Impossible de se connecter à KeeWeb. Vérifiez que KeeWeb est ouvert et que l'intégration au navigateur est activée dans les paramètres."
+  },
+  "errorConnectionErrorWeb": {
+    "message": "Impossible de se connecter à KeeWeb, rafraichissez l'onglet de KeeWeb. Vérifiez que la page de l'extension pour avoir plus de détails."
+  },
+  "errorKeeWebDisconnected": {
+    "message": "KeeWeb est déconnecté de l'extension"
+  },
+  "errorBrowserTabNoPermissions": {
+    "message": "L'accès à $1 n'est pas autorisé."
+  },
+  "errorBrowserCannotCreateTab": {
+    "message": "Impossible de créer un nouvel onglet."
+  },
+  "errorAppReturnedError": {
+    "message": "KeeWeb a retourné une erreur"
+  },
+  "errorRequestTimeout": {
+    "message": "KeeWeb n'a pas répondu à la requête dans les temps."
+  },
+  "optionsTitle": {
+    "message": "Options"
+  },
+  "optionsIntro": {
+    "message": "KeeWeb Connect est une extension de KeeWeb, un gestionnaire de mot de passe gratuit multi-plateforme compatible KeePass"
+  },
+  "optionsConnection": {
+    "message": "Connexion"
+  },
+  "optionsConnectionModeApp": {
+    "message": "Utilise le logiciel pour se connecter. C'est le mode le plus pratique. KeeWeb tourne en arrière-plan et l'extension s'y connecte pour récupérer les informations. Si vous n'avez pas l'application installée :"
+  },
+  "optionsConnectionModeAppOnly": {
+    "message": "Pour utiliser l'extension, vous devez installer l'application KeeWeb. L'application tournera en arrière-plan et l'extension s'y connectera pour récupérer les mots de passe. Si vous n'avez pas l'application installée :"
+  },
+  "optionsConnectionModeAppDownloadLink": {
+    "message": "Télécharger KeeWeb"
+  },
+  "optionsConnectionModeWeb": {
+    "message": "Version Web : Vous devez avoir un onglet de votre navigateur ouvert sur KeeWeb, l'extension se connectera à cet onglet. C'est moins pratique mais vous n'avez pas à installer le logiciel."
+  },
+  "optionsConnectionModeWebLink": {
+    "message": "ouvrir KeeWeb"
+  },
+  "optionsConnectionMode": {
+    "message": "Mode de connexion:"
+  },
+  "optionsWebConnectionTabPermission": {
+    "message": "Pour se connecter à l'onglet KeeWeb, une autorisation spéciale est requise sinon il ne sera pas possible de communiquer avec cet onglet. Cliquer sur le bouton pour accorder la permission nécessaire à l'extension:"
+  },
+  "optionsWebConnectionTabPermissionButton": {
+    "message": "Accorder la permission"
+  },
+  "optionsWebConnectionKeeWebUrl": {
+    "message": "Adresse de KeeWeb (peut être différente si vous utilisez une version hébergée)"
+  },
+  "optionsWebConnectionChangeKeeWebUrl": {
+    "message": "Changer l'adresse de KeeWeb"
+  },
+  "optionsCancel": {
+    "message": "Annuler"
+  },
+  "optionsWebConnectionResetKeeWebUrl": {
+    "message": "Remise à zéro de KeeWeb ($1)"
+  },
+  "optionsWebConnectionKeeWebUrlInvalid": {
+    "message": "L'adresse n'est pas valide"
+  },
+  "optionsWebConnectionKeeWebUrlNotHttps": {
+    "message": "L'adresse doit commencer par https://"
+  },
+  "optionsConnectionState": {
+    "message": "Statut de la connexion:"
+  },
+  "optionsConnectionStateError": {
+    "message": "Erreur"
+  },
+  "optionsConnectionStateConnecting": {
+    "message": "Connexion en cours"
+  },
+  "optionsConnectionStateReadyToConnect": {
+    "message": "Prêt à se connecter"
+  },
+  "optionsConnectionStateConnected": {
+    "message": "Connecté"
+  },
+  "optionsConnectButton": {
+    "message": "Connecté à KeeWeb"
+  },
+  "optionsUsage": {
+    "message": "Utilisation"
+  },
+  "optionsUsageIntro": {
+    "message": "Maintenant que vous êtes connecté à KeeWeb, il est temps d'utiliser l'extension!"
+  },
+  "optionsUsageButton": {
+    "message": "Placer le curseur dans un champ de n'importe quelle page, cliquer sur le bouton de l'extension  pour remplir automatiquement le formulaire:"
+  },
+  "optionsUsageShortcut": {
+    "message": "A la place du bouton, vous pouvez d'utiliser un raccourci clavier que vous pouvez modifier ci dessous."
+  },
+  "optionsUsageShortcutNoChange": {
+    "message": "A la place du menu contextuel, vous pouvez utiliser le raccourci clavier $1."
+  },
+  "optionsUsagePermissionsPerSite": {
+    "message": "Parfois, des permissions supplémentaires peuvent être requises pour que l'auto remplissage fonctionne. Si vous voyez cet icone, cliquez sur le bouton de l'extension pour autoriser les permissions nécessaires:"
+  },
+  "optionsUsageMenu": {
+    "message": "Il est également possible de choisir l'option voulue dans le menu contextuel de KeeWeb:"
+  },
+  "optionsShortcuts": {
+    "message": "Raccourci clavier"
+  },
+  "optionsShortcutsDescription": {
+    "message": "Vous pouvez changer les raccourcis clavier dans les paramètres de l'extension, rubrique Raccourcis."
+  },
+  "optionsShortcutsDescriptionNoChange": {
+    "message": "Vous pouvez utiliser ces raccourcis pour valider les formulaires plus rapidement."
+  },
+  "optionsShortcutsLink": {
+    "message": "Modifier les raccourcis clavier"
+  },
+  "optionsShortcutsManual": {
+    "message": "Pour modifier les raccourcis, ouvrer le gestionnaire d'extensions, cliquer sur Gérer les raccourcis d'extension dans le menu des paramètres:"
+  },
+  "optionsAbout": {
+    "message": "A propos"
+  },
+  "optionsAboutContact": {
+    "message": "Vous pouvez poser une question, proposer vos idées ou signaler un problème ici :"
+  },
+  "optionsAboutLicense": {
+    "message": "Cette extension est sous licence MIT. Elle fonctionne avec les librairies géniales:"
+  }
+}
