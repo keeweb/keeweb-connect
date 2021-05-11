@@ -57,7 +57,7 @@
     "message": "Options"
   },
   "optionsIntro": {
-    "message": "KeeWeb Connect est une extension de KeeWeb, un gestionnaire de mot de passe gratuit multi-plateforme compatible KeePass"
+    "message": "KeeWeb Connect est une extension de KeeWeb, un gestionnaire de mots de passe gratuit multi-plateforme compatible KeePass"
   },
   "optionsConnection": {
     "message": "Connexion"
@@ -132,7 +132,7 @@
     "message": "Placer le curseur dans un champ de n'importe quelle page, cliquer sur le bouton de l'extension  pour remplir automatiquement le formulaire:"
   },
   "optionsUsageShortcut": {
-    "message": "A la place du bouton, vous pouvez d'utiliser un raccourci clavier que vous pouvez modifier ci dessous."
+    "message": "A la place du bouton, vous pouvez d'utiliser un raccourci clavier que vous pouvez modifier un peu plus bas."
   },
   "optionsUsageShortcutNoChange": {
     "message": "A la place du menu contextuel, vous pouvez utiliser le raccourci clavier $1."
@@ -165,6 +165,6 @@
     "message": "Vous pouvez poser une question, proposer vos idées ou signaler un problème ici :"
   },
   "optionsAboutLicense": {
-    "message": "Cette extension est sous licence MIT. Elle fonctionne avec les librairies géniales:"
+    "message": "Cette extension est sous licence MIT. Elle fonctionne avec des librairies géniales:"
   }
 }
