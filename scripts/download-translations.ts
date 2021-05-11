@@ -238,7 +238,7 @@ function saveTranslations(languages: Languages, translations: Translations) {
             if (!langErrors) {
                 writtenCount++;
                 languageJson = JSON.stringify(languageTranslations, null, 2);
-                fs.mkdirSync(path.dirname(languageFileName));
+                fs.mkdirSync(path.dirname(languageFileName), { recursive: true });
                 fs.writeFileSync(languageFileName, languageJson);
             }
 
