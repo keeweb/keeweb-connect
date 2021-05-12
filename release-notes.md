@@ -1,5 +1,8 @@
 Release notes
 -------------
+##### v0.3.6 (TBD)
+`-` fix #13: better input event simulation  
+
 ##### v0.3.5 (2021-05-10)
 `+` new languages: FR, PL  
 `-` auto-fill on sites without forms, such as aliexpress  

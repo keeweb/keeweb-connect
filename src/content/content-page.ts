@@ -90,7 +90,7 @@ if (!window.kwExtensionInstalled) {
         function setInputText(input: HTMLInputElement, text: string) {
             input.value = text;
             input.dispatchEvent(
-                new InputEvent('input', { inputType: 'insertFromPaste', data: text })
+                new InputEvent('input', { inputType: 'insertFromPaste', data: text, bubbles: true })
             );
             input.dispatchEvent(new Event('change', { bubbles: true }));
         }
