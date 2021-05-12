@@ -136,21 +136,21 @@ if (!window.kwExtensionInstalled) {
         }
 
         function submitForm(form: HTMLFormElement) {
+            const submitButton = <HTMLInputElement | undefined>(
+                form.querySelector('input[type=submit],button[type=submit]')
+            );
             if (typeof form.requestSubmit === 'function') {
                 // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-                form.requestSubmit();
+                form.requestSubmit(submitButton);
+            } else if (submitButton) {
+                submitButton.click();
             } else {
-                const submitButton = <HTMLInputElement>form.querySelector('input[type=submit]');
-                if (submitButton) {
-                    submitButton.click();
-                } else {
-                    const btn = document.createElement('input');
-                    btn.type = 'submit';
-                    btn.hidden = true;
-                    form.appendChild(btn);
-                    btn.click();
-                    form.removeChild(btn);
-                }
+                const btn = document.createElement('input');
+                btn.type = 'submit';
+                btn.hidden = true;
+                form.appendChild(btn);
+                btn.click();
+                form.removeChild(btn);
             }
         }
     });
