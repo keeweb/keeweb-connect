@@ -4,7 +4,7 @@
   "description": "KeeWeb",
   "main": "index.js",
   "scripts": {
-    "start": "npm run lint && npm run build-chrome && npm run build-firefox && npm run build-edge && npm run build-safari",
+    "start": "npm run eslint && npm run build-chrome && npm run build-firefox && npm run build-edge && npm run build-safari",
     "build-chrome": "cross-env KW_BROWSER=chrome webpack --mode=production",
     "build-firefox": "cross-env KW_BROWSER=firefox webpack --mode=production",
     "build-edge": "cross-env KW_BROWSER=edge webpack --mode=production",
@@ -14,7 +14,7 @@
     "watch-edge": "cross-env KW_BROWSER=edge webpack --mode=development --watch",
     "watch-safari": "cross-env KW_BROWSER=safari webpack --mode=development --watch",
     "clang-format": "cd xcode && clang-format -i **/*.h **/*.m",
-    "lint": "eslint webpack.config.ts src scripts",
+    "eslint": "eslint webpack.config.ts src scripts",
     "prettier": "prettier --write src/**/*.ts src/**/*.tsx *.js pages/*.html styles/*.css",
     "download-translations": "ts-node scripts/download-translations",
     "bump-version": "ts-node scripts/bump-version"
