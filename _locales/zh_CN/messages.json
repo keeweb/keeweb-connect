@@ -63,7 +63,7 @@
     "message": "连接"
   },
   "optionsConnectionModeApp": {
-    "message": "使用本地应用程序。这是最方便的集成模式: KeeWeb 在后台运行，扩展连接到应用程序获取凭证。如果你没有安装应用程序:"
+    "message": "使用本地应用程序。这是最方便的集成模式: KeeWeb 在后台运行，扩展连接到应用程序获取凭证。如果您没有安装应用程序:"
   },
   "optionsConnectionModeAppOnly": {
     "message": "要使用扩展，您需要安装KeeWeb应用程序。应用程序正在后台运行，扩展连接到它以获取密码。如果未安装应用程序："
