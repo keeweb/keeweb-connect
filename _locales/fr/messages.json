@@ -144,7 +144,7 @@
     "message": "Il est également possible de choisir l'option voulue dans le menu contextuel de KeeWeb:"
   },
   "optionsShortcuts": {
-    "message": "Raccourci clavier"
+    "message": "Raccourcis clavier"
   },
   "optionsShortcutsDescription": {
     "message": "Vous pouvez changer les raccourcis clavier dans les paramètres de l'extension, rubrique Raccourcis."
