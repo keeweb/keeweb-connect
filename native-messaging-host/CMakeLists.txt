@@ -7,6 +7,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(CMAKE_XCODE_ATTRIBUTE_ONLY_ACTIVE_ARCH YES)
 set(CMAKE_OSX_DEPLOYMENT_TARGET "10.11")
+set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 
 include(FetchContent)
 
@@ -26,7 +27,8 @@ add_executable(${PROJECT_NAME} ${SOURCES})
 target_link_libraries(${PROJECT_NAME} PRIVATE uv_a)
 target_include_directories(${PROJECT_NAME} PRIVATE ${libuv_SOURCE_DIR}/include)
 if(WIN32)
-    target_compile_options(${PROJECT_NAME} PRIVATE /W4 /WX /permissive-)
+    target_compile_options(uv_a PRIVATE /MT)
+    target_compile_options(${PROJECT_NAME} PRIVATE /W4 /WX /permissive- /MT)
 else()
     target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wextra -pedantic -Werror)
 endif()
