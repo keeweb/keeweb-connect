@@ -1,4 +1,6 @@
 {
+  "description": { "message": "Password autofill for KeeWeb" },
+
   "cmdSubmitAuto": { "message": "Submit the form automatically" },
   "cmdInsertUsername": { "message": "Insert username" },
   "cmdSubmitUsername": { "message": "Submit username" },
