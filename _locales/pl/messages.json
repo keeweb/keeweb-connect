@@ -1,4 +1,7 @@
 {
+  "description": {
+    "message": "Automatyczne wypełnianie haseł dla KeeWeb."
+  },
   "cmdSubmitAuto": {
     "message": "Prześlij formularz automatycznie"
   },
@@ -138,7 +141,7 @@
     "message": "Zamiast klikać przycisk, możesz też użyć skrótu klawiszowego $1."
   },
   "optionsUsagePermissionsPerSite": {
-    "message": "Czasami do automatycznego uzupełniania haseł wymagane są dodatkowe uprawnienia. Jeśli zobaczysz ten znak ostrzegawczy, kliknij przycisk rozszerzenia, aby przyznać niezbędne uprawnienia:"
+    "message": "Czasami do automatycznego wypełniania haseł wymagane są dodatkowe uprawnienia. Jeśli zobaczysz ten znak ostrzegawczy, kliknij przycisk rozszerzenia, aby przyznać niezbędne uprawnienia:"
   },
   "optionsUsageMenu": {
     "message": "Alternatywnie wybierz żądaną opcję z menu KeeWeb:"

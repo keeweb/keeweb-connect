@@ -1,4 +1,7 @@
 {
+  "description": {
+    "message": "Remplissage automatique du mot de passe pour KeeWeb"
+  },
   "cmdSubmitAuto": {
     "message": "Envoyer le formulaire automatiquement"
   },

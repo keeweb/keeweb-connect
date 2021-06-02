@@ -1,4 +1,7 @@
 {
+  "description": {
+    "message": "Automatische wachtwoordinvoer voor KeeWeb"
+  },
   "cmdSubmitAuto": {
     "message": "Formulier automatisch indienen"
   },
@@ -81,7 +84,7 @@
     "message": "Voorkeursverbindingsmodus:"
   },
   "optionsWebConnectionTabPermission": {
-    "message": "Om verbinding te maken met het KeeWeb-tabblad is speciale toestemming nodig, anders is de communicatie niet mogelijk. Klik op deze knop om deze toestemming aan de extensie te verlenen:"
+    "message": "Om verbinding te maken met het KeeWeb-tabblad is speciale toestemming nodig, anders is de communicatie niet mogelijk. Klik op deze knop om de benodigde toestemming aan de extensie te verlenen:"
   },
   "optionsWebConnectionTabPermissionButton": {
     "message": "Geef toestemming"

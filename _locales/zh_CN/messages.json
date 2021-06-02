@@ -1,4 +1,7 @@
 {
+  "description": {
+    "message": "KeeWeb的密码自动填充"
+  },
   "cmdSubmitAuto": {
     "message": "自动填充表单"
   },

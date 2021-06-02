@@ -1,4 +1,7 @@
 {
+  "description": {
+    "message": "KeeWebのパスワード自動補完"
+  },
   "cmdSubmitAuto": {
     "message": "フォームに自動で送信"
   },
