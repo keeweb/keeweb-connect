@@ -1,0 +1,173 @@
+{
+  "description": {
+    "message": "KeeWeb 密碼自動填入"
+  },
+  "cmdSubmitAuto": {
+    "message": "自動送交表單"
+  },
+  "cmdInsertUsername": {
+    "message": "連入帳號名稱"
+  },
+  "cmdSubmitUsername": {
+    "message": "送交帳號"
+  },
+  "cmdInsertPassword": {
+    "message": "填入密碼"
+  },
+  "cmdSubmitPassword": {
+    "message": "送交密碼"
+  },
+  "cmdInsertUsernamePassword": {
+    "message": "填入帳號與密碼"
+  },
+  "cmdSubmitUsernamePassword": {
+    "message": "送交帳號與密碼"
+  },
+  "cmdInsertOtp": {
+    "message": "一次性密碼"
+  },
+  "cmdInsertOther": {
+    "message": "選擇 KeeWeb 裡的其他欄位"
+  },
+  "menuOtherOptions": {
+    "message": "其他選項"
+  },
+  "menuSettings": {
+    "message": "設定"
+  },
+  "errorConnectionErrorApp": {
+    "message": "無法連接 KeeWeb，請確定 KeeWeb 已開啟，並且已設定啟用瀏覽器整合功能。"
+  },
+  "errorConnectionErrorWeb": {
+    "message": "無法連接 KeeWeb，重新載入 KeeWeb 的分頁可能有用。（開發者可檢查套件的背景頁面取得詳細資訊。）"
+  },
+  "errorKeeWebDisconnected": {
+    "message": "KeeWeb 與套件已中斷連線。"
+  },
+  "errorBrowserTabNoPermissions": {
+    "message": "尚未授權取用 $1。"
+  },
+  "errorBrowserCannotCreateTab": {
+    "message": "無法開啟新分頁。"
+  },
+  "errorAppReturnedError": {
+    "message": "KeeWeb 傳回錯誤"
+  },
+  "errorRequestTimeout": {
+    "message": "KeeWeb 無法及時回應。"
+  },
+  "optionsTitle": {
+    "message": "選項"
+  },
+  "optionsIntro": {
+    "message": "您現在用的是 KeeWeb 瀏覽器擴充套件，KeeWeb 是相容 KeePass 的跨平台密碼管理自由軟體。"
+  },
+  "optionsConnection": {
+    "message": "連線"
+  },
+  "optionsConnectionModeApp": {
+    "message": "使用系統原生程式，讓 KeeWeb 於背景執行，而套件擷取 App 內的資料。這是整合資料最輕鬆的方法，若未安裝 App 可前往"
+  },
+  "optionsConnectionModeAppOnly": {
+    "message": "要使用此套件，您必須安裝 KeeWeb App。讓 KeeWeb 於背景執行，而套件擷取 App 內的資料。若未安裝 App 可前往"
+  },
+  "optionsConnectionModeAppDownloadLink": {
+    "message": "下載 KeeWeb"
+  },
+  "optionsConnectionModeWeb": {
+    "message": "純 Web 方案：您必須開啟一個 KeeWeb 分頁讓此套件與其連結。這方法沒有那麼方便，不過如果您沒有安裝 App，可以"
+  },
+  "optionsConnectionModeWebLink": {
+    "message": "開啟 KeeWeb"
+  },
+  "optionsConnectionMode": {
+    "message": "連線方式："
+  },
+  "optionsWebConnectionTabPermission": {
+    "message": "為了連結 KeeWeb 分頁，此套件需要特殊權限才能與其溝通。點擊此鈕以授與必要權限："
+  },
+  "optionsWebConnectionTabPermissionButton": {
+    "message": "授權"
+  },
+  "optionsWebConnectionKeeWebUrl": {
+    "message": "KeeWeb URL（如果您使用自架版 KeeWeb，請修改此網址）："
+  },
+  "optionsWebConnectionChangeKeeWebUrl": {
+    "message": "修改 KeeWeb URL"
+  },
+  "optionsCancel": {
+    "message": "取消"
+  },
+  "optionsWebConnectionResetKeeWebUrl": {
+    "message": "復原預設 KeeWeb 網址（$1）"
+  },
+  "optionsWebConnectionKeeWebUrlInvalid": {
+    "message": "URL 無效"
+  },
+  "optionsWebConnectionKeeWebUrlNotHttps": {
+    "message": "URL 必須以 https:// 開頭"
+  },
+  "optionsConnectionState": {
+    "message": "連線狀態："
+  },
+  "optionsConnectionStateError": {
+    "message": "錯誤"
+  },
+  "optionsConnectionStateConnecting": {
+    "message": "連線中"
+  },
+  "optionsConnectionStateReadyToConnect": {
+    "message": "準備連線"
+  },
+  "optionsConnectionStateConnected": {
+    "message": "已連線"
+  },
+  "optionsConnectButton": {
+    "message": "連到 KeeWeb"
+  },
+  "optionsUsage": {
+    "message": "使用方法"
+  },
+  "optionsUsageIntro": {
+    "message": "一旦成功連結到 KeeWeb，就可以開始使用套件了！"
+  },
+  "optionsUsageButton": {
+    "message": "將游標放在任何網頁上的欄位，然後點擊套件按鈕以自動填寫表單："
+  },
+  "optionsUsageShortcut": {
+    "message": "除了點擊按鈕之外，您也可以使用快速鍵自動填寫。文後可以指定想使用的快速鍵。"
+  },
+  "optionsUsageShortcutNoChange": {
+    "message": "除了點擊按鈕之外，您也可以使用快速鍵 $1 自動填寫。"
+  },
+  "optionsUsagePermissionsPerSite": {
+    "message": "有時自動填寫密碼會需要額外的權限，如果您看到這個警告圖示，請點擊套件按鈕以便授權："
+  },
+  "optionsUsageMenu": {
+    "message": "或者，您也可以從 KeeWeb 選單中選取相應行動："
+  },
+  "optionsShortcuts": {
+    "message": "快速鍵"
+  },
+  "optionsShortcutsDescription": {
+    "message": "您可在套件快速鍵設定中修改快速鍵。"
+  },
+  "optionsShortcutsDescriptionNoChange": {
+    "message": "您可使用這些快速鍵，快速送交表單。"
+  },
+  "optionsShortcutsLink": {
+    "message": "修改快速鍵"
+  },
+  "optionsShortcutsManual": {
+    "message": "若想修改快速鍵，請前往瀏覽器的附加元件頁面，點擊設定按鈕後選擇「管理擴充套件快速鍵」："
+  },
+  "optionsAbout": {
+    "message": "關於"
+  },
+  "optionsAboutContact": {
+    "message": "您可以於此發問、建議、回報問題："
+  },
+  "optionsAboutLicense": {
+    "message": "此套件以 MIT 授權條款是出供大眾使用，內含下列超讚的函式庫："
+  }
+}

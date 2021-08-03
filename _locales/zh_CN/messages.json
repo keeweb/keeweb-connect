@@ -1,111 +1,111 @@
 {
   "description": {
-    "message": "KeeWeb的密码自动填充"
+    "message": "自动填充 KeeWeb 密码"
   },
   "cmdSubmitAuto": {
-    "message": "自动填充表单"
+    "message": "填充并提交表单"
   },
   "cmdInsertUsername": {
     "message": "填充用户名"
   },
   "cmdSubmitUsername": {
-    "message": "提交用户名"
+    "message": "填充并提交用户名"
   },
   "cmdInsertPassword": {
     "message": "填充密码"
   },
   "cmdSubmitPassword": {
-    "message": "提交密码"
+    "message": "填充并提交密码"
   },
   "cmdInsertUsernamePassword": {
     "message": "填充用户名+密码"
   },
   "cmdSubmitUsernamePassword": {
-    "message": "提交用户名+密码"
+    "message": "填充并提交用户名+密码"
   },
   "cmdInsertOtp": {
-    "message": "一次性密码"
+    "message": "填充一次性密码（OTP）"
   },
   "cmdInsertOther": {
     "message": "在 KeeWeb 中选择另一个字段"
   },
   "menuOtherOptions": {
-    "message": "其他选项"
+    "message": "查看其他条目"
   },
   "menuSettings": {
     "message": "设置"
   },
   "errorConnectionErrorApp": {
-    "message": "无法连接到KeeWeb，请检查KeeWeb是否已打开，并且确保在“设置”中启用浏览器集成。"
+    "message": "无法连接到 KeeWeb，请确保 KeeWeb 已启动，并在“设置”中启用浏览器集成功能。"
   },
   "errorConnectionErrorWeb": {
-    "message": "无法连接到KeeWeb，使用KeeWeb刷新选项卡可能会有所帮助。查看扩展背景页以获取更多详细信息。"
+    "message": "无法连接到 KeeWeb，请尝试刷新选项卡。查看扩展背景页以获取更多信息。"
   },
   "errorKeeWebDisconnected": {
-    "message": "KeeWeb已断开与扩展的连接。"
+    "message": "KeeWeb 已断开与扩展的连接。"
   },
   "errorBrowserTabNoPermissions": {
-    "message": "访问 $1的许可没有被批准。"
+    "message": "无权访问 $1。"
   },
   "errorBrowserCannotCreateTab": {
     "message": "无法创建新标签页。"
   },
   "errorAppReturnedError": {
-    "message": "KeeWeb返回了一个错误。"
+    "message": "KeeWeb 返回错误。"
   },
   "errorRequestTimeout": {
-    "message": "KeeWeb没有及时回应我们的请求。"
+    "message": "KeeWeb 未响应。"
   },
   "optionsTitle": {
-    "message": "选项"
+    "message": "设置"
   },
   "optionsIntro": {
-    "message": "这是KeeWeb的浏览器扩展，一个与KeePass兼容的免费跨平台管理器。"
+    "message": "KeeWeb Connect 是 KeeWeb（一个与 KeePass 兼容的免费跨平台密码管理器）的浏览器扩展。"
   },
   "optionsConnection": {
     "message": "连接"
   },
   "optionsConnectionModeApp": {
-    "message": "使用本地应用程序。这是最方便的集成模式: KeeWeb 在后台运行，扩展连接到应用程序获取凭证。如果您没有安装应用程序:"
+    "message": "使用桌面版 KeeWeb。这是最方便的集成模式：扩展通过连接到后台运行的 KeeWeb 应用来获取密码。如果您还未安装 KeeWeb："
   },
   "optionsConnectionModeAppOnly": {
-    "message": "要使用扩展，您需要安装KeeWeb应用程序。应用程序正在后台运行，扩展连接到它以获取密码。如果未安装应用程序："
+    "message": "为了启用扩展功能，请先安装 KeeWeb 应用。扩展通过连接到后台运行的 KeeWeb 应用来获取密码。如果您还未安装 KeeWeb："
   },
   "optionsConnectionModeAppDownloadLink": {
-    "message": "下载KeeWeb"
+    "message": "下载 KeeWeb 桌面版"
   },
   "optionsConnectionModeWeb": {
-    "message": "仅Web：您需要有一个保持Web打开的选项卡，扩展连接到此选项卡。虽然不太方便，但您不必安装桌面应用程序："
+    "message": "使用网页版 KeeWeb：您需要确保 KeeWeb 网页版标签页处于打开状态，扩展通过连接到该标签页来获取密码。这种方式虽然不太方便，但无需安装桌面版 KeeWeb："
   },
   "optionsConnectionModeWebLink": {
     "message": "打开KeeWeb"
   },
   "optionsConnectionMode": {
-    "message": "首选的连接模式："
+    "message": "选择连接模式："
   },
   "optionsWebConnectionTabPermission": {
-    "message": "要连接到KeeWeb标签页，我们需要特殊权限，否则无法与此标签页通信。单击此按钮可授予扩展的必要权限："
+    "message": "为了连接到 KeeWeb 网页版标签页，我们需要一个特殊的权限，否则就无法与该标签页进行通信。点击该按钮进行授权："
   },
   "optionsWebConnectionTabPermissionButton": {
-    "message": "授予权限"
+    "message": "授权"
   },
   "optionsWebConnectionKeeWebUrl": {
-    "message": "KeeWeb URL (如果你使用自己的托管版本，请修改它) :"
+    "message": "KeeWeb URL（如果您使用的是自行托管的版本，请修改这里）："
   },
   "optionsWebConnectionChangeKeeWebUrl": {
-    "message": "修改KeeWeb URL"
+    "message": "修改 KeeWeb URL"
   },
   "optionsCancel": {
     "message": "取消"
   },
   "optionsWebConnectionResetKeeWebUrl": {
-    "message": "重置为默认Web（$1）"
+    "message": "重置为默认 KeeWeb URL（$1）"
   },
   "optionsWebConnectionKeeWebUrlInvalid": {
-    "message": "网址无效"
+    "message": "URL 无效"
   },
   "optionsWebConnectionKeeWebUrlNotHttps": {
-    "message": "网址必须以https://开头"
+    "message": "URL 必须以 https:// 开头"
   },
   "optionsConnectionState": {
     "message": "连接状态："
@@ -114,7 +114,7 @@
     "message": "错误"
   },
   "optionsConnectionStateConnecting": {
-    "message": "连接中"
+    "message": "正在连接"
   },
   "optionsConnectionStateReadyToConnect": {
     "message": "准备连接"
@@ -123,51 +123,51 @@
     "message": "已连接"
   },
   "optionsConnectButton": {
-    "message": "连接到KeeWeb"
+    "message": "连接到 KeeWeb"
   },
   "optionsUsage": {
     "message": "使用方法"
   },
   "optionsUsageIntro": {
-    "message": "现在您已成功连接到KeeWeb，是时候使用扩展了！"
+    "message": "现在您已成功连接到 KeeWeb，是时候使用扩展了！"
   },
   "optionsUsageButton": {
-    "message": "将光标放在任何页面的某个字段上，然后单击扩展按钮以自动填充表单："
+    "message": "请将光标放在页面的某个字段中，然后点击扩展按钮来自动填充表单："
   },
   "optionsUsageShortcut": {
-    "message": "您也可以使用您可以在下面更改的键盘快捷键，而不是单击按钮。"
+    "message": "除了点击按钮之外，您还可以使用键盘快捷键（配置方法见下方）。"
   },
   "optionsUsageShortcutNoChange": {
-    "message": "除了单击按钮外，您还可以使用键盘快捷键$1。"
+    "message": "除了点击按钮之外，您还可以使用键盘快捷键 $1。"
   },
   "optionsUsagePermissionsPerSite": {
-    "message": "有时需要额外的权限来自动填充密码。如果看到此警告标志，请单击扩展按钮以授予必要的权限："
+    "message": "扩展有时需要额外的权限来自动填充密码。如果您看到该警告标志，请点击扩展按钮以授予必要的权限："
   },
   "optionsUsageMenu": {
-    "message": "或者，从 KeeWeb 菜单中选择一个想要的选项："
+    "message": "当然您也可以从 KeeWeb 右键菜单中选择一个您想要的操作："
   },
   "optionsShortcuts": {
     "message": "键盘快捷键"
   },
   "optionsShortcutsDescription": {
-    "message": "您可以在扩展快捷键设置中更改快捷键。"
+    "message": "您可以在扩展快捷键设置中修改快捷键。"
   },
   "optionsShortcutsDescriptionNoChange": {
     "message": "您可以使用这些快捷键更快地提交表单。"
   },
   "optionsShortcutsLink": {
-    "message": "编辑键盘快捷键"
+    "message": "修改键盘快捷键"
   },
   "optionsShortcutsManual": {
-    "message": "要编辑快捷键，请在浏览器中打开“加载项”，然后单击“设置”按钮，然后选择“快捷键”项目："
+    "message": "要修改快捷键，请在浏览器中打开“扩展”页，然后点击“设置”按钮并选择“管理扩展快捷键”："
   },
   "optionsAbout": {
     "message": "关于"
   },
   "optionsAboutContact": {
-    "message": "您可以在此处提出问题、提出想法或提交问题报告："
+    "message": "您可以在此提出问题、建议或想法，也可以提交问题报告："
   },
   "optionsAboutLicense": {
-    "message": "该扩展获得MIT许可。它包括这些很棒的库:"
+    "message": "该扩展遵循 MIT 协议。它使用了下面这些超棒的库："
   }
 }

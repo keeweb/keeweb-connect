@@ -1,0 +1,173 @@
+{
+  "description": {
+    "message": "Автозаповнення паролів для KeeWeb"
+  },
+  "cmdSubmitAuto": {
+    "message": "Подати форму автоматично"
+  },
+  "cmdInsertUsername": {
+    "message": "Вставити ім'я користувача"
+  },
+  "cmdSubmitUsername": {
+    "message": "Подати ім'я користувача"
+  },
+  "cmdInsertPassword": {
+    "message": "Вставити пароль"
+  },
+  "cmdSubmitPassword": {
+    "message": "Подати пароль"
+  },
+  "cmdInsertUsernamePassword": {
+    "message": "Вставити ім'я користувача та пароль"
+  },
+  "cmdSubmitUsernamePassword": {
+    "message": "Подати ім'я користувача+пароль"
+  },
+  "cmdInsertOtp": {
+    "message": "Одноразові коди"
+  },
+  "cmdInsertOther": {
+    "message": "Обрати інше поле в KeeWeb"
+  },
+  "menuOtherOptions": {
+    "message": "Інші опції"
+  },
+  "menuSettings": {
+    "message": "Налаштування"
+  },
+  "errorConnectionErrorApp": {
+    "message": "Не вдалося зв'язатися з KeeWeb, будь ласка, перевірте чи KeeWeb відкритий, а інтеграція з браузером увімкнена в його налаштуваннях."
+  },
+  "errorConnectionErrorWeb": {
+    "message": "Не вдалося зв'язатися з KeeWeb, оновлення його вкладки може допомогти. Перегляньте інформацію для зневадження, щоб отримати більше деталей."
+  },
+  "errorKeeWebDisconnected": {
+    "message": "KeeWeb відключений від додатку."
+  },
+  "errorBrowserTabNoPermissions": {
+    "message": "Права на доступ до $1 не були надані."
+  },
+  "errorBrowserCannotCreateTab": {
+    "message": "Не вдалося створити нову вкладку."
+  },
+  "errorAppReturnedError": {
+    "message": "KeeWeb повернув помилку"
+  },
+  "errorRequestTimeout": {
+    "message": "KeeWeb не відповідає на наш запит вчасно."
+  },
+  "optionsTitle": {
+    "message": "Налаштування"
+  },
+  "optionsIntro": {
+    "message": "Це браузерне розширення для роботи з KeeWeb — безкоштовного кросплатформного менеджера паролів сумісного з KeePass."
+  },
+  "optionsConnection": {
+    "message": "З'єднання"
+  },
+  "optionsConnectionModeApp": {
+    "message": "Використання програми для ОС. Це найбільш зручний метод інтеграції: KeeWeb працює в фоновому режимі, розширення підключається до нього щоб отримати дані для входу. Якщо у вас не встановлений KeeWeb —"
+  },
+  "optionsConnectionModeAppOnly": {
+    "message": "Щоб використовувати цей додаток, вам необхідно встановити KeeWeb. Програма буде працює в фоновому режимі, розширення підключається до нього щоб отримати дані для входу. Якщо у вас не встановлений KeeWeb —"
+  },
+  "optionsConnectionModeAppDownloadLink": {
+    "message": "завантажте його тут"
+  },
+  "optionsConnectionModeWeb": {
+    "message": "Веб-режим: вам треба мати відкриту вкладку з KeeWeb, розширення підключатиметься до неї. Це менш зручно, натомість вам не треба встановлювати програму."
+  },
+  "optionsConnectionModeWebLink": {
+    "message": "Відкрити KeeWeb"
+  },
+  "optionsConnectionMode": {
+    "message": "Бажаний режим підключення"
+  },
+  "optionsWebConnectionTabPermission": {
+    "message": "Для підключення до вкладки KeeWeb нам необхідний спеціальний дозвіл, інакше комунікація з вкладкою буде неможливою. Натисніть на цю кнопку, щоб надати необхідні дозволи розширенню:"
+  },
+  "optionsWebConnectionTabPermissionButton": {
+    "message": "Надати дозвіл"
+  },
+  "optionsWebConnectionKeeWebUrl": {
+    "message": "Адреса KeeWeb (змініть її, якщо ви використовуєте власну версію):"
+  },
+  "optionsWebConnectionChangeKeeWebUrl": {
+    "message": "Змінити адресу"
+  },
+  "optionsCancel": {
+    "message": "Скасувати"
+  },
+  "optionsWebConnectionResetKeeWebUrl": {
+    "message": "Скинути до стандартної адреси ($1)"
+  },
+  "optionsWebConnectionKeeWebUrlInvalid": {
+    "message": "Адреса недійсна"
+  },
+  "optionsWebConnectionKeeWebUrlNotHttps": {
+    "message": "Адреса мусить починатись з \"https://\""
+  },
+  "optionsConnectionState": {
+    "message": "Стан підключення:"
+  },
+  "optionsConnectionStateError": {
+    "message": "Помилка"
+  },
+  "optionsConnectionStateConnecting": {
+    "message": "Підключення"
+  },
+  "optionsConnectionStateReadyToConnect": {
+    "message": "Готовий до підключення"
+  },
+  "optionsConnectionStateConnected": {
+    "message": "Підключено"
+  },
+  "optionsConnectButton": {
+    "message": "Підключитись до KeeWeb"
+  },
+  "optionsUsage": {
+    "message": "Використання"
+  },
+  "optionsUsageIntro": {
+    "message": "Тепер, коли ви вдало встановили підключення, настав час використати це розширення!"
+  },
+  "optionsUsageButton": {
+    "message": "Розмістіть свій курсор на поле на будь-якій сторінці, а потім натисніть кнопку розширення, щоб здійснити автозаповнення:"
+  },
+  "optionsUsageShortcut": {
+    "message": "Замість натискання кнопки, ви також можете використовувати клавіатурне скорочення, яке можна змінити нижче."
+  },
+  "optionsUsageShortcutNoChange": {
+    "message": "Замість натискання кнопки, ви також можете використовувати клавіатурне скорочення $1."
+  },
+  "optionsUsagePermissionsPerSite": {
+    "message": "Іноді необхідні додаткові дозволи для автозаповнення паролів. Якщо ви бачите цей знак попередження, натисніть кнопку розширення для видачі необхідних дозволів:"
+  },
+  "optionsUsageMenu": {
+    "message": "Або ж оберіть бажану опцію з меню:"
+  },
+  "optionsShortcuts": {
+    "message": "Клавіатурні скорочення"
+  },
+  "optionsShortcutsDescription": {
+    "message": "Ви можете змінити скорочення в налаштування скорочень розширень."
+  },
+  "optionsShortcutsDescriptionNoChange": {
+    "message": "Ви можете використовувати ці скорочення щоб швидше заповнювати форми."
+  },
+  "optionsShortcutsLink": {
+    "message": "Змінити клавіатурні скорочення."
+  },
+  "optionsShortcutsManual": {
+    "message": "Щоб змінити скорочення, відкрийте меню додатків в вашому браузері, натисніть на кнопку налаштувань і оберіть пункт \"Керувати скороченнями розширень\""
+  },
+  "optionsAbout": {
+    "message": "Про розширення"
+  },
+  "optionsAboutContact": {
+    "message": "Ви можете задати питання, запропонувати ідею, або повідомити про проблему тут:"
+  },
+  "optionsAboutLicense": {
+    "message": "Це розширення поширюється під ліцензією MIT і включає в себе ці чудові бібліотеки:"
+  }
+}

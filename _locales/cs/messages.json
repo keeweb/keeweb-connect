@@ -1,0 +1,173 @@
+{
+  "description": {
+    "message": "Automatické vyplňování hesel z aplikace KeeWeb"
+  },
+  "cmdSubmitAuto": {
+    "message": "Automaticky odeslat formulár"
+  },
+  "cmdInsertUsername": {
+    "message": "Vložit uživatelské jméno"
+  },
+  "cmdSubmitUsername": {
+    "message": "Odeslat uživatelské jméno"
+  },
+  "cmdInsertPassword": {
+    "message": "Vložit heslo"
+  },
+  "cmdSubmitPassword": {
+    "message": "Odeslat heslo"
+  },
+  "cmdInsertUsernamePassword": {
+    "message": "Vložit uživatelské jméno a heslo"
+  },
+  "cmdSubmitUsernamePassword": {
+    "message": "Odeslat uživatelské jméno a heslo"
+  },
+  "cmdInsertOtp": {
+    "message": "Jednorázové kódy"
+  },
+  "cmdInsertOther": {
+    "message": "Vyberte v aplikaci KeeWeb jinou kolonku"
+  },
+  "menuOtherOptions": {
+    "message": "Další možnosti"
+  },
+  "menuSettings": {
+    "message": "Nastavení"
+  },
+  "errorConnectionErrorApp": {
+    "message": "Nedaří se připojit ke KeeWeb – zkontrolujte, zda je otevřené a v nastaveních je zapnuté napojení na prohlížeč."
+  },
+  "errorConnectionErrorWeb": {
+    "message": "Nedaří se připojit ke KeeWeb – opětovné načtení panelu s KeeWeb by mohlo pomoci. Pokud potřebujete další podrobnosti, podívejte se na stránku na pozadí rozšíření."
+  },
+  "errorKeeWebDisconnected": {
+    "message": "KeeWeb odpojeno od rozšíření."
+  },
+  "errorBrowserTabNoPermissions": {
+    "message": "Oprávnění pro přístup k $1 nebylo uděleno."
+  },
+  "errorBrowserCannotCreateTab": {
+    "message": "Nelze vytvořit nový panel."
+  },
+  "errorAppReturnedError": {
+    "message": "KeeWeb vrátilo chybu"
+  },
+  "errorRequestTimeout": {
+    "message": "KeeWeb neodpovědělo na požadavek včas."
+  },
+  "optionsTitle": {
+    "message": "Nastavení"
+  },
+  "optionsIntro": {
+    "message": "Toto je rozšíření pro integraci prohlížeče s aplikací KeeWeb, multiplatformním správcem hesel kompatibilním s aplikací KeePass."
+  },
+  "optionsConnection": {
+    "message": "Spojení"
+  },
+  "optionsConnectionModeApp": {
+    "message": "S použitím nativní aplikace. Toto je nejpohodlnější způsob integrace, kdy aplikace KeeWeb běží na pozadí a rozšíření s ní navazuje spojení pro získání přihlašovacích údajů. Pokud aplikaci nemáte nainstalovanou:"
+  },
+  "optionsConnectionModeAppOnly": {
+    "message": "Pro používání rozšíření si nainstalujte aplikaci KeeWeb. Aplikace poběží na pozadí a rozšíření s ní naváže spojení pro získání přihlašovacích údajů. Pokud aplikaci nemáte nainstalovanou:"
+  },
+  "optionsConnectionModeAppDownloadLink": {
+    "message": "stáhnout KeeWeb"
+  },
+  "optionsConnectionModeWeb": {
+    "message": "Pouze přes web. Tento způsob vyžaduje otevřený panel s online aplikací KeeWeb, se kterým rozšíření naváže spojení. Je to méně pohodlné, ale nemusíte instalovat na počítač žádnou aplikaci:"
+  },
+  "optionsConnectionModeWebLink": {
+    "message": "otevřít KeeWeb"
+  },
+  "optionsConnectionMode": {
+    "message": "Upřednostňovaný režim spojení:"
+  },
+  "optionsWebConnectionTabPermission": {
+    "message": "Pro navázání spojení s online aplikací KeeWeb v panelu potřebuje rozšíření dodatečné oprávnění. Pro jeho udělení klepněte na toto tlačítko:"
+  },
+  "optionsWebConnectionTabPermissionButton": {
+    "message": "Udělit oprávnění"
+  },
+  "optionsWebConnectionKeeWebUrl": {
+    "message": "URL online aplikace KeeWeb (změňte, pokud používáte vlastní verzi):"
+  },
+  "optionsWebConnectionChangeKeeWebUrl": {
+    "message": "Změnit URL aplikace KeeWeb"
+  },
+  "optionsCancel": {
+    "message": "Storno"
+  },
+  "optionsWebConnectionResetKeeWebUrl": {
+    "message": "Obnovit na výchozí KeeWeb ($1)"
+  },
+  "optionsWebConnectionKeeWebUrlInvalid": {
+    "message": "URL adresa není platná"
+  },
+  "optionsWebConnectionKeeWebUrlNotHttps": {
+    "message": "Je třeba, aby URL adresa začínala na https://"
+  },
+  "optionsConnectionState": {
+    "message": "Stav spojení"
+  },
+  "optionsConnectionStateError": {
+    "message": "Chyba"
+  },
+  "optionsConnectionStateConnecting": {
+    "message": "Navazování spojení"
+  },
+  "optionsConnectionStateReadyToConnect": {
+    "message": "Připraveno navázat spojení"
+  },
+  "optionsConnectionStateConnected": {
+    "message": "Spojení navázáno"
+  },
+  "optionsConnectButton": {
+    "message": "Navázat spojení s aplikací KeeWeb"
+  },
+  "optionsUsage": {
+    "message": "Používání"
+  },
+  "optionsUsageIntro": {
+    "message": "Nyní jste úspěšně připojení ke KeeWeb a můžete rozšíření začít používat!"
+  },
+  "optionsUsageButton": {
+    "message": "Umístěte kurzor do kolonky na libovolné stránce, pak klikněte na tlačítko rozšíření a proveďte automatické vyplnění formuláře:"
+  },
+  "optionsUsageShortcut": {
+    "message": "Namísto kliknutí na tlačítko je možné také použít klávesovou zkratu, kterou je možné si přizpůsobit níže."
+  },
+  "optionsUsageShortcutNoChange": {
+    "message": "Namísto kliknutí na tlačítko, je také možné použít klávesovou zkratku $1."
+  },
+  "optionsUsagePermissionsPerSite": {
+    "message": "Občas jsou pro automatické vyplňování hesel potřebná další oprávnění. Pokud vidíte tento symbol varování, klikněte na tlačítko rozšíření a udělte potřebná oprávnění."
+  },
+  "optionsUsageMenu": {
+    "message": "Alternativně vyberte požadovanou možnost z nabídky KeeWeb:"
+  },
+  "optionsShortcuts": {
+    "message": "Klávesové zkratky"
+  },
+  "optionsShortcutsDescription": {
+    "message": "Klávesové zkratky můžete změnit v nastaveních pro rozšíření."
+  },
+  "optionsShortcutsDescriptionNoChange": {
+    "message": "Tyto zkratky můžete použít pro rychlejší vyplňování a odesílání formulářů."
+  },
+  "optionsShortcutsLink": {
+    "message": "Upravit klávesové zkratky"
+  },
+  "optionsShortcutsManual": {
+    "message": "Pokud chcete zkratky upravit, otevřete doplňky vámi využívaného prohlížeče, poté klikněte na tlačítko nastavení a vyberte položku klávesové zkratky:"
+  },
+  "optionsAbout": {
+    "message": "O aplikaci"
+  },
+  "optionsAboutContact": {
+    "message": "Ptát se, poskytovat nápady a hlásit problémy je možné zde:"
+  },
+  "optionsAboutLicense": {
+    "message": "Toto rozšíření je vydáváno pod licencí MIT, a používá tyto softwarové knihovny:"
+  }
+}

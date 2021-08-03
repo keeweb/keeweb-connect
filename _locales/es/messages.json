@@ -1,0 +1,173 @@
+{
+  "description": {
+    "message": "Autocompletar contraseñas de KeeWeb"
+  },
+  "cmdSubmitAuto": {
+    "message": "Enviar formulario automáticamente"
+  },
+  "cmdInsertUsername": {
+    "message": "Insertar usuario"
+  },
+  "cmdSubmitUsername": {
+    "message": "Enviar usuario"
+  },
+  "cmdInsertPassword": {
+    "message": "Insertar contraseña"
+  },
+  "cmdSubmitPassword": {
+    "message": "Enviar contraseña"
+  },
+  "cmdInsertUsernamePassword": {
+    "message": "Insertar usuario+contraseña"
+  },
+  "cmdSubmitUsernamePassword": {
+    "message": "Enviar usuario+contraseña"
+  },
+  "cmdInsertOtp": {
+    "message": "Códigos de un solo uso"
+  },
+  "cmdInsertOther": {
+    "message": "Seleccionar otro campo en KeeWeb"
+  },
+  "menuOtherOptions": {
+    "message": "Otras opciones"
+  },
+  "menuSettings": {
+    "message": "Ajustes"
+  },
+  "errorConnectionErrorApp": {
+    "message": "No se puede conectar a KeeWeb. Por favor, comprueba si KeeWeb está abierto y si la integración con el navegador está activada en los ajustes."
+  },
+  "errorConnectionErrorWeb": {
+    "message": "No se puede conectar a KeeWeb, actualizar una pestaña con KeeWeb podría ayudar. Inspecciona la página en segundo plano de la extensión para obtener más información."
+  },
+  "errorKeeWebDisconnected": {
+    "message": "KeeWeb desconectado de la extensión."
+  },
+  "errorBrowserTabNoPermissions": {
+    "message": "Permiso para acceder a $1 no concedido."
+  },
+  "errorBrowserCannotCreateTab": {
+    "message": "No se puede crear una nueva pestaña."
+  },
+  "errorAppReturnedError": {
+    "message": "KeeWeb devolvió un error"
+  },
+  "errorRequestTimeout": {
+    "message": "KeeWeb no respondió a nuestra solicitud a tiempo."
+  },
+  "optionsTitle": {
+    "message": "Opciones"
+  },
+  "optionsIntro": {
+    "message": "Esta es una extensión de navegador para KeeWeb, un gestor de contraseñas multi-plataforma compatible con KeePass."
+  },
+  "optionsConnection": {
+    "message": "Conexión"
+  },
+  "optionsConnectionModeApp": {
+    "message": "Usar la aplicación nativa. Este es el modo más conveniente de integración: KeeWeb se ejecuta en segundo plano y la extensión se conecta a la aplicación para obtener las credenciales. Si no tienes la aplicación instalada:"
+  },
+  "optionsConnectionModeAppOnly": {
+    "message": "Para usar esta extensión necesitas instalar la aplicación de KeeWeb. La aplicación se ejecuta en segundo plano y la extensión se conecta a ella para obtener las contraseñas. Si no tienes la aplicación instalada:"
+  },
+  "optionsConnectionModeAppDownloadLink": {
+    "message": "descargar KeeWeb"
+  },
+  "optionsConnectionModeWeb": {
+    "message": "Solo web: necesitas tener abierto KeeWeb en una pestaña del navegador y después la extensión se conecta a esta pestaña. Es menos conveniente, sin embargo no necesitarás instalar la aplicación de escritorio:"
+  },
+  "optionsConnectionModeWebLink": {
+    "message": "abrir KeeWeb"
+  },
+  "optionsConnectionMode": {
+    "message": "Modo de conexión preferido:"
+  },
+  "optionsWebConnectionTabPermission": {
+    "message": "Para conectar a la pestaña de KeeWeb necesitamos un permiso especial, de lo contrario no será posible comunicarse con esta pestaña. Haz clic en este botón para conceder los permisos necesarios a la extensión:"
+  },
+  "optionsWebConnectionTabPermissionButton": {
+    "message": "Conceder permiso"
+  },
+  "optionsWebConnectionKeeWebUrl": {
+    "message": "URL de KeeWeb (cámbiala si estás usando tu propio servidor)"
+  },
+  "optionsWebConnectionChangeKeeWebUrl": {
+    "message": "Cambiar URL de KeeWeb"
+  },
+  "optionsCancel": {
+    "message": "Cancelar"
+  },
+  "optionsWebConnectionResetKeeWebUrl": {
+    "message": "Reiniciar a KeeWeb por defecto ($1)"
+  },
+  "optionsWebConnectionKeeWebUrlInvalid": {
+    "message": "La URL no es válida"
+  },
+  "optionsWebConnectionKeeWebUrlNotHttps": {
+    "message": "La URL debe comenzar con https://"
+  },
+  "optionsConnectionState": {
+    "message": "Estado de la conexión:"
+  },
+  "optionsConnectionStateError": {
+    "message": "Error"
+  },
+  "optionsConnectionStateConnecting": {
+    "message": "Conectando"
+  },
+  "optionsConnectionStateReadyToConnect": {
+    "message": "Listo para conectar"
+  },
+  "optionsConnectionStateConnected": {
+    "message": "Conectado"
+  },
+  "optionsConnectButton": {
+    "message": "Conectar a KeeWeb"
+  },
+  "optionsUsage": {
+    "message": "Modo de uso"
+  },
+  "optionsUsageIntro": {
+    "message": "Una vez estés conectado a KeeWeb ¡es el momento de usar la extensión!"
+  },
+  "optionsUsageButton": {
+    "message": "Pon el cursor en el campo de una página web, después haz clic en el botón de la extensión para autocompletar el formulario:"
+  },
+  "optionsUsageShortcut": {
+    "message": "En lugar de hacer clic en el botón, también puedes usar un atajo de teclado, el cual puedes cambiar a continuación."
+  },
+  "optionsUsageShortcutNoChange": {
+    "message": "En  lugar de hacer clic en el botón, también puedes usar el atajo de teclado $1."
+  },
+  "optionsUsagePermissionsPerSite": {
+    "message": "A veces se necesitan permisos adicionales para autocompletar contraseñas. Si ves este mensaje de advertencia, haz clic en el botón de conceder permisos de la extensión:"
+  },
+  "optionsUsageMenu": {
+    "message": "Alternativamente, selecciona la opción deseada del menú de KeeWeb:"
+  },
+  "optionsShortcuts": {
+    "message": "Atajos de teclado"
+  },
+  "optionsShortcutsDescription": {
+    "message": "Puedes cambiar los atajos de teclado en los ajustes de la extensión."
+  },
+  "optionsShortcutsDescriptionNoChange": {
+    "message": "Puedes utilizar estos atajos para mandar formularios más rápidamente."
+  },
+  "optionsShortcutsLink": {
+    "message": "Editar atajos de teclado"
+  },
+  "optionsShortcutsManual": {
+    "message": "Para editar atajos, abre la pestaña de complementos de tu navegador, haz clic en el botón de ajustes y selecciona la opción para administrar los atajos de extensiones:"
+  },
+  "optionsAbout": {
+    "message": "Acerca de"
+  },
+  "optionsAboutContact": {
+    "message": "Puedes hacer una pregunta, sugerir una idea o avisar de un problema aquí:"
+  },
+  "optionsAboutLicense": {
+    "message": "Esta extensión está licenciada bajo MIT. Incluye estas increíbles bibliotecas:"
+  }
+}

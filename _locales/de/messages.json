@@ -1,0 +1,173 @@
+{
+  "description": {
+    "message": "Automatisches Ausfüllen von Passwörtern für KeeWeb"
+  },
+  "cmdSubmitAuto": {
+    "message": "Automatisches Übermitteln der Form"
+  },
+  "cmdInsertUsername": {
+    "message": "Nutzername einfügen"
+  },
+  "cmdSubmitUsername": {
+    "message": "Nutzername absenden"
+  },
+  "cmdInsertPassword": {
+    "message": "Passwort einfügen"
+  },
+  "cmdSubmitPassword": {
+    "message": "Passwort absenden"
+  },
+  "cmdInsertUsernamePassword": {
+    "message": "Einfügen von Nutzername+Passwort"
+  },
+  "cmdSubmitUsernamePassword": {
+    "message": "Absenden von Nutzername+Passwort"
+  },
+  "cmdInsertOtp": {
+    "message": "Einmalpasswörter"
+  },
+  "cmdInsertOther": {
+    "message": "Wähle ein anderes Feld in KeeWeb aus"
+  },
+  "menuOtherOptions": {
+    "message": "Andere Optionen"
+  },
+  "menuSettings": {
+    "message": "Einstellungen"
+  },
+  "errorConnectionErrorApp": {
+    "message": "Kann nicht mit KeeWeb verbinden. Bitte überprüfe, ob KeeWeb offen ist. Die Browserintegration sollte auch eingeschaltet sein."
+  },
+  "errorConnectionErrorWeb": {
+    "message": "Kann nicht mit KeeWeb verbinden. Vielleicht hilft es den KeeWeb Browser Tab neu zu laden. Inspiziere die Einstellungsseite der Erweiterung, um mehr Details zu erhalten."
+  },
+  "errorKeeWebDisconnected": {
+    "message": "KeeWeb wurde von der Erweiterung getrennt."
+  },
+  "errorBrowserTabNoPermissions": {
+    "message": "Berechtigung um Zugriff zu $1 zu erhalten wurde abgelehnt."
+  },
+  "errorBrowserCannotCreateTab": {
+    "message": "Es konnte kein neuer Browser Tab geöffnet werden."
+  },
+  "errorAppReturnedError": {
+    "message": "KeeWeb hat einen Fehler gemeldet"
+  },
+  "errorRequestTimeout": {
+    "message": "KeeWeb hat nicht mehr auf Anfragen geantwortet."
+  },
+  "optionsTitle": {
+    "message": "Optionen"
+  },
+  "optionsIntro": {
+    "message": "Das ist eine Browser Erweiterung für KeeWeb, ein kostenloser plattformübergreifender Passwortmanager."
+  },
+  "optionsConnection": {
+    "message": "Verbindung"
+  },
+  "optionsConnectionModeApp": {
+    "message": "Nutzung der nativen App. Das ist die bequemste Form der Integration mit KeeWeb. KeeWeb läuft im Hintergrund und die Erweiterung verbindet sich mit der App, um Zugangsdaten auszutauschen. Falls die App nicht installiert ist:"
+  },
+  "optionsConnectionModeAppOnly": {
+    "message": "Um die Erweiterung zu benutzen, muss KeeWeb installiert sein. Die App läuft im Hintergund während sich die Erweiterung mit dieser verbindet, um Passwörter abzufragen. Falls die App nicht installiert ist:"
+  },
+  "optionsConnectionModeAppDownloadLink": {
+    "message": "KeeWeb herunterladen"
+  },
+  "optionsConnectionModeWeb": {
+    "message": "Nur Web: Es ist notwendig einen Tab mit KeeWeb offen zu halten. Die Erweiterung kann sich mit diesem Tab verbinden. Diese Methode ist weniger bequem, fordert aber keine installierte Desktop App:"
+  },
+  "optionsConnectionModeWebLink": {
+    "message": "KeeWeb öffnen"
+  },
+  "optionsConnectionMode": {
+    "message": "Bevorzugter Verbindungsmodus:"
+  },
+  "optionsWebConnectionTabPermission": {
+    "message": "Um mit KeeWeb zu verbinden ist eine spezielle Berechtigung nötig. Ansonsten kann es nicht mit dem Tab kommunizieren. Klicke auf diesen Knopf, um die erforderlichen Berechtigungen zu genehmigen:"
+  },
+  "optionsWebConnectionTabPermissionButton": {
+    "message": "Berechtigung erlauben"
+  },
+  "optionsWebConnectionKeeWebUrl": {
+    "message": "KeeWeb URL (ändere diese für die selbstbetriebene Version)"
+  },
+  "optionsWebConnectionChangeKeeWebUrl": {
+    "message": "Ändere KeeWeb URL"
+  },
+  "optionsCancel": {
+    "message": "Abbrechen"
+  },
+  "optionsWebConnectionResetKeeWebUrl": {
+    "message": "Zurücksetzen zum Standard KeeWeb Server ($1)"
+  },
+  "optionsWebConnectionKeeWebUrlInvalid": {
+    "message": "Die URL ist nicht gültig"
+  },
+  "optionsWebConnectionKeeWebUrlNotHttps": {
+    "message": "Die URL muss mit \"https://\" beginnen"
+  },
+  "optionsConnectionState": {
+    "message": "Verbindungszustand:"
+  },
+  "optionsConnectionStateError": {
+    "message": "Fehler"
+  },
+  "optionsConnectionStateConnecting": {
+    "message": "Verbinden"
+  },
+  "optionsConnectionStateReadyToConnect": {
+    "message": "Bereit zum Verbinden"
+  },
+  "optionsConnectionStateConnected": {
+    "message": "Verbunden"
+  },
+  "optionsConnectButton": {
+    "message": "Verbinden zu KeeWeb"
+  },
+  "optionsUsage": {
+    "message": "Nutzung"
+  },
+  "optionsUsageIntro": {
+    "message": "Verbindung zu KeeWeb hergestellt. Die Erweiterung funktioniert jetzt!"
+  },
+  "optionsUsageButton": {
+    "message": "Platziere den Cursor auf ein Feld der Seite und klicke den Erweiterungsknopf, um die Form auszufüllen:"
+  },
+  "optionsUsageShortcut": {
+    "message": "Statt den Knopf zu klicken, ist es alternativ auch möglich einen Tastatur Kurzbefehl zu verwenden. Dieser kann unten geändert werden."
+  },
+  "optionsUsageShortcutNoChange": {
+    "message": "Statt den Knopf zu klicken, ist es alternativ auch möglich einen Tastatur Kurzbefehl zu verwenden $1."
+  },
+  "optionsUsagePermissionsPerSite": {
+    "message": "Einige zusätzliche Berechtigungen sind erforderlich, um Passworter automatisch auszufüllen. Falls eine Warnung zu sehen ist muss nur der Erweiterungsknopf geklickt werden, um die Berechtigungen zu erteilen:"
+  },
+  "optionsUsageMenu": {
+    "message": "Wähle alternativ eine andere gewünschte Option von dem KeeWeb Menu aus:"
+  },
+  "optionsShortcuts": {
+    "message": "Tastatur Kurzbefehle"
+  },
+  "optionsShortcutsDescription": {
+    "message": "Tastaturkurzbefehle können in den Einstellungen der Erweiterung geändert werden."
+  },
+  "optionsShortcutsDescriptionNoChange": {
+    "message": "Diese Tastaturkurzbefehle können benutzt werden, um Formulare schneller abzusenden."
+  },
+  "optionsShortcutsLink": {
+    "message": "Bearbeite Tastaturkurzbefehle"
+  },
+  "optionsShortcutsManual": {
+    "message": "Um Tastaturkurzbefehle zu bearbeiten, öffne das Erweiterungsmenu des Webbrowsers und wähle das entsprechende Abkürzungssymbol:"
+  },
+  "optionsAbout": {
+    "message": "Über"
+  },
+  "optionsAboutContact": {
+    "message": "Hier ist es möglich Frage zu stellen, eine Idee vorzuschlagen oder einen Fehler zu melden:"
+  },
+  "optionsAboutLicense": {
+    "message": "Die Erweiterung ist lizenziert unter der MIT Lizenz. Sie inkludiert diese großartigen Bibliotheken:"
+  }
+}
