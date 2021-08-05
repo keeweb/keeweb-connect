@@ -38,6 +38,10 @@ async function runCommand(args: CommandArgs): Promise<void> {
         }
         return;
     }
+    if (args.command.includes('otp')) {
+        args.frameId = await getActiveFrame(args.tab);
+        args.url = args.url || args.tab.url;
+    }
 
     if (!args.url || !isValidUrl(args.url)) {
         return;
@@ -96,6 +100,25 @@ async function runCommand(args: CommandArgs): Promise<void> {
 
 function isValidUrl(url: string): boolean {
     return /^https?:/i.test(url) && !url.startsWith(backend.keeWebUrl);
+}
+
+async function getActiveFrame(tab: chrome.tabs.Tab): Promise<number> {
+    return new Promise((resolve) => {
+        chrome.tabs.executeScript(
+            tab.id || 0,
+            {
+                frameId: 0,
+                code:
+                    "Array.from(document.querySelectorAll('iframe')).indexOf(document.activeElement)"
+            },
+            (results: number[]) => {
+                if (chrome.runtime.lastError) {
+                    return resolve(0);
+                }
+                resolve(results[0] + 1); // indexOf returns -1, then it's root document which is frameId:0
+            }
+        );
+    });
 }
 
 async function getNextAutoFillCommand(args: CommandArgs): Promise<CommandArgs | undefined> {
