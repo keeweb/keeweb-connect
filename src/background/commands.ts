@@ -17,16 +17,13 @@ interface Frame {
 
 function startCommandListener(): void {
     chrome.commands.onCommand.addListener(async (command, tab) => {
-        if (tab) {
-            await runCommand({ command, tab });
-        } else {
+        if (!tab) {
             [tab] = await new Promise<chrome.tabs.Tab[]>((resolve) =>
                 chrome.tabs.query({ active: true }, resolve)
             );
-            if (tab) {
-                await runCommand({ command, tab });
-            }
         }
+        const frameId = await getActiveFrame(tab);
+        await runCommand({ command, tab, frameId, url: tab.url });
     });
 }
 
@@ -37,10 +34,6 @@ async function runCommand(args: CommandArgs): Promise<void> {
             await runCommand(nextCommand);
         }
         return;
-    }
-    if (args.command.includes('otp')) {
-        args.frameId = await getActiveFrame(args.tab);
-        args.url = args.url || args.tab.url;
     }
 
     if (!args.url || !isValidUrl(args.url)) {
