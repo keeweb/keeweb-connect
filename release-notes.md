@@ -1,7 +1,8 @@
 Release notes
 -------------
 ##### v0.3.7 (2021-08-07)
-`-` fix #17: user-defined keyboard shortcuts
+`-` fix #17: user-defined keyboard shortcuts  
+`+` new languages: de, cs, es, uk, zh-TW  
 
 ##### v0.3.6 (2021-05-12)
 `-` fix #13: better input event simulation  
