@@ -2,6 +2,7 @@ Release notes
 -------------
 ##### v0.3.6 (TBD)
 `-` fix #13: better input event simulation  
+`-` fix #17: user-defined keyboard shortcuts  
 
 ##### v0.3.5 (2021-05-10)
 `+` new languages: FR, PL  
