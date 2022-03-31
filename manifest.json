@@ -21,6 +21,8 @@
     "storage",
     "nativeMessaging",
     "webNavigation",
+    "webRequest",
+    "webRequestBlocking",
     "<all_urls>"
   ],
   "content_security_policy": "default-src 'self'",
