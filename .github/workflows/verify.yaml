@@ -1,0 +1,69 @@
+name: Verify
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build-chrome:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+      - name: Install npm modules
+        run: npm ci
+      - name: Build
+        run: npm run build-chrome
+  build-edge:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+      - name: Install npm modules
+        run: npm ci
+      - name: Build
+        run: npm run build-edge
+  build-firefox:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+      - name: Install npm modules
+        run: npm ci
+      - name: Build
+        run: npm run build-firefox
+  build-safari:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+      - name: Install npm modules
+        run: npm ci
+      - name: Build
+        run: npm run build-safari
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+      - name: Install npm modules
+        run: npm ci
+      - name: ESLint
+        run: npm run eslint
+      - name: Prettier
+        run: npm run prettier
