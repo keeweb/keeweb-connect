@@ -13,6 +13,7 @@
     "watch-firefox": "cross-env KW_BROWSER=firefox webpack --mode=development --watch",
     "watch-edge": "cross-env KW_BROWSER=edge webpack --mode=development --watch",
     "watch-safari": "cross-env KW_BROWSER=safari webpack --mode=development --watch",
+    "lint-firefox": "web-ext lint --source-dir dist/firefox/",
     "clang-format": "cd xcode && clang-format -i **/*.h **/*.m",
     "eslint": "eslint webpack.config.ts src scripts",
     "prettier": "prettier --write src/**/*.ts src/**/*.tsx pages/*.html styles/*.css",
@@ -49,6 +50,7 @@
     "ts-loader": "^8.1.0",
     "ts-node": "^9.1.1",
     "typescript": "^4.2.4",
+    "web-ext": "^7.11.0",
     "webpack": "^5.30.0",
     "webpack-cli": "^4.6.0"
   },

@@ -41,6 +41,9 @@ jobs:
         run: npm ci
       - name: Build
         run: npm run build-firefox
+      - name: Lint
+        run: npm run lint-firefox
+
   build-safari:
     runs-on: ubuntu-latest
     steps:
