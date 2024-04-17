@@ -54,7 +54,7 @@ jobs:
       #     name: firefox.zip
       - name: Sign
         env:
-          WEB_EXT_API_KEY: ${{ secrets.FIREFOX_API_KEY }}
+          WEB_EXT_API_KEY: ${{ vars.FIREFOX_API_KEY }}
           WEB_EXT_API_SECRET: ${{ secrets.FIREFOX_API_SECRET }}
         run: npx web-ext sign --source-dir=./dist/firefox
       - name: Publish
@@ -65,7 +65,7 @@ jobs:
           uuid: TBD
           xpi: web-ext-artifacts/my-addon.xpi
           manifest: dist/firefox/manifest.json
-          api-key: ${{ secrets.FIREFOX_API_KEY }}
+          api-key: ${{ vars.FIREFOX_API_KEY }}
           api-secret: ${{ secrets.FIREFOX_API_SECRET }}
 
 
