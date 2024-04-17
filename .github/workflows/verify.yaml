@@ -8,7 +8,7 @@ jobs:
   build-chrome:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: actions/setup-node@v3
         with:
           node-version-file: '.nvmrc'
@@ -20,7 +20,7 @@ jobs:
   build-edge:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: actions/setup-node@v3
         with:
           node-version-file: '.nvmrc'
@@ -32,7 +32,7 @@ jobs:
   build-firefox:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: actions/setup-node@v3
         with:
           node-version-file: '.nvmrc'
@@ -47,7 +47,7 @@ jobs:
   build-safari:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: actions/setup-node@v3
         with:
           node-version-file: '.nvmrc'
@@ -59,7 +59,7 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: actions/setup-node@v3
         with:
           node-version-file: '.nvmrc'
