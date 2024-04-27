@@ -1,9 +1,7 @@
 name: Publish Firefox Test
 
 on:
-  pull:
-    branches:
-      - master
+  pull_request:
   workflow_dispatch:
 
 jobs:
