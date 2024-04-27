@@ -1,0 +1,42 @@
+name: Publish Firefox Test
+
+on:
+  push:
+    branches: 
+      - ci-publish-firefox
+
+jobs:
+  publish-firefox-extension:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+      - name: Install npm modules
+        run: npm ci
+      - name: Build
+        run: npm run build-firefox
+      # - name: Download zip archive
+      #   uses: actions/download-artifact@v4
+      #   with:
+      #     name: firefox.zip
+      - name: Sign
+        env:
+          WEB_EXT_API_KEY: ${{ vars.FIREFOX_API_KEY }}
+          WEB_EXT_API_SECRET: ${{ secrets.FIREFOX_API_SECRET }}
+        run: npx web-ext sign --source-dir=./dist/firefox
+      - name: Publish
+        uses: trmcnvn/firefox-addon@v1
+        with:
+          # uuid is only necessary when updating an existing addon,
+          # omitting it will create a new addon
+          uuid: TBD
+          xpi: web-ext-artifacts/my-addon.xpi
+          manifest: dist/firefox/manifest.json
+          api-key: ${{ vars.FIREFOX_API_KEY }}
+          api-secret: ${{ secrets.FIREFOX_API_SECRET }}
