@@ -7,6 +7,8 @@ on:
 jobs:
   publish-firefox-extension:
     runs-on: ubuntu-latest
+    outputs:
+      xpi_filepath: ${{ steps.sign.outputs.xpi_filepath }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -25,17 +27,17 @@ jobs:
       #   with:
       #     name: firefox.zip
       - name: Sign
-        env:
-          WEB_EXT_API_KEY: ${{ vars.FIREFOX_API_KEY }}
-          WEB_EXT_API_SECRET: ${{ secrets.FIREFOX_API_SECRET }}
-        run: npx web-ext sign --source-dir=./dist/firefox --api-secret=${{ secrets.FIREFOX_API_SECRET }}
+        id: sign
+        run: |
+            npx web-ext sign --source-dir=./dist/firefox --api-key="${{ vars.FIREFOX_API_KEY }}"
+            echo "xpi_filepath=$(ls web-ext-artifacts/*.xpi)" >> "$GITHUB_OUTPUT"
       - name: Publish
         uses: trmcnvn/firefox-addon@v1
         with:
           # uuid is only necessary when updating an existing addon,
           # omitting it will create a new addon
           uuid: TBD
-          xpi: web-ext-artifacts/my-addon.xpi
+          xpi: ${{ steps.sign.outputs.xpi_filepath }}
           manifest: dist/firefox/manifest.json
           api-key: ${{ vars.FIREFOX_API_KEY }}
           api-secret: ${{ secrets.FIREFOX_API_SECRET }}
