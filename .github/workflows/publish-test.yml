@@ -28,7 +28,7 @@ jobs:
         env:
           WEB_EXT_API_KEY: ${{ vars.FIREFOX_API_KEY }}
           WEB_EXT_API_SECRET: ${{ secrets.FIREFOX_API_SECRET }}
-        run: npx web-ext sign --source-dir=./dist/firefox --api-secret=$WEB_EXT_API_SECRET
+        run: npx web-ext sign --source-dir=./dist/firefox --api-secret=${{ secrets.FIREFOX_API_SECRET }}
       - name: Publish
         uses: trmcnvn/firefox-addon@v1
         with:
