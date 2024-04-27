@@ -1,9 +1,10 @@
 name: Publish Firefox Test
 
 on:
-  push:
-    branches: 
-      - ci-publish-firefox
+  pull:
+    branches:
+      - master
+  workflow_dispatch:
 
 jobs:
   publish-firefox-extension:
