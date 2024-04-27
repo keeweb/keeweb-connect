@@ -28,9 +28,11 @@ jobs:
       #     name: firefox.zip
       - name: Sign
         id: sign
+        env:
+          WEB_EXT_API_SECRET: ${{ secrets.FIREFOX_API_SECRET }}
         run: |
-            npx web-ext sign --source-dir=./dist/firefox --api-key="${{ vars.FIREFOX_API_KEY }}"
-            echo "xpi_filepath=$(ls web-ext-artifacts/*.xpi)" >> "$GITHUB_OUTPUT"
+          npx web-ext sign --source-dir=./dist/firefox --api-key="${{ vars.FIREFOX_API_KEY }}"
+          echo "xpi_filepath=$(ls web-ext-artifacts/*.xpi)" >> "$GITHUB_OUTPUT"
       - name: Publish
         uses: trmcnvn/firefox-addon@v1
         with:
