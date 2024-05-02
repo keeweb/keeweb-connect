@@ -17,7 +17,8 @@
     "eslint": "eslint webpack.config.ts src scripts",
     "prettier": "prettier --write src/**/*.ts src/**/*.tsx *.js pages/*.html styles/*.css",
     "download-translations": "ts-node scripts/download-translations",
-    "bump-version": "ts-node scripts/bump-version"
+    "bump-version": "ts-node scripts/bump-version",
+    "gen-ff-jwt": "node .github/gen_ff_jwt.js"
   },
   "repository": {
     "type": "git",
@@ -43,6 +44,7 @@
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-prettier": "^3.3.1",
+    "jsonwebtoken": "^9.0.2",
     "merge": "^2.1.1",
     "prettier": "^2.2.1",
     "tiny-typed-emitter": "^2.0.3",
