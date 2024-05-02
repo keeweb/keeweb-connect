@@ -17,3 +17,6 @@ xcuserdata/
 **/xcshareddata/WorkspaceSettings.xcsettings
 
 native-messaging-host/build/
+
+# Artifacts from signing the addon for Firefox
+web-ext-artifacts
