@@ -38,7 +38,7 @@ jobs:
         with:
           # uuid is only necessary when updating an existing addon,
           # omitting it will create a new addon
-          uuid: keeweb-connect-addon@keeweb.info
+          # uuid: keeweb-connect-addon@keeweb.info
           xpi: ${{ steps.sign.outputs.xpi_filepath }}
           manifest: dist/firefox/manifest.json
           api-key: ${{ vars.FIREFOX_API_KEY }}
