@@ -45,7 +45,7 @@
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-prettier": "^3.3.1",
     "merge": "^2.1.1",
-    "prettier": "^3.2.5",
+    "prettier": "^2.8.8",
     "tiny-typed-emitter": "^2.0.3",
     "ts-loader": "^8.1.0",
     "ts-node": "^9.1.1",
