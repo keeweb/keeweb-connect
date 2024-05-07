@@ -46,4 +46,3 @@ with several modifications for KeeWeb listed [here](docs/keeweb-connect-protocol
 ## License
 
 [MIT](https://github.com/keeweb/keeweb-connect/blob/master/LICENSE)
-

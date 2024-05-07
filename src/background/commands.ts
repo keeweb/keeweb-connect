@@ -101,8 +101,7 @@ async function getActiveFrame(tab: chrome.tabs.Tab): Promise<number> {
             tab.id || 0,
             {
                 frameId: 0,
-                code:
-                    "Array.from(document.querySelectorAll('iframe')).indexOf(document.activeElement)"
+                code: "Array.from(document.querySelectorAll('iframe')).indexOf(document.activeElement)"
             },
             (results: number[]) => {
                 if (chrome.runtime.lastError) {
