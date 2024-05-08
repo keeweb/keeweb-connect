@@ -38,7 +38,7 @@ class TransportBrowserTab extends TransportBase {
         }
 
         this._port.onDisconnect.addListener(() => this.portDisconnected());
-        this._port.onMessage.addListener((msg) => this.portMessage(msg));
+        this._port.onMessage.addListener((msg) => this.portMessage(msg)); // eslint-disable-line @typescript-eslint/no-unsafe-argument
     }
 
     disconnect(): Promise<void> {

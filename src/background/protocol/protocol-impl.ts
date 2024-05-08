@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-enum-comparison */
+
 import {
     KeeWebConnectRequest,
     KeeWebConnectResponse,
@@ -313,5 +315,7 @@ class ProtocolImpl {
         return payload.value;
     }
 }
+
+/* eslint-enable @typescript-eslint/no-unsafe-enum-comparison */
 
 export { ProtocolImpl };

@@ -9,7 +9,7 @@ class TransportNativeMessaging extends TransportBase {
         this._port = chrome.runtime.connectNative(this._appName);
 
         this._port.onDisconnect.addListener(() => this.portDisconnected());
-        this._port.onMessage.addListener((msg) => this.portMessage(msg));
+        this._port.onMessage.addListener((msg) => this.portMessage(msg)); // eslint-disable-line @typescript-eslint/no-unsafe-argument
 
         return Promise.resolve();
     }

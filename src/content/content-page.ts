@@ -18,7 +18,7 @@ if (!window.kwExtensionInstalled) {
             return;
         }
 
-        const response = run(message);
+        const response = run(message as ContentScriptMessage);
         if (response) {
             sendResponse(response);
         }
