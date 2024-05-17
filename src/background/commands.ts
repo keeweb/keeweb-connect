@@ -182,7 +182,7 @@ async function sendMessageToTab(
             if (chrome.runtime.lastError) {
                 return resolve(undefined);
             }
-            resolve(resp);
+            resolve(resp); // eslint-disable-line @typescript-eslint/no-unsafe-argument
         });
     });
 }

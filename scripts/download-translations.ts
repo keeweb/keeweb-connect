@@ -85,14 +85,14 @@ async function loadLanguages(): Promise<Languages> {
             }
             const data: Buffer[] = [];
             res.on('error', reject);
-            res.on('data', (chunk) => data.push(chunk));
+            res.on('data', (chunk) => data.push(chunk as Buffer));
             res.on('end', () => {
                 if (res.statusCode !== 200) {
                     return reject(new Error(`API error ${res.statusCode}`));
                 }
                 try {
                     const json = Buffer.concat(data).toString('utf8');
-                    const parsed = JSON.parse(json);
+                    const parsed = JSON.parse(json) as Languages;
                     if (USE_FILES) {
                         fs.writeFileSync(CACHE_FILE_LANGUAGES, JSON.stringify(parsed, null, 2));
                     }
@@ -121,11 +121,11 @@ async function loadTranslations(): Promise<Translations> {
                 return reject(new Error(`API error ${res.statusCode}`));
             }
             const data: Buffer[] = [];
-            res.on('data', (chunk) => data.push(chunk));
+            res.on('data', (chunk) => data.push(chunk as Buffer));
             res.on('end', () => {
                 try {
                     const json = Buffer.concat(data).toString('utf8');
-                    const parsed = JSON.parse(json);
+                    const parsed = JSON.parse(json) as Translations;
                     if (USE_FILES) {
                         fs.writeFileSync(CACHE_FILE_TRANSLATIONS, JSON.stringify(parsed, null, 2));
                     }
