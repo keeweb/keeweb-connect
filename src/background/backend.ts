@@ -136,7 +136,7 @@ class Backend extends TypedEmitter<BackendEvents> {
             this._connectionError = (<Error>e).message;
             this.setState(BackendConnectionState.Error);
 
-            this.emit('connect-finished', e);
+            this.emit('connect-finished', <Error>e);
         }
     }
 

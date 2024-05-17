@@ -30,7 +30,8 @@
     "settings": {
         "import/parsers": {
             "@typescript-eslint/parser": [".ts", ".tsx"]
-        }
+        },
+        "jest": { "version": 27 }
     },
     "rules": {
         "semi": ["error", "always"],
