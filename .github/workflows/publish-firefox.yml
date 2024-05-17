@@ -27,14 +27,14 @@ jobs:
         run: |
             npm run build-firefox
             npx web-ext build -s dist/firefox
-      - name: Sign
-        id: sign
-        env:
-          WEB_EXT_API_KEY: ${{ vars.FIREFOX_API_KEY }}
-          WEB_EXT_API_SECRET: ${{ secrets.FIREFOX_API_SECRET }}
-        run: |
-          npx web-ext sign --source-dir=./dist/firefox
-          echo "xpi_filepath=$(ls web-ext-artifacts/*.xpi)" >> "$GITHUB_OUTPUT"
+    #   - name: Sign
+    #     id: sign
+    #     env:
+    #       WEB_EXT_API_KEY: ${{ vars.FIREFOX_API_KEY }}
+    #       WEB_EXT_API_SECRET: ${{ secrets.FIREFOX_API_SECRET }}
+    #     run: |
+    #       npx web-ext sign --source-dir=./dist/firefox
+    #       echo "xpi_filepath=$(ls web-ext-artifacts/*.xpi)" >> "$GITHUB_OUTPUT"
       - name: Publish
         env:
           WEB_EXT_API_KEY: ${{ vars.FIREFOX_API_KEY }}

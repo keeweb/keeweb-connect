@@ -30,6 +30,8 @@ const options = {
 
 async function main() {
     const manifest = require('../manifest.json');
+    const manifestFirefox = require('../manifest.firefox.json');
+    const addonUUID = manifestFirefox.browser_specific_settings.gecko.id;
     const fileName = `keeweb_connect-${manifest.version}.zip`
     const filePath = `web-ext-artifacts/${fileName}`
     const fileBuffer = fs.createReadStream(filePath);
@@ -58,19 +60,53 @@ async function main() {
 
         console.log('response.status:', res.status);
         console.log('response.body:', resData);
-        const uuid = resData.uuid;
+        const uploadUUID = resData.uuid;
 
-        // TODO: send patch to add-ons edit endpoint OR version edit endpoint
-        // https://addons-server.readthedocs.io/en/latest/topics/api/addons.html#edit
-        // https://mozilla.github.io/addons-server/topics/api/addons.html#version-edit
-        const addonPatchURL = `https://addons.mozilla.org/api/v5/addons/addon/${uuid}/`;
-        const addonPatchPayload = {
-            slug: "new-slug", // what?
-            tags: [] // what tags?
+        // Poll the upload detail endpoint until we are validated
+        // https://mozilla.github.io/addons-server/topics/api/addons.html#upload-detail
+        var validationRes;
+        var validationData;
+        var validationTries = 0;
+        const validationReq = new Request(`https://addons.mozilla.org/api/v5/addons/upload/${uploadUUID}/`, {
+            method: 'GET'
+        })
+        validationReq.headers.append('Authorization', `JWT ${token}`);
+        validationReq.headers.append('Accept', 'application/json');
+
+        while (validationTries < 3 && !validationData?.valid) {
+            // Increasingly wait before checking the validation status
+            await new Promise(resolve => setTimeout(resolve, 60_000 * (validationTries + 1)));
+
+            validationTries += 1;
+            var validationRes = await fetch(validationReq);
+            validationData = await validationRes.json();
+
+            console.log('validationData', validationData);
+            console.log('validationData.validation.messages', validationData.validation?.messages);
         }
-        const req = new Request(addonPatchURL, {
-            method: 'PATCH',
-            body: addonPatchPayload,
+
+        if (!validationData?.valid)
+            throw new Error('Extension did not validate in time.');
+
+        // Send POST to add-on version create endpoint
+        // https://mozilla.github.io/addons-server/topics/api/addons.html#version-create
+        const addonVersionCreateURL = `https://addons.mozilla.org/api/v5/addons/addon/${addonUUID}/versions/`;
+        const addonVersionCreatePayload = {
+            license: 'MIT',
+            upload: uploadUUID
+        }
+        const addonVersionCreateReq = new Request(addonVersionCreateURL, {
+            method: 'POST',
+            body: addonVersionCreatePayload,
+        })
+        addonVersionCreateReq.headers.append('Authorization', `JWT ${token}`);
+        addonVersionCreateReq.headers.append('Accept', 'application/json');
+        fetch(addonVersionCreateReq).then(async (res) => {
+            if (!res.ok)
+                throw new Error(`HTTP error! status: ${res.status}, body: `, resData);
+
+            console.log('response.status:', res.status);
+            console.log('response.body:', resData);
         })
 
         //TODO do we need to submit source code?
