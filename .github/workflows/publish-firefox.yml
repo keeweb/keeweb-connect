@@ -24,7 +24,9 @@ jobs:
       - name: Install npm modules
         run: npm ci
       - name: Build
-        run: npm run build-firefox
+        run: |
+            npm run build-firefox
+            npx web-ext build -s dist/firefox
       - name: Sign
         id: sign
         env:
@@ -38,4 +40,4 @@ jobs:
           WEB_EXT_API_KEY: ${{ vars.FIREFOX_API_KEY }}
           WEB_EXT_API_SECRET: ${{ secrets.FIREFOX_API_SECRET }}
 
-        run: .github/publish-firefox
+        run: npm run publish-firefox-addon

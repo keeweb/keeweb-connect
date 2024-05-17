@@ -19,7 +19,7 @@
     "prettier": "prettier --write src/**/*.ts src/**/*.tsx pages/*.html styles/*.css",
     "download-translations": "ts-node scripts/download-translations",
     "bump-version": "ts-node scripts/bump-version",
-    "gen-ff-jwt": "node .github/gen_ff_jwt.js"
+    "publish-firefox-addon": "node .github/publish-firefox-addon.js"
   },
   "repository": {
     "type": "git",

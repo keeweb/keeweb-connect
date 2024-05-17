@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# https://mozilla.github.io/addons-server/topics/api/addons.html#upload-create
+
+addon_version=$(jq -r '.version' manifest.json)
+file_path="web-ext-artifacts/keeweb_connect-$addon_version.zip"
+jwt=$(npm run --silent gen-ff-jwt)
+
+curl -X POST --header "Authorization: JWT $jwt" \
+    --form "channel=listed" \
+    --form upload=@$file_path \
+    https://addons.mozilla.org/api/v5/addons/upload/
