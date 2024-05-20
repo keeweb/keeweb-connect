@@ -51,6 +51,8 @@ async function main() {
     req.headers.append('Authorization', `JWT ${token}`);
     req.headers.append('Accept', 'application/json');
 
+    const fileSizeInKB = (await fs.promises.stat(filePath)).size / (1000);
+    console.log(`Uploading ${fileSizeInKB.toFixed(2)}KB file ${filePath}`);
 
     fetch(req).then(async (res) => {
         const resData = await res.json();
@@ -73,9 +75,11 @@ async function main() {
         validationReq.headers.append('Authorization', `JWT ${token}`);
         validationReq.headers.append('Accept', 'application/json');
 
-        while (validationTries < 3 && !validationData?.valid) {
+        while (!validationData?.processed && validationTries < 3) {
             // Increasingly wait before checking the validation status
-            await new Promise(resolve => setTimeout(resolve, 60_000 * (validationTries + 1)));
+            const waitMS = 60_000 * (validationTries + 1);
+            console.log(`Will check validation status in a ${waitMS / 1000}s...`);
+            await new Promise(resolve => setTimeout(resolve, waitMS));
 
             validationTries += 1;
             var validationRes = await fetch(validationReq);
@@ -110,12 +114,11 @@ async function main() {
         })
 
         //TODO do we need to submit source code?
-    })
-    .catch(err => {
-        console.error(err);
     });
 }
 
-main().catch(err => {
-    console.log(err)
-})
+main()
+    .catch(err => {
+        console.log(err);
+        exit(1);
+    });
