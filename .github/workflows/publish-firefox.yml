@@ -1,8 +1,6 @@
 name: Publish Firefox Addon
 
 on:
-  pull_request: # TEMPORARY
-  workflow_dispatch: # TEMPORARY
   push:
     tags:
       - '*'
@@ -26,19 +24,9 @@ jobs:
       - name: Build
         run: |
             npm run build-firefox
-            npx web-ext build -s dist/firefox
-            zip -r dist/source.zip docs icons img native-messaging-host packages pages src styles .nvmrc jsconfig.json LICENSE manifest.* native-manifest.json package* README.md tsconfig.json webpack.config.ts
-    #   - name: Sign
-    #     id: sign
-    #     env:
-    #       WEB_EXT_API_KEY: ${{ vars.FIREFOX_API_KEY }}
-    #       WEB_EXT_API_SECRET: ${{ secrets.FIREFOX_API_SECRET }}
-    #     run: |
-    #       npx web-ext sign --use-submission-api --source-dir=./dist/firefox
-    #       echo "xpi_filepath=$(ls web-ext-artifacts/*.xpi)" >> "$GITHUB_OUTPUT"
       - name: Publish
         env:
           WEB_EXT_API_KEY: ${{ vars.FIREFOX_API_KEY }}
           WEB_EXT_API_SECRET: ${{ secrets.FIREFOX_API_SECRET }}
-
-        run: npm run publish-firefox-addon
+        # https://extensionworkshop.com/documentation/develop/web-ext-command-reference/#use-submission-api
+        run: npx web-ext sign --use-submission-api --channel=listed --source-dir=./dist/firefox
