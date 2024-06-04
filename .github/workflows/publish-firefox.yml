@@ -1,0 +1,32 @@
+name: Publish Firefox Addon
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  publish-firefox-extension:
+    runs-on: ubuntu-latest
+    outputs:
+      xpi_filepath: ${{ steps.sign.outputs.xpi_filepath }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+      - name: Install npm modules
+        run: npm ci
+      - name: Build
+        run: |
+            npm run build-firefox
+      - name: Publish
+        env:
+          WEB_EXT_API_KEY: ${{ vars.FIREFOX_API_KEY }}
+          WEB_EXT_API_SECRET: ${{ secrets.FIREFOX_API_SECRET }}
+        # https://extensionworkshop.com/documentation/develop/web-ext-command-reference/#use-submission-api
+        run: npx web-ext sign --use-submission-api --channel=listed --source-dir=./dist/firefox

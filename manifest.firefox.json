@@ -1,7 +1,7 @@
 {
   "browser_specific_settings": {
     "gecko": {
-      "id": "keeweb-connect@keeweb.info"
+      "id": "keeweb-connect-addon@keeweb.info"
     }
   },
   "commands": {
