@@ -1,4 +1,5 @@
 import { backend } from './backend';
+import { interceptHttpBasicAuth } from './httpAuth';
 import { createUIMenus, bindExtensionButtonClick } from './ui';
 import { startInternalIpc } from './internal-ipc';
 import { startCommandListener } from './commands';
@@ -35,6 +36,7 @@ async function start() {
     createUIMenus();
     bindExtensionButtonClick();
     startInternalIpc();
+    interceptHttpBasicAuth();
 
     await backend.init();
 }
