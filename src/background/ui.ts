@@ -9,7 +9,7 @@ export function createUIMenus(): void {
 
         const command = e.menuItemId as string;
         if (command === 'settings') {
-            chrome.runtime.openOptionsPage();
+            void chrome.runtime.openOptionsPage();
             return;
         }
 

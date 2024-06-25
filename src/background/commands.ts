@@ -53,7 +53,7 @@ async function runCommand(args: CommandArgs): Promise<void> {
 
     await backend.connect();
     if (backend.state !== BackendConnectionState.Connected) {
-        chrome.runtime.openOptionsPage();
+        void chrome.runtime.openOptionsPage();
         return;
     }
 

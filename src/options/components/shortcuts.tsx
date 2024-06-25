@@ -6,7 +6,7 @@ import { canEditShortcuts, shortcutsCanBeEditedOnlyManually } from 'common/featu
 const Shortcuts: FunctionComponent = () => {
     const openShortcuts = (e: Event) => {
         e.preventDefault();
-        chrome.tabs.create({ url: 'chrome://extensions/shortcuts', active: true });
+        void chrome.tabs.create({ url: 'chrome://extensions/shortcuts', active: true });
     };
 
     return (
