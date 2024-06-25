@@ -109,11 +109,11 @@ async function getActiveFrame(tab: chrome.tabs.Tab): Promise<number> {
                     );
                 }
             },
-            (results: number[]) => {
+            (result: chrome.scripting.InjectionResult<void>[]) => {
                 if (chrome.runtime.lastError) {
                     return resolve(0);
                 }
-                resolve(results[0] + 1); // indexOf returns -1, then it's root document which is frameId:0
+                resolve(Number(result[0]) + 1); // indexOf returns -1, then it's root document which is frameId:0
             }
         );
     });

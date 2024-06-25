@@ -32,7 +32,7 @@
   },
   "homepage": "https://github.com/antelle/keeweb-connect#readme",
   "devDependencies": {
-    "@types/chrome": "^0.0.134",
+    "@types/chrome": "^0.0.268",
     "@types/copy-webpack-plugin": "^8.0.0",
     "@types/node": "^20.12.10",
     "@types/webpack": "^5.28.5",
