@@ -96,7 +96,7 @@ export function createUIMenus(): void {
 }
 
 export function bindExtensionButtonClick(): void {
-    chrome.browserAction.onClicked.addListener(async (tab) => {
+    chrome.action.onClicked.addListener(async (tab) => {
         await runCommand({ command: 'submit-auto', tab });
     });
 }
