@@ -1,3 +1,5 @@
 {
-  "content_security_policy": "default-src 'self'; script-src 'self' 'unsafe-eval';"
+  "content_security_policy": {
+    "extension_pages": "default-src 'self'; script-src 'self' 'unsafe-eval';"
+  }
 }

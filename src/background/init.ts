@@ -10,8 +10,8 @@ chrome.runtime.onStartup.addListener(startAndReportError);
 chrome.runtime.onInstalled.addListener((e) => {
     startAndReportError()
         .then(() => {
-            if (e.reason === 'install') {
-                chrome.runtime.openOptionsPage();
+            if (e.reason === ('install' as chrome.runtime.OnInstalledReason)) {
+                void chrome.runtime.openOptionsPage();
             }
         })
         .catch(noop);

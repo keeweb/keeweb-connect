@@ -9,7 +9,7 @@ export function createUIMenus(): void {
 
         const command = e.menuItemId as string;
         if (command === 'settings') {
-            chrome.runtime.openOptionsPage();
+            void chrome.runtime.openOptionsPage();
             return;
         }
 
@@ -96,7 +96,7 @@ export function createUIMenus(): void {
 }
 
 export function bindExtensionButtonClick(): void {
-    chrome.browserAction.onClicked.addListener(async (tab) => {
+    chrome.action.onClicked.addListener(async (tab) => {
         await runCommand({ command: 'submit-auto', tab });
     });
 }
