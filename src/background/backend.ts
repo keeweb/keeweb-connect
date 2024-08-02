@@ -183,7 +183,7 @@ class Backend extends TypedEmitter<BackendEvents> {
 
     private request(request: KeeWebConnectRequest): Promise<KeeWebConnectResponse> {
         return new Promise((resolve, reject) => {
-            const timeout = window.setTimeout(() => {
+            const timeout = self.setTimeout(() => {
                 this._currentRequest = undefined;
                 const errStr = chrome.i18n.getMessage('errorRequestTimeout');
                 reject(new Error(errStr));
