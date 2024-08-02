@@ -6,7 +6,7 @@
   "scripts": {
     "start": "npm run eslint && npm run build-chrome && npm run build-firefox && npm run build-edge && npm run build-safari",
     "build-chrome": "cross-env KW_BROWSER=chrome webpack --mode=production",
-    "build-firefox": "cross-env KW_BROWSER=firefox webpack --mode=production",
+    "build-firefox": "cross-env KW_BROWSER=firefox webpack --mode=production && npx web-ext build -o -s dist/firefox",
     "build-edge": "cross-env KW_BROWSER=edge webpack --mode=production",
     "build-safari": "cross-env KW_BROWSER=safari webpack --mode=production",
     "watch-chrome": "cross-env KW_BROWSER=chrome webpack --mode=development --watch",
