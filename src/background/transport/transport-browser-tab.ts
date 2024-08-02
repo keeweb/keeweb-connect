@@ -106,14 +106,17 @@ class TransportBrowserTab extends TransportBase {
 
     private injectContentScript(): Promise<void> {
         return new Promise((resolve, reject) => {
-            chrome.tabs.executeScript(this._tab!.id!, { file: 'js/content-keeweb.js' }, () => {
-                if (chrome.runtime.lastError) {
-                    const msg = `Content script injection error: ${chrome.runtime.lastError.message}`;
-                    reject(new Error(msg));
-                } else {
-                    resolve();
+            chrome.scripting.executeScript(
+                { files: ['js/content-keeweb.js'], target: { tabId: this._tab!.id! } },
+                () => {
+                    if (chrome.runtime.lastError) {
+                        const msg = `Content script injection error: ${chrome.runtime.lastError.message}`;
+                        reject(new Error(msg));
+                    } else {
+                        resolve();
+                    }
                 }
-            });
+            );
         });
     }
 

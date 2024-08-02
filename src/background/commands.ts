@@ -53,7 +53,7 @@ async function runCommand(args: CommandArgs): Promise<void> {
 
     await backend.connect();
     if (backend.state !== BackendConnectionState.Connected) {
-        chrome.runtime.openOptionsPage();
+        void chrome.runtime.openOptionsPage();
         return;
     }
 
@@ -97,17 +97,23 @@ function isValidUrl(url: string): boolean {
 
 async function getActiveFrame(tab: chrome.tabs.Tab): Promise<number> {
     return new Promise((resolve) => {
-        chrome.tabs.executeScript(
-            tab.id || 0,
+        chrome.scripting.executeScript(
             {
-                frameId: 0,
-                code: "Array.from(document.querySelectorAll('iframe')).indexOf(document.activeElement)"
+                target: {
+                    frameIds: [0],
+                    tabId: tab.id || 0
+                },
+                func: () => {
+                    Array.from(document.querySelectorAll('iframe')).indexOf(
+                        document.activeElement as HTMLIFrameElement
+                    );
+                }
             },
-            (results: number[]) => {
+            (result: chrome.scripting.InjectionResult<void>[]) => {
                 if (chrome.runtime.lastError) {
                     return resolve(0);
                 }
-                resolve(results[0] + 1); // indexOf returns -1, then it's root document which is frameId:0
+                resolve(Number(result[0]) + 1); // indexOf returns -1, then it's root document which is frameId:0
             }
         );
     });
@@ -189,9 +195,8 @@ async function sendMessageToTab(
 
 function injectPageContentScript(tab: chrome.tabs.Tab): Promise<number> {
     return new Promise((resolve) => {
-        chrome.tabs.executeScript(
-            tab.id || 0,
-            { file: 'js/content-page.js', allFrames: true },
+        chrome.scripting.executeScript(
+            { files: ['js/content-page.js'], target: { allFrames: true, tabId: tab.id || 0 } },
             (results) => {
                 if (chrome.runtime.lastError) {
                     return resolve(0);
