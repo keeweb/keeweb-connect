@@ -10,9 +10,8 @@
     "128": "icons/icon128.png"
   },
   "background": {
-    "scripts": [
-      "js/background.js"
-    ]
+    "scripts": ["js/background.js"],
+    "service_worker": "js/background.js"
   },
   "permissions": [
     "activeTab",
