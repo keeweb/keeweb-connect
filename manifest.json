@@ -19,7 +19,8 @@
     "contextMenus",
     "storage",
     "nativeMessaging",
-    "webNavigation"
+    "webNavigation",
+    "scripting"
   ],
   "host_permissions": [
     "<all_urls>"

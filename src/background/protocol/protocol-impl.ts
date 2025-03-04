@@ -56,7 +56,10 @@ class ProtocolImpl {
     }
 
     private makeEncryptedRequest(payload: KeeWebConnectRequest): KeeWebConnectEncryptedRequest {
-        if (window.logDecryptedPayload) {
+        if (
+            (typeof window !== 'undefined' && window.logDecryptedPayload) ||
+            (typeof self !== 'undefined' && self.logDecryptedPayload)
+        ) {
             // eslint-disable-next-line no-console
             console.log('Request payload', payload);
         }
@@ -117,7 +120,10 @@ class ProtocolImpl {
         const json = new TextDecoder().decode(data);
         const payload = <KeeWebConnectEncryptedResponse>JSON.parse(json);
 
-        if (window.logDecryptedPayload) {
+        if (
+            (typeof window !== 'undefined' && window.logDecryptedPayload) ||
+            (typeof self !== 'undefined' && self.logDecryptedPayload)
+        ) {
             // eslint-disable-next-line no-console
             console.log('Response payload', payload);
         }
