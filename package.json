@@ -1,6 +1,6 @@
 {
   "name": "keeweb-connect",
-  "version": "0.3.7",
+  "version": "1.0.0",
   "description": "KeeWeb",
   "main": "index.js",
   "scripts": {
